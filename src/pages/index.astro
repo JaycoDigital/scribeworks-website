@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import logoDark from '../assets/logo-dark.png';
+---
+
+<BaseLayout title="Scribeworks">
+  <main>
+    <Image src={logoDark} alt="Scribeworks — Doors, Windows, Cladding, Building Works" width={675} densities={[1, 2]} />
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+
+  img {
+    width: 100%;
+    max-width: 675px;
+    height: auto;
+  }
+</style>
