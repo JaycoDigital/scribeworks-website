@@ -101,9 +101,21 @@ svg = f'''---
     animation: fade 1600ms ease-out 300ms forwards;
   }}
 
-  .m {{ stroke-width: 1.5; stroke-opacity: 0.2; }}
-  .c {{ stroke-width: 0.7; stroke-opacity: 0.09; }}
-  .g {{ stroke-width: 0.6; stroke-opacity: 0.06; }}
+  .m {{ stroke-width: 1.5; stroke-opacity: 0.11; }}
+  .c {{ stroke-width: 0.7; stroke-opacity: 0.05; }}
+  .g {{ stroke-width: 0.6; stroke-opacity: 0.035; }}
+
+  /* On phones, size by height so the drawing climbs at least halfway up the screen */
+  @media (max-width: 768px) {{
+    .blueprint {{
+      width: auto;
+      height: 75vh;
+      right: -22vw;
+      bottom: -8vw;
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 65% 85%, #000 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 70% 80% at 65% 85%, #000 30%, transparent 100%);
+    }}
+  }}
 
   @keyframes fade {{
     to {{ opacity: 1; }}
