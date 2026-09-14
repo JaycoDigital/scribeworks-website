@@ -1,6 +1,22 @@
+/* Design tokens — from the Scribeworks Brand Guidelines v1.0 (see docs/brand-guidelines.md) */
 :root {
-  --color-bg: #faf9f6;
-  --color-text: #1a1a1a;
+  --ink: #303030;
+  --sand: #c4b67d;
+  --sand-deep: #8a7c43;
+  --slate: #42606e;
+  --slate-dark: #35505c;
+  --slate-tint: #eaf0f2;
+  --chalk: #faf9f6;
+  --line: #e4e1d7;
+  --muted: #4a4a4a;
+
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+
+  --radius: 0;
+  --space: 8px;
+  --shadow: 0 2px 8px rgba(48, 48, 48, 0.07);
+  --ease: 160ms ease-out;
 }
 
 *,
@@ -16,10 +32,39 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--chalk);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 29px;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+}
+
+a {
+  color: var(--sand-deep);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--sand);
+  color: var(--ink);
 }
 
 img,
