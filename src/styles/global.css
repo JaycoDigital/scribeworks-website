@@ -73,3 +73,150 @@ video {
   display: block;
   max-width: 100%;
 }
+
+/* ---- Site-wide extras for the full design ---- */
+:root {
+  --ink-deep: #1d1d1d;
+  --ink-soft: #3a3a3a;
+  --white: #ffffff;
+  --sand-tint: #f7f4e9;
+  --slate-light: #8faab5;
+  --slate-pale: #cbdbe1;
+  --chalk-14: rgba(250, 249, 246, 0.14);
+  --chalk-16: rgba(250, 249, 246, 0.16);
+  --sand-30: rgba(196, 182, 125, 0.3);
+  --gutter: clamp(16px, 4vw, 48px);
+  --section-pad: clamp(72px, 9vw, 120px);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+/* Buttons — Poppins 600, uppercase, square, one transition */
+.btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  padding: 18px 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: all var(--ease);
+  white-space: nowrap;
+}
+
+.btn--slate {
+  background: var(--slate);
+  border-color: var(--slate);
+  color: var(--white);
+}
+
+.btn--slate:hover,
+.btn--slate:focus-visible {
+  background: var(--slate-dark);
+  border-color: var(--slate-dark);
+  color: var(--white);
+}
+
+.btn--graphite {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--chalk);
+}
+
+.btn--graphite:hover,
+.btn--graphite:focus-visible {
+  background: var(--ink-deep);
+  border-color: var(--ink-deep);
+  color: var(--chalk);
+}
+
+.btn--sm {
+  font-size: 12px;
+  padding: 14px 22px;
+  gap: 10px;
+}
+
+.arrow {
+  display: inline-flex;
+  transition: transform 180ms ease-out;
+}
+
+.btn:hover .arrow {
+  transform: translate(4px, -4px);
+}
+
+.btn:active .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Small uppercase Poppins labels */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Text link with an underline rule */
+.link-rule {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--slate-light);
+  padding-bottom: 3px;
+  color: var(--slate);
+}
+
+.link-rule:hover {
+  color: var(--ink);
+}
+
+/* Centred section heading block */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 24ch;
+  text-wrap: pretty;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 56ch;
+}
+
+.section-head--dark {
+  border-bottom-color: var(--sand-30);
+  color: var(--chalk);
+}
+
+.section-head--dark p {
+  color: rgba(250, 249, 246, 0.78);
+}

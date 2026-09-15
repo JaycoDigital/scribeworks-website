@@ -1,0 +1,72 @@
+---
+/**
+ * Photo placeholder. Pass `src` to render a real image; without it a
+ * labelled placeholder is shown so the layout reads correctly during design.
+ */
+interface Props {
+  label: string;
+  tone?: 'dark' | 'light';
+  src?: string;
+  alt?: string;
+  class?: string;
+  style?: string;
+}
+const { label, tone = 'dark', src, alt = '', class: className = '', style } = Astro.props;
+---
+
+{
+  src ? (
+    <img src={src} alt={alt} class:list={['slot-img', className]} style={style} loading="lazy" decoding="async" />
+  ) : (
+    <div class:list={['slot', `slot--${tone}`, className]} style={style} aria-hidden="true">
+      <span>{label}</span>
+    </div>
+  )
+}
+
+<style>
+  .slot-img {
+    object-fit: cover;
+  }
+
+  .slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      var(--slot-line) 14px 15px
+    );
+  }
+
+  .slot--dark {
+    --slot-line: rgba(250, 249, 246, 0.05);
+    background-color: #2a2a2a;
+  }
+
+  .slot--light {
+    --slot-line: rgba(48, 48, 48, 0.05);
+    background-color: #e4e1d7;
+  }
+
+  .slot span {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    max-width: 26ch;
+  }
+
+  .slot--dark span {
+    color: rgba(250, 249, 246, 0.38);
+  }
+
+  .slot--light span {
+    color: rgba(48, 48, 48, 0.4);
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import ImageSlot from './ImageSlot.astro';
+import ArrowIcon from './ArrowIcon.astro';
+
+const projects = [
+  { tag: 'Windows · Aldwick', title: 'Eleven coastal-grade casements', photo: 'Project — window replacement' },
+  { tag: 'Doors · Felpham', title: 'Four-pane bi-fold and new steel', photo: 'Project — bi-fold doors' },
+  { tag: 'Cladding · Chichester', title: 'Cedar rear extension, reboarded', photo: 'Project — cedar cladding' },
+];
+---
+
+<section id="work" class="work">
+  <div class="container inner">
+    <div class="section-head section-head--dark">
+      <h2>Real houses, real streets, our own photos</h2>
+    </div>
+
+    <div class="grid">
+      {
+        projects.map((p) => (
+          <a href="#work" class="card">
+            <ImageSlot label={p.photo} class="photo" />
+            <div class="scrim" />
+            <div class="text">
+              <span class="eyebrow tag">{p.tag}</span>
+              <span class="title">{p.title}</span>
+              <span class="eyebrow more">View details<ArrowIcon size={13} /></span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="foot">
+      <span>Sixty-odd jobs a year, all within an hour of Bognor.</span>
+      <a href="#work" class="link-rule">See all projects</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    background: linear-gradient(to bottom, var(--ink) 0%, var(--ink) 62%, var(--chalk) 62%, var(--chalk) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inner {
+    position: relative;
+    padding-block: clamp(72px, 9vw, 110px) clamp(56px, 7vw, 88px);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    position: relative;
+    height: clamp(380px, 44vw, 480px);
+    background: var(--ink-deep);
+    border: 1px solid var(--sand-30);
+    overflow: hidden;
+    display: block;
+    color: var(--white);
+  }
+
+  .card:hover {
+    color: var(--white);
+  }
+
+  .card :global(.photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 600ms ease-out;
+  }
+
+  .card:hover :global(.photo) {
+    transform: scale(1.03);
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(29, 29, 29, 0.92) 0%, rgba(29, 29, 29, 0.55) 40%, rgba(29, 29, 29, 0) 76%);
+  }
+
+  .text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  .tag {
+    letter-spacing: 0.22em;
+    color: var(--sand);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .more {
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 8px;
+  }
+
+  .foot {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import Stars from './Stars.astro';
+import PhoneIcon from './PhoneIcon.astro';
+
+const faqs = [
+  { q: 'Do you charge for a survey or a quote?', a: 'No. The survey and the written quote are both free, and there is no deposit to book the survey. We only ask for a deposit once you have accepted a fixed price in writing.' },
+  { q: 'How long does a typical window job take?', a: 'Most houses are done in two to three days once the frames have been made. Bi-folds and structural openings take longer, and the dates are in the quote before you commit.' },
+  { q: 'Do you handle building regulations and FENSA?', a: 'Yes. Windows and doors are registered with FENSA and you get the certificate on completion. For extensions and structural work we deal with building control and the inspections for you.' },
+  { q: 'Which areas do you cover?', a: 'Bognor Regis, Chichester, Littlehampton, Arundel, Worthing and the villages in between, plus east Hampshire on larger projects.' },
+  { q: 'What does the guarantee actually cover?', a: 'Ten years on our workmanship, plus the manufacturer guarantee on frames and glass units. If something is not right we come back and put it right — same crew, no call-out charge.' },
+];
+---
+
+<section id="faq" class="faq">
+  <div class="container grid">
+    <div class="copy">
+      <h2>The things people ask before they book</h2>
+      <p>Anything not covered here, ring the office — you'll get a straight answer from someone who's been on site.</p>
+      <div class="rating">
+        <div>
+          <div class="score">
+            <span class="score-num">4.9</span>
+            <Stars size={15} />
+          </div>
+          <div class="score-txt">Based on 263 local reviews</div>
+        </div>
+        <a href="tel:01243000000" class="btn btn--slate btn--sm"><PhoneIcon size={14} width={2} />Call us</a>
+      </div>
+    </div>
+
+    <div class="list">
+      {
+        faqs.map((f, i) => (
+          <details class="item" open={i === 0} name="faq">
+            <summary>
+              <span>{f.q}</span>
+              <span class="sign" aria-hidden="true"></span>
+            </summary>
+            <div class="answer">{f.a}</div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--chalk);
+    border-top: 1px solid var(--line);
+  }
+
+  .grid {
+    padding-block: var(--section-pad);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(36px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.9vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+    text-wrap: pretty;
+  }
+
+  .copy > p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  .rating {
+    background: var(--ink);
+    color: var(--chalk);
+    padding: 24px 26px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .score-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .score-txt {
+    font-size: 14px;
+    color: rgba(250, 249, 246, 0.76);
+    margin-top: 7px;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-left: 1px solid var(--line);
+    padding-left: clamp(20px, 3vw, 44px);
+  }
+
+  .item {
+    border: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  summary {
+    list-style: none;
+    padding: 24px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .sign {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+
+  .sign::before,
+  .sign::after {
+    content: '';
+    position: absolute;
+    background: var(--sand-deep);
+    inset: 6px 0;
+  }
+
+  .sign::after {
+    inset: 0 6px;
+    transition: transform var(--ease);
+  }
+
+  .item[open] .sign::after {
+    transform: scaleY(0);
+  }
+
+  .answer {
+    padding: 0 26px 26px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+</style>

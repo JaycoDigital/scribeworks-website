@@ -1,0 +1,245 @@
+---
+import { Image } from 'astro:assets';
+import logoLight from '../../assets/logo-light.png';
+import PhoneIcon from './PhoneIcon.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <div class="cols">
+      <div class="brand">
+        <Image src={logoLight} alt="Scribeworks" height={42} densities={[1, 2]} />
+        <p>Windows, doors, cladding and building works, fitted across West Sussex and Hampshire from our base in Bognor Regis.</p>
+        <div class="social">
+          <a href="#contact" aria-label="Facebook">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V5.5h-3c-2.5 0-4 1.6-4 4V12H7.5v3.5H10V23h3.5v-7.5H16l.5-3.5H13.5V9.8c0-.5.2-.8.5-.8z" /></svg>
+          </a>
+          <a href="#contact" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><rect x="3" y="3" width="18" height="18" /><circle cx="12" cy="12" r="4" /><circle cx="17" cy="7" r="0.9" fill="currentColor" /></svg>
+          </a>
+          <a href="#contact" aria-label="Google reviews">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="head">Products</span>
+        <a href="#products">Windows</a>
+        <a href="#products">Doors</a>
+        <a href="#products">Cladding</a>
+        <a href="#products">Building works</a>
+      </div>
+
+      <div class="col">
+        <span class="head">Company</span>
+        <a href="#about">About us</a>
+        <a href="#work">Projects</a>
+        <a href="#process">How it works</a>
+        <a href="#faq">FAQs</a>
+      </div>
+
+      <div class="col">
+        <span class="head">Areas covered</span>
+        <span class="areas">Bognor Regis<br />Chichester<br />Littlehampton<br />Arundel &amp; Worthing</span>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="cta-title">Let's get your quote started</div>
+      <div class="cta-item">
+        <span class="cta-icon"><PhoneIcon size={20} stroke="var(--ink)" /></span>
+        <div>
+          <div class="cta-label">Phone</div>
+          <a href="tel:01243000000">01243 000 000</a>
+        </div>
+      </div>
+      <div class="cta-item">
+        <span class="cta-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M3 5h18v14H3z" /><path d="M3 6l9 7 9-7" /></svg>
+        </span>
+        <div>
+          <div class="cta-label">Email</div>
+          <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© {year} Scribeworks Ltd. FENSA registered. Company no. 00000000.</span>
+      <span class="legal-links">
+        <a href="#contact">Privacy</a>
+        <a href="#contact">Terms</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink-deep);
+    color: rgba(250, 249, 246, 0.68);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inner {
+    position: relative;
+    padding-top: clamp(56px, 7vw, 88px);
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .brand img {
+    height: 42px;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .brand p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 32ch;
+  }
+
+  .social {
+    display: flex;
+    gap: 10px;
+  }
+
+  .social a {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(250, 249, 246, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--chalk);
+    transition: all var(--ease);
+  }
+
+  .social a:hover {
+    background: var(--slate);
+    border-color: var(--slate);
+    color: var(--white);
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-left: 1px solid var(--chalk-16);
+    padding-left: 26px;
+  }
+
+  .head {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sand);
+  }
+
+  .col a {
+    font-size: 15px;
+    color: rgba(250, 249, 246, 0.78);
+  }
+
+  .col a:hover {
+    color: var(--chalk);
+  }
+
+  .areas {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .cta {
+    background: rgba(250, 249, 246, 0.07);
+    border: 1px solid var(--chalk-14);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+    align-items: center;
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--chalk);
+  }
+
+  .cta-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta-icon {
+    width: 46px;
+    height: 46px;
+    background: var(--sand);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .cta-label {
+    font-size: 13px;
+    color: rgba(250, 249, 246, 0.7);
+  }
+
+  .cta-item a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--chalk);
+  }
+
+  .cta-item a:hover {
+    color: var(--sand);
+  }
+
+  .legal {
+    padding: 26px 0 40px;
+    margin-top: 26px;
+    border-top: 1px solid var(--chalk-14);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+
+  .legal-links {
+    display: flex;
+    gap: 22px;
+  }
+
+  .legal a {
+    color: rgba(250, 249, 246, 0.68);
+  }
+
+  .legal a:hover {
+    color: var(--chalk);
+  }
+</style>

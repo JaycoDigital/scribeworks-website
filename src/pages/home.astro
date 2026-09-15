@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Film from '../components/home/Film.astro';
+import About from '../components/home/About.astro';
+import Products from '../components/home/Products.astro';
+import Projects from '../components/home/Projects.astro';
+import Process from '../components/home/Process.astro';
+import Reviews from '../components/home/Reviews.astro';
+import Faq from '../components/home/Faq.astro';
+import Contact from '../components/home/Contact.astro';
+import Footer from '../components/home/Footer.astro';
+---
+
+<BaseLayout
+  title="Scribeworks — Windows, Doors, Cladding & Building Works"
+  description="Free survey, a fixed price in writing and a crew that clears up. Windows, doors, cladding and full building works across the south coast."
+>
+  <Hero />
+  <Film />
+  <About />
+  <Products />
+  <Projects />
+  <Process />
+  <Reviews />
+  <Faq />
+  <Contact />
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

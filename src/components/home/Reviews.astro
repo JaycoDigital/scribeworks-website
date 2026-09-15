@@ -1,0 +1,121 @@
+---
+import Stars from './Stars.astro';
+
+const reviews = [
+  { quote: "Quoted, fitted and certified inside a fortnight. The reveals were made good properly — you'd never know the old frames had been out.", name: 'Jane H.', job: 'Windows & front door · Aldwick' },
+  { quote: "They found rot in the sill we didn't know about, showed us, priced it and carried on. No drama, no padding the bill.", name: 'Mark & Sue T.', job: 'Bi-fold doors · Felpham' },
+  { quote: "Cleanest site we've had. Swept up every evening and the skip went the day the job finished.", name: 'Dan P.', job: 'Garage conversion · Chichester', accent: true },
+];
+---
+
+<section class="reviews">
+  <div class="container inner">
+    <div class="section-head section-head--dark">
+      <h2>Turned up when they said they would</h2>
+      <p>Reviews left by people in Bognor, Chichester and Littlehampton — most of our work comes from the street next door.</p>
+    </div>
+
+    <div class="grid">
+      {
+        reviews.map((r) => (
+          <figure class:list={['card', { 'card--accent': r.accent }]}>
+            <div class="body">
+              <Stars color={r.accent ? '#fff' : 'var(--sand)'} />
+              <blockquote>“{r.quote}”</blockquote>
+            </div>
+            <figcaption>
+              <div class="name">{r.name}</div>
+              <div class="job">{r.job}</div>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: var(--ink);
+    color: var(--chalk);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--sand-30);
+  }
+
+  .inner {
+    position: relative;
+    padding-block: var(--section-pad);
+  }
+
+  .inner :global(.section-head) {
+    margin-bottom: 52px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    margin: 0;
+    background: var(--ink-soft);
+    border: 1px solid var(--chalk-14);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .body {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  blockquote {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--chalk);
+  }
+
+  figcaption {
+    background: rgba(250, 249, 246, 0.07);
+    border-top: 1px solid rgba(250, 249, 246, 0.12);
+    padding: 20px 28px;
+    font-size: 15px;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--chalk);
+  }
+
+  .job {
+    color: rgba(250, 249, 246, 0.7);
+    margin-top: 4px;
+    font-size: 14px;
+  }
+
+  .card--accent {
+    background: var(--slate);
+    border-color: var(--slate);
+  }
+
+  .card--accent blockquote,
+  .card--accent .name {
+    color: var(--white);
+  }
+
+  .card--accent figcaption {
+    background: rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .card--accent .job {
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>

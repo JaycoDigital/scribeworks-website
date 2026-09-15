@@ -1,0 +1,140 @@
+---
+import ImageSlot from './ImageSlot.astro';
+
+const steps = [
+  { n: '01', title: 'Survey & measure', body: 'Half an hour at the house. We measure up, check the openings and talk through what suits it.' },
+  { n: '02', title: 'Fixed price in writing', body: "Itemised quote within three days — what's in, what's not, and the week we can start." },
+  { n: '03', title: 'Fit, sign off, certify', body: 'Dust sheets down, reveals made good, waste away. Certificates handed over on the last day.' },
+];
+---
+
+<section id="process" class="process">
+  <div class="container grid">
+    <div class="copy">
+      <h2>Three visits, no surprises</h2>
+      <p>You'll know the price, the start date and who's turning up before anything is ordered.</p>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li>
+              <span class="num">{s.n}</span>
+              <div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div class="photos">
+      <ImageSlot label="Wide shot — finished install" tone="light" class="wide" />
+      <ImageSlot label="Survey / measuring up" tone="light" class="small" />
+      <ImageSlot label="Fitting in progress" tone="light" class="small" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: var(--chalk);
+    border-top: 1px solid var(--line);
+  }
+
+  .grid {
+    padding-block: var(--section-pad);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.9vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+    text-wrap: pretty;
+  }
+
+  .copy > p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 50ch;
+  }
+
+  .steps {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .steps li {
+    display: flex;
+    gap: 22px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .steps li:last-child {
+    border-bottom: 0;
+  }
+
+  .num {
+    width: 56px;
+    height: 56px;
+    background: var(--sand);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .steps p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  .photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    border-left: 1px solid var(--line);
+    padding-left: clamp(20px, 3vw, 44px);
+  }
+
+  .photos :global(.wide) {
+    grid-column: 1 / -1;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+  }
+
+  .photos :global(.small) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+</style>

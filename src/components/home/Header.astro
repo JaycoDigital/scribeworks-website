@@ -1,0 +1,228 @@
+---
+import { Image } from 'astro:assets';
+import logoLight from '../../assets/logo-light.png';
+import ArrowIcon from './ArrowIcon.astro';
+
+const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/home" class="logo" aria-label="Scribeworks home">
+      <Image src={logoLight} alt="Scribeworks" height={40} densities={[1, 2]} loading="eager" />
+    </a>
+
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <div class="has-menu">
+        <a href="#products" aria-haspopup="true">
+          Products
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" />
+          </svg>
+        </a>
+        <ul class="menu">
+          {products.map((p) => <li><a href="#products">{p}</a></li>)}
+        </ul>
+      </div>
+      <a href="#about">About</a>
+      <a href="#work">Projects</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#contact" class="btn btn--slate btn--sm cta">Get a quote<ArrowIcon size={13} /></a>
+
+    <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 30;
+    border-bottom: 1px solid var(--chalk-16);
+  }
+
+  .bar {
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(12px, 2vw, 28px);
+  }
+
+  .logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.8vw, 30px);
+    min-width: 0;
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .nav a {
+    color: var(--chalk);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .nav a:hover {
+    color: var(--sand);
+  }
+
+  .has-menu {
+    position: relative;
+  }
+
+  .menu {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    position: absolute;
+    top: 32px;
+    left: -20px;
+    min-width: 220px;
+    background: var(--chalk);
+    border: 1px solid var(--line);
+    display: none;
+    flex-direction: column;
+  }
+
+  .has-menu:hover .menu,
+  .has-menu:focus-within .menu {
+    display: flex;
+  }
+
+  .menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+
+  .menu a:hover {
+    background: var(--sand-tint);
+    color: var(--sand-deep);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--chalk-16);
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 1.5px;
+    background: var(--chalk);
+    transition: transform var(--ease), opacity var(--ease);
+  }
+
+  @media (max-width: 960px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .cta {
+      display: none;
+    }
+
+    .nav {
+      display: none;
+      position: absolute;
+      top: 84px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--ink-deep);
+      border-bottom: 1px solid var(--chalk-16);
+      padding: 8px 0 16px;
+    }
+
+    .site-header[data-open] .nav {
+      display: flex;
+    }
+
+    .nav > a,
+    .has-menu > a {
+      padding: 16px var(--gutter);
+      border-bottom: 1px solid var(--chalk-14);
+    }
+
+    .has-menu > a svg {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      position: static;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .menu a {
+      color: rgba(250, 249, 246, 0.78);
+      padding: 12px var(--gutter) 12px calc(var(--gutter) + 20px);
+    }
+
+    .menu a:hover {
+      background: transparent;
+      color: var(--sand);
+    }
+
+    .site-header[data-open] .menu-toggle span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .site-header[data-open] .menu-toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .site-header[data-open] .menu-toggle span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+
+  toggle?.addEventListener('click', () => {
+    const open = header!.toggleAttribute('data-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  // Close the menu after choosing a link
+  header?.querySelectorAll('.nav a').forEach((a) =>
+    a.addEventListener('click', () => {
+      header.removeAttribute('data-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }),
+  );
+</script>

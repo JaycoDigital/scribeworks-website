@@ -1,0 +1,196 @@
+---
+import ImageSlot from './ImageSlot.astro';
+import ArrowIcon from './ArrowIcon.astro';
+
+const checks = [
+  'Free survey and a written fixed price in three working days',
+  'Building regs, FENSA certification and waste removal handled',
+  "Timber, aluminium or uPVC — we'll say what suits the house",
+];
+---
+
+<section id="about" class="about">
+  <div class="container grid">
+    <div class="photos">
+      <ImageSlot label="Finished room, windows in" tone="light" class="photo-a" />
+      <ImageSlot label="Detail — sash or reveal" tone="light" class="photo-b" />
+      <div class="badge">
+        <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+          <circle cx="24" cy="18" r="13" />
+          <circle cx="24" cy="18" r="8.5" />
+          <path d="M17 29l-4 16 11-6 11 6-4-16" />
+        </svg>
+        <div>
+          <div class="badge-num">14 yrs</div>
+          <div class="badge-txt">on the tools locally</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="copy">
+      <h2>A local firm you can actually get hold of</h2>
+      <p>We measure, make and fit with the same team, so nobody points at anyone else when something needs sorting. Same surveyor, same fitters, same number to ring — from the first measure to the tenth year of the guarantee.</p>
+      <ul class="checks">
+        {
+          checks.map((c) => (
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--sand-deep)" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+                <path d="M4 12.5l5 5L20 6.5" />
+              </svg>
+              <span>{c}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="stats">
+        <div><div class="num">4</div><div class="txt">trades under one roof</div></div>
+        <div><div class="num">12</div><div class="txt">fitters and surveyors</div></div>
+        <div class="stat-cta"><a href="#about" class="btn btn--graphite">More about us<ArrowIcon size={14} /></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--chalk);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .grid {
+    padding-block: var(--section-pad);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .photos {
+    position: relative;
+    padding-bottom: 56px;
+    padding-right: clamp(0px, 6vw, 64px);
+  }
+
+  .photos :global(.photo-a) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    display: flex;
+  }
+
+  .photos :global(.photo-b) {
+    position: absolute;
+    right: 0;
+    bottom: 100px;
+    width: 52%;
+    aspect-ratio: 1 / 1;
+    border: 8px solid var(--chalk);
+  }
+
+  .badge {
+    position: absolute;
+    left: clamp(12px, 4%, 40px);
+    bottom: 0;
+    background: var(--sand);
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .badge svg {
+    flex: none;
+  }
+
+  .badge-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .badge-txt {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-left: 1px solid var(--line);
+    padding-left: clamp(20px, 3vw, 44px);
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.9vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 22ch;
+    text-wrap: pretty;
+  }
+
+  .copy > p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 50ch;
+  }
+
+  .checks {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .checks li {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .checks svg {
+    flex: none;
+    margin-top: 3px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    border-top: 1px solid var(--line);
+    padding-top: 26px;
+    margin-top: 12px;
+  }
+
+  .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .txt {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .stat-cta {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .stat-cta .btn {
+    padding: 16px 24px;
+  }
+</style>
