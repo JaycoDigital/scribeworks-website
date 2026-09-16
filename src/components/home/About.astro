@@ -1,7 +1,9 @@
 ---
-import ImageSlot from './ImageSlot.astro';
+import { Image } from 'astro:assets';
 import ArrowIcon from './ArrowIcon.astro';
 import Icon from './Icon.astro';
+import fitter from '../../assets/about-fitter.jpg';
+import exterior from '../../assets/about-exterior.jpg';
 
 const checks = [
   'Free survey and a written fixed price within three working days',
@@ -13,8 +15,8 @@ const checks = [
 <section id="about" class="about">
   <div class="container grid">
     <div class="photos">
-      <ImageSlot label="Finished room, windows in" tone="light" class="photo-a" />
-      <ImageSlot label="Detail — sash or reveal" tone="light" class="photo-b" />
+      <Image src={exterior} alt="Modern extension with a full-height window overlooking a gravel garden" class="photo-a" widths={[600, 900, 1400]} sizes="(max-width: 760px) 100vw, 600px" format="webp" quality={80} />
+      <Image src={fitter} alt="Scribeworks fitter adjusting a window handle" class="photo-b" widths={[400, 800]} sizes="(max-width: 760px) 50vw, 320px" format="webp" quality={80} />
     </div>
 
     <div class="copy">
@@ -58,8 +60,10 @@ const checks = [
 
   .photos :global(.photo-a) {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 5;
-    display: flex;
+    object-fit: cover;
+    display: block;
   }
 
   .photos :global(.photo-b) {
@@ -67,7 +71,10 @@ const checks = [
     right: 0;
     bottom: 0;
     width: 52%;
+    height: auto;
     aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: 60% 50%;
     border: 8px solid var(--chalk);
   }
 
