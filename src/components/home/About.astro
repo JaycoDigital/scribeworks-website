@@ -31,10 +31,8 @@ const checks = [
           ))
         }
       </ul>
-      <div class="stats">
-        <div><div class="num">4</div><div class="txt">trades under one roof</div></div>
-        <div><div class="num">12</div><div class="txt">fitters and surveyors</div></div>
-        <div class="stat-cta"><a href="#about" class="btn btn--graphite">More about us<ArrowIcon size={14} /></a></div>
+      <div class="cta">
+        <a href="#contact" class="btn btn--slate">Get a quote<ArrowIcon size={14} /></a>
       </div>
     </div>
   </div>
@@ -125,35 +123,7 @@ const checks = [
     margin-top: 3px;
   }
 
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    border-top: 1px solid var(--line);
-    padding-top: 26px;
+  .cta {
     margin-top: 12px;
-  }
-
-  .num {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .txt {
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 8px;
-  }
-
-  .stat-cta {
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .stat-cta .btn {
-    padding: 16px 24px;
   }
 </style>
