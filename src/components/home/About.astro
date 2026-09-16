@@ -28,7 +28,7 @@ const checks = [
     </div>
 
     <div class="copy">
-      <h2>Over 10 years of high quality windows and doors</h2>
+      <h2>Over <span class="gold">10 years</span> of high quality windows and doors</h2>
       <p>We measure, make and fit with the same team, so nobody points at anyone else when something needs sorting. Same surveyor, same fitters, same number to ring — from the first measure to the tenth year of the guarantee.</p>
       <ul class="checks">
         {
@@ -129,6 +129,10 @@ const checks = [
     letter-spacing: -0.03em;
     max-width: 22ch;
     text-wrap: pretty;
+  }
+
+  .gold {
+    color: var(--sand-deep);
   }
 
   .copy > p {
