@@ -4,7 +4,7 @@ import Stars from './Stars.astro';
 const reviews = [
   { quote: "Quoted, fitted and certified within two weeks. The finish around the new frames was spotless, and you'd never know the old ones had been there.", name: 'Jane H.', job: 'Windows & front door · Aldwick' },
   { quote: "They found rot in the sill that we didn't know about, showed us, gave us a price and carried on. No fuss and no inflated bill.", name: 'Mark & Sue T.', job: 'Bi-fold doors · Felpham' },
-  { quote: "The tidiest team we've had. They swept up every evening and the skip was gone the day the job finished.", name: 'Dan P.', job: 'Garage conversion · Chichester', accent: true },
+  { quote: "The tidiest team we've had. They swept up every evening and the skip was gone the day the job finished.", name: 'Dan P.', job: 'Garage conversion · Chichester' },
 ];
 ---
 
@@ -18,9 +18,9 @@ const reviews = [
     <div class="grid">
       {
         reviews.map((r) => (
-          <figure class:list={['card', { 'card--accent': r.accent }]}>
+          <figure class="card">
             <div class="body">
-              <Stars color={r.accent ? '#fff' : 'var(--sand)'} />
+              <Stars />
               <blockquote>“{r.quote}”</blockquote>
             </div>
             <figcaption>
@@ -100,22 +100,4 @@ const reviews = [
     font-size: 14px;
   }
 
-  .card--accent {
-    background: var(--slate);
-    border-color: var(--slate);
-  }
-
-  .card--accent blockquote,
-  .card--accent .name {
-    color: var(--white);
-  }
-
-  .card--accent figcaption {
-    background: rgba(255, 255, 255, 0.1);
-    border-top-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .card--accent .job {
-    color: rgba(255, 255, 255, 0.8);
-  }
 </style>
