@@ -13,18 +13,7 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
     </a>
 
     <nav class="nav" id="site-nav" aria-label="Main">
-      <div class="has-menu">
-        <a href="#products" aria-haspopup="true">
-          Products
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true">
-            <path d="M2 4l4 4 4-4" />
-          </svg>
-        </a>
-        <ul class="menu">
-          {products.map((p) => <li><a href="#products">{p}</a></li>)}
-        </ul>
-      </div>
-      <a href="#contact">Contact</a>
+      {products.map((p) => <a href="#products">{p}</a>)}
     </nav>
 
     <a href="#contact" class="btn btn--slate btn--sm cta">Get a quote<ArrowIcon size={13} /></a>
@@ -79,42 +68,6 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
     color: var(--sand);
   }
 
-  .has-menu {
-    position: relative;
-  }
-
-  .menu {
-    list-style: none;
-    margin: 0;
-    padding: 8px 0;
-    position: absolute;
-    top: 32px;
-    left: -20px;
-    min-width: 220px;
-    background: var(--chalk);
-    border: 1px solid var(--line);
-    display: none;
-    flex-direction: column;
-  }
-
-  .has-menu:hover .menu,
-  .has-menu:focus-within .menu {
-    display: flex;
-  }
-
-  .menu a {
-    display: block;
-    padding: 12px 20px;
-    color: var(--ink);
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .menu a:hover {
-    background: var(--sand-tint);
-    color: var(--sand-deep);
-  }
-
   .menu-toggle {
     display: none;
     flex-direction: column;
@@ -162,34 +115,12 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
       display: flex;
     }
 
-    .nav > a,
-    .has-menu > a {
+    .nav > a {
       padding: 16px var(--gutter);
       border-bottom: 1px solid var(--chalk-14);
     }
 
-    .has-menu > a svg {
-      display: none;
-    }
 
-    .menu {
-      display: flex;
-      position: static;
-      background: transparent;
-      border: 0;
-      padding: 0;
-      min-width: 0;
-    }
-
-    .menu a {
-      color: rgba(250, 249, 246, 0.78);
-      padding: 12px var(--gutter) 12px calc(var(--gutter) + 20px);
-    }
-
-    .menu a:hover {
-      background: transparent;
-      color: var(--sand);
-    }
 
     .site-header[data-open] .menu-toggle span:nth-child(1) {
       transform: translateY(6.5px) rotate(45deg);
