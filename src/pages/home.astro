@@ -29,3 +29,29 @@ import Footer from '../components/home/Footer.astro';
     scroll-behavior: smooth;
   }
 </style>
+
+<script>
+  // Fade-up entrances: [data-reveal] on single elements, [data-reveal-stagger]
+  // on a parent to reveal its children one after another.
+  const STEP = 90;
+  const targets: Element[] = [...document.querySelectorAll('[data-reveal]')];
+  document.querySelectorAll('[data-reveal-stagger]').forEach((group) => {
+    [...group.children].forEach((child, i) => {
+      (child as HTMLElement).style.setProperty('--reveal-delay', `${i * STEP}ms`);
+      targets.push(child);
+    });
+  });
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+  );
+  targets.forEach((t) => io.observe(t));
+</script>

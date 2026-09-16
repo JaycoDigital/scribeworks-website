@@ -12,7 +12,7 @@ const faqs = [
 
 <section id="faq" class="faq">
   <div class="container grid">
-    <div class="copy">
+    <div class="copy" data-reveal-stagger>
       <h2>Frequently asked questions</h2>
       <p>Can't find what you're looking for? Send our friendly team a message and we'll be happy to help.</p>
       <div class="cta">
@@ -20,10 +20,10 @@ const faqs = [
       </div>
     </div>
 
-    <div class="list">
+    <div class="list" data-reveal-stagger>
       {
         faqs.map((f, i) => (
-          <details class="item" open={i === 0} name="faq">
+          <details class="item" open={i === 0}>
             <summary>
               <span>{f.q}</span>
               <span class="sign" aria-hidden="true"></span>
@@ -129,8 +129,13 @@ const faqs = [
     transition: transform var(--ease);
   }
 
-  .item[open] .sign::after {
+  .item.is-open .sign::after {
     transform: scaleY(0);
+  }
+
+  .sign::before,
+  .sign::after {
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .answer {
@@ -139,5 +144,57 @@ const faqs = [
     line-height: 1.7;
     color: var(--muted);
     max-width: 62ch;
+    overflow: hidden;
   }
 </style>
+
+<script>
+  // Animate <details> open/close (native toggling is instant) and keep the
+  // accordion exclusive so only one answer is open at a time.
+  const DURATION = 320;
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = [...document.querySelectorAll<HTMLDetailsElement>('#faq .item')];
+  const busy = new WeakSet<HTMLDetailsElement>();
+
+  const close = (item: HTMLDetailsElement) => {
+    const body = item.querySelector<HTMLElement>('.answer');
+    if (!body || !item.open || busy.has(item)) return;
+    busy.add(item);
+    item.classList.remove('is-open');
+    const anim = body.animate(
+      [{ height: `${body.offsetHeight}px`, opacity: 1 }, { height: '0px', opacity: 0 }],
+      { duration: reduce ? 0 : DURATION, easing: EASE },
+    );
+    anim.onfinish = () => {
+      item.open = false;
+      busy.delete(item);
+    };
+  };
+
+  const open = (item: HTMLDetailsElement) => {
+    const body = item.querySelector<HTMLElement>('.answer');
+    if (!body || item.open || busy.has(item)) return;
+    busy.add(item);
+    item.open = true;
+    item.classList.add('is-open');
+    const anim = body.animate(
+      [{ height: '0px', opacity: 0 }, { height: `${body.offsetHeight}px`, opacity: 1 }],
+      { duration: reduce ? 0 : DURATION, easing: EASE },
+    );
+    anim.onfinish = () => busy.delete(item);
+  };
+
+  items.forEach((item) => {
+    if (item.open) item.classList.add('is-open');
+    item.querySelector('summary')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (item.open) {
+        close(item);
+      } else {
+        items.forEach((other) => other !== item && close(other));
+        open(item);
+      }
+    });
+  });
+</script>

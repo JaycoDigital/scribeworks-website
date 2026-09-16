@@ -217,3 +217,31 @@ video {
 .section-head--dark p {
   color: rgba(250, 249, 246, 0.78);
 }
+
+/* ---- Entrance animations (see the reveal script in home.astro) ---- */
+.js [data-reveal]:not(.is-in),
+.js [data-reveal-stagger] > :not(.is-in) {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+[data-reveal],
+[data-reveal-stagger] > * {
+  transition:
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal]:not(.is-in),
+  .js [data-reveal-stagger] > :not(.is-in) {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal],
+  [data-reveal-stagger] > * {
+    transition: none;
+  }
+}
