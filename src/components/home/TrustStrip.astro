@@ -1,0 +1,90 @@
+---
+/**
+ * Scrolling strip of partner / accreditation logos along the bottom of the
+ * hero. The list is repeated so the loop is seamless; logos are white
+ * silhouettes at reduced opacity.
+ */
+import { Image } from 'astro:assets';
+import checkatrade from '../../assets/logo-checkatrade-white.png';
+import origin from '../../assets/logo-origin-white.png';
+
+const logos = [
+  { src: checkatrade, alt: 'Checkatrade', h: 22 },
+  { src: origin, alt: 'Origin Doors and Windows', h: 34 },
+];
+// Enough copies to cover very wide screens twice over
+const track = Array.from({ length: 6 }, () => logos).flat();
+---
+
+<div class="trust" aria-label="Accreditations and partners">
+  <div class="track">
+    {
+      [0, 1].map((copy) => (
+        <ul class="set" aria-hidden={copy === 1}>
+          {track.map((l) => (
+            <li>
+              <Image src={l.src} alt={copy === 0 ? l.alt : ''} height={l.h * 2} style={`height:${l.h}px`} loading="eager" />
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .trust {
+    position: relative;
+    z-index: 20;
+    border-top: 1px solid var(--chalk-16);
+    background: rgba(29, 29, 29, 0.35);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: slide 60s linear infinite;
+  }
+
+  .set {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .set li {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    padding: 0 clamp(36px, 4vw, 64px);
+    border-right: 1px solid var(--chalk-14);
+  }
+
+  .set img {
+    width: auto;
+    display: block;
+    opacity: 0.55;
+    transition: opacity var(--ease);
+  }
+
+  .set li:hover img {
+    opacity: 0.9;
+  }
+
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+    }
+  }
+</style>
