@@ -46,6 +46,14 @@ const points = [
         <div class="actions">
           <a href="#contact" class="btn btn--slate">Book a free survey<ArrowIcon /></a>
         </div>
+        <a href="#faq" class="rating" aria-label="Rated 4.8 out of 5 from Google reviews">
+          <span class="rating-num">4.8</span>
+          <span class="rating-stars" style="--fill: 96%" aria-hidden="true">
+            <span class="rating-stars-bg">★★★★★</span>
+            <span class="rating-stars-fg">★★★★★</span>
+          </span>
+          <span class="rating-txt">from 260+ Google reviews</span>
+        </a>
       </div>
     </div>
   </div>
@@ -80,6 +88,59 @@ const points = [
       rgba(29, 29, 29, 0.18) 78%,
       rgba(29, 29, 29, 0.1) 100%
     );
+  }
+
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 10px 16px 10px 14px;
+    background: rgba(29, 29, 29, 0.55);
+    border: 1px solid var(--chalk-16);
+    color: var(--chalk);
+    font-size: 14px;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+    transition: border-color var(--ease);
+  }
+
+  .rating:hover {
+    color: var(--chalk);
+    border-color: var(--sand);
+  }
+
+  .rating-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+
+  .rating-stars {
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .rating-stars-bg {
+    color: rgba(250, 249, 246, 0.25);
+  }
+
+  .rating-stars-fg {
+    position: absolute;
+    inset: 0;
+    width: var(--fill, 100%);
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--sand);
+  }
+
+  .rating-txt {
+    color: rgba(250, 249, 246, 0.78);
   }
 
   /* Narrow screens: the copy sits over the house, so tint evenly */
