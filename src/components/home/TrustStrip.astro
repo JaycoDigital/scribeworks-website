@@ -7,13 +7,22 @@
 import { Image } from 'astro:assets';
 import checkatrade from '../../assets/logo-checkatrade-white.png';
 import origin from '../../assets/logo-origin-white.png';
+import endurance from '../../assets/logo-endurance-white.png';
+import rockdoor from '../../assets/logo-rockdoor-white.png';
+import deceuninck from '../../assets/logo-deceuninck-white.png';
+import roseview from '../../assets/logo-roseview-white.png';
 
+// Heights tuned so the wordmarks read at a similar visual weight
 const logos = [
   { src: checkatrade, alt: 'Checkatrade', h: 22 },
   { src: origin, alt: 'Origin Doors and Windows', h: 34 },
+  { src: endurance, alt: 'Endurance Doors', h: 28 },
+  { src: rockdoor, alt: 'Rockdoor', h: 26 },
+  { src: deceuninck, alt: 'Deceuninck', h: 20 },
+  { src: roseview, alt: 'Roseview Windows', h: 30 },
 ];
 // Enough copies to cover very wide screens twice over
-const track = Array.from({ length: 6 }, () => logos).flat();
+const track = Array.from({ length: 2 }, () => logos).flat();
 ---
 
 <div class="trust" aria-label="Accreditations and partners">
