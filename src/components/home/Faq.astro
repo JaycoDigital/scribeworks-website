@@ -1,6 +1,5 @@
 ---
-import Stars from './Stars.astro';
-import PhoneIcon from './PhoneIcon.astro';
+import ArrowIcon from './ArrowIcon.astro';
 
 const faqs = [
   { q: 'Do you charge for a survey or a quote?', a: 'No. The survey and the written quote are both free, and there is no deposit to book the survey. We only ask for a deposit once you have accepted a fixed price in writing.' },
@@ -15,16 +14,9 @@ const faqs = [
   <div class="container grid">
     <div class="copy">
       <h2>Frequently asked questions</h2>
-      <p>Anything not covered here, ring the office. You'll get a straight answer from someone who's been on site.</p>
-      <div class="rating">
-        <div>
-          <div class="score">
-            <span class="score-num">4.9</span>
-            <Stars size={15} />
-          </div>
-          <div class="score-txt">Based on 263 local reviews</div>
-        </div>
-        <a href="tel:01243000000" class="btn btn--slate btn--sm"><PhoneIcon size={14} width={2} />Call us</a>
+      <p>Can't find what you're looking for? Send our friendly team a message and we'll be happy to help.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn--slate">Contact us<ArrowIcon size={14} /></a>
       </div>
     </div>
 
@@ -80,34 +72,8 @@ const faqs = [
     max-width: 46ch;
   }
 
-  .rating {
-    background: var(--ink);
-    color: var(--chalk);
-    padding: 24px 26px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 20px;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .score {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .score-num {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 20px;
-  }
-
-  .score-txt {
-    font-size: 14px;
-    color: rgba(250, 249, 246, 0.76);
-    margin-top: 7px;
+  .cta {
+    margin-top: 8px;
   }
 
   .list {
