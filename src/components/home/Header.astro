@@ -142,6 +142,11 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
     transition: opacity 260ms ease-out;
   }
 
+  /* Author display beats the UA [hidden] rule, so restate it */
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
   .mobile-menu.is-open {
     opacity: 1;
   }
