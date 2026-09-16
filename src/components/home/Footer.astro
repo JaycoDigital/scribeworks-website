@@ -53,11 +53,6 @@ const year = new Date().getFullYear();
         <a href="#products">Building works</a>
       </div>
 
-      <div class="col">
-        <h3 class="head">Opening hours</h3>
-        <span class="lines">Monday to Friday<br />7.30am to 5pm</span>
-        <a href="tel:01243000000" class="phone">01243 000 000</a>
-      </div>
 
       <div class="col">
         <h3 class="head">Areas covered</h3>
@@ -87,7 +82,7 @@ const year = new Date().getFullYear();
 
   .cols {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr;
     gap: 40px;
     margin-top: clamp(48px, 6vw, 72px);
     padding-bottom: 48px;
@@ -170,16 +165,6 @@ const year = new Date().getFullYear();
     line-height: 1.9;
   }
 
-  .phone {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--chalk) !important;
-  }
-
-  .phone:hover {
-    color: var(--sand) !important;
-  }
 
   .cta {
     scroll-margin-top: 40vh;
