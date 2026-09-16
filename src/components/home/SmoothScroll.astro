@@ -1,0 +1,74 @@
+---
+/**
+ * Inertial wheel scrolling: wheel input moves a target position and the page
+ * eases toward it each frame. Touch and keyboard stay native. Other scripts
+ * can take over the wheel (the film scrub does) via window.__filmAdvance, and
+ * steer the scroller with window.__scroll.
+ */
+---
+
+<script>
+  declare global {
+    interface Window {
+      __scroll?: { readonly target: number; pinTo: (y: number) => void; jumpTo: (y: number) => void };
+      __filmAdvance?: (delta: number) => boolean;
+    }
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  if (!reduceMotion && finePointer) {
+    const EASE = 0.09;
+    let target = window.scrollY;
+    let current = window.scrollY;
+    let raf = 0;
+
+    const max = () => document.documentElement.scrollHeight - window.innerHeight;
+    const clamp = (y: number) => Math.min(max(), Math.max(0, y));
+
+    const tick = () => {
+      const diff = target - current;
+      if (Math.abs(diff) < 0.4) {
+        current = target;
+        window.scrollTo(0, current);
+        raf = 0;
+        return;
+      }
+      current += diff * EASE;
+      window.scrollTo(0, current);
+      raf = requestAnimationFrame(tick);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+
+    // Lines/pages → pixels
+    const px = (e: WheelEvent) => (e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY);
+
+    window.addEventListener(
+      'wheel',
+      (e) => {
+        if (e.ctrlKey) return; // pinch-zoom
+        const d = px(e);
+        if (window.__filmAdvance?.(d)) {
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+        target = clamp(target + d);
+        kick();
+      },
+      { passive: false },
+    );
+
+    // Scrolls we didn't cause (touch, keys, anchor links): adopt the new position
+    window.addEventListener('scroll', () => {
+      if (!raf) target = current = window.scrollY;
+    }, { passive: true });
+
+    window.__scroll = {
+      get target() { return target; },
+      pinTo(y) { target = clamp(y); kick(); },
+      jumpTo(y) { target = current = clamp(y); window.scrollTo(0, current); },
+    };
+  }
+</script>

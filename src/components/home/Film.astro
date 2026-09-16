@@ -101,6 +101,25 @@
       const SCROLL_PER_CLIP = 2400; // px of wheel travel for the pinned part
       const PIN_END = 1 - TAIL;
 
+      // Scroll progress → clip time, as a fraction of duration. The clip's
+      // sketch-to-colour change happens in about a second and the last third
+      // is a still frame, so stretch the transition and compress the tail.
+      //            progress, time
+      const CURVE: [number, number][] = [
+        [0, 0],
+        [0.4, 0.49], // sketch builds up
+        [0.8, 0.68], // colour arrives (stretched, finishes as the pin releases)
+        [1, 1], // settled house
+      ];
+      const timeAt = (p: number) => {
+        for (let i = 1; i < CURVE.length; i++) {
+          const [p0, t0] = CURVE[i - 1];
+          const [p1, t1] = CURVE[i];
+          if (p <= p1) return t0 + ((p - p0) / (p1 - p0)) * (t1 - t0);
+        }
+        return 1;
+      };
+
       let target = 0; // where the scroll input says we should be (0–1)
       let shown = 0; // where the video actually is; eased toward target each frame
       let locked = false;
@@ -112,7 +131,7 @@
         bar.style.height = `${p * 100}%`;
         if (!video.duration || !isFinite(video.duration)) return;
         if (seeking) return; // one seek in flight at a time
-        const t = p * video.duration;
+        const t = timeAt(p) * video.duration;
         if (Math.abs(video.currentTime - t) > 0.01) {
           seeking = true;
           video.currentTime = t;
@@ -151,16 +170,23 @@
         kick();
       };
 
+      // Where the page is heading (the smooth scroller's target if present)
+      const pageY = () => window.__scroll?.target ?? window.scrollY;
+      const pin = () => {
+        if (window.__scroll) window.__scroll.pinTo(wrap.offsetTop);
+        else window.scrollTo(0, wrap.offsetTop);
+      };
+
       // Pinned phase. Returns true when the scroll was consumed by the film.
       const advance = (delta: number) => {
-        const top = wrap.getBoundingClientRect().top;
+        const top = wrap.offsetTop - pageY();
         if (!locked) {
           // Engage the moment the section is about to cross the top edge
           const crossingDown = delta > 0 && top > 0 && top <= delta;
           const crossingUp = delta < 0 && top < 0 && top >= delta;
           if (!crossingDown && !crossingUp) return false;
           locked = true;
-          window.scrollTo(0, wrap.offsetTop);
+          pin();
         }
         target = Math.min(PIN_END, Math.max(LEAD, target + delta / SCROLL_PER_CLIP));
         kick();
@@ -169,12 +195,17 @@
           locked = false;
           return false;
         }
-        window.scrollTo(0, wrap.offsetTop);
+        pin();
         return true;
       };
 
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('wheel', (e) => { if (advance(e.deltaY)) e.preventDefault(); }, { passive: false });
+      window.__filmAdvance = advance;
+      // Without the smooth scroller (touch devices, reduced motion) handle the wheel here
+      window.addEventListener('wheel', (e) => {
+        if (window.__scroll) return;
+        if (advance(e.deltaY)) e.preventDefault();
+      }, { passive: false });
       window.addEventListener('touchstart', (e) => { lastY = e.touches[0].clientY; }, { passive: true });
       window.addEventListener(
         'touchmove',
