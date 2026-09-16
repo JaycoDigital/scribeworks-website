@@ -93,9 +93,9 @@
       video.play().catch(() => {});
     } else {
       // Share of the clip that plays while the section is still sliding into
-      // view (from 30% up the screen to the top). The rest scrubs while pinned.
+      // view (from 50% up the screen to the top). The rest scrubs while pinned.
       const LEAD = 0.25;
-      const APPROACH = 0.3;
+      const APPROACH = 0.5;
       const SCROLL_PER_CLIP = 2400; // px of wheel travel for the pinned part
 
       let target = 0; // where the scroll input says we should be (0–1)
