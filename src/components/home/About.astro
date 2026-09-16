@@ -14,17 +14,6 @@ const checks = [
     <div class="photos">
       <ImageSlot label="Finished room, windows in" tone="light" class="photo-a" />
       <ImageSlot label="Detail — sash or reveal" tone="light" class="photo-b" />
-      <div class="badge">
-        <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
-          <circle cx="24" cy="18" r="13" />
-          <circle cx="24" cy="18" r="8.5" />
-          <path d="M17 29l-4 16 11-6 11 6-4-16" />
-        </svg>
-        <div>
-          <div class="badge-num">14 yrs</div>
-          <div class="badge-txt">on the tools locally</div>
-        </div>
-      </div>
     </div>
 
     <div class="copy">
@@ -66,7 +55,7 @@ const checks = [
 
   .photos {
     position: relative;
-    padding-bottom: 56px;
+    padding-bottom: 40px;
     padding-right: clamp(0px, 6vw, 64px);
   }
 
@@ -79,41 +68,12 @@ const checks = [
   .photos :global(.photo-b) {
     position: absolute;
     right: 0;
-    bottom: 100px;
+    bottom: 0;
     width: 52%;
     aspect-ratio: 1 / 1;
     border: 8px solid var(--chalk);
   }
 
-  .badge {
-    position: absolute;
-    left: clamp(12px, 4%, 40px);
-    bottom: 0;
-    background: var(--sand);
-    padding: 22px 26px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .badge svg {
-    flex: none;
-  }
-
-  .badge-num {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 30px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-  }
-
-  .badge-txt {
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
 
   .copy {
     display: flex;
