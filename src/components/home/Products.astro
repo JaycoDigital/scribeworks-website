@@ -41,9 +41,9 @@ const products = [
 </section>
 
 <style>
+  /* White behind the cards, easing into Chalk so the next section joins seamlessly */
   .products {
-    background: var(--white);
-    border-bottom: 1px solid var(--line);
+    background: linear-gradient(to bottom, var(--white) 0%, var(--white) 72%, var(--chalk) 100%);
   }
 
   .inner {
