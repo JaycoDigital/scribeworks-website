@@ -19,3 +19,6 @@ pnpm-debug.log*
 
 # macOS
 .DS_Store
+
+# raw video masters (large; encoded versions live in public/media)
+media-src/
