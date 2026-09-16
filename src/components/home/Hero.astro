@@ -21,9 +21,6 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
     fetchpriority="high"
   />
   <div class="scrim"></div>
-  <div class="container rules" aria-hidden="true">
-    <div></div><div></div><div></div><div></div>
-  </div>
 
   <Header />
 
@@ -47,12 +44,6 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
         </ul>
         <div class="actions">
           <a href="#contact" class="btn btn--slate">Book a free survey<ArrowIcon /></a>
-          <a href="#film" class="play">
-            <span class="play-btn" aria-hidden="true">
-              <svg width="14" height="16" viewBox="0 0 14 16" fill="var(--ink)"><path d="M0 0l14 8-14 8z" /></svg>
-            </span>
-            <span>Watch a fit-out</span>
-          </a>
         </div>
       </div>
     </div>
@@ -96,21 +87,6 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
     }
   }
 
-  .rules {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    pointer-events: none;
-  }
-
-  .rules div {
-    border-right: 1px solid var(--chalk-14);
-  }
-
-  .rules div:first-child {
-    border-left: 1px solid var(--chalk-14);
-  }
 
   .body {
     position: relative;
@@ -132,8 +108,6 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
     gap: 26px;
     max-width: 700px;
     color: var(--chalk);
-    border-left: 2px solid var(--sand);
-    padding-left: clamp(20px, 3vw, 40px);
   }
 
   h1 {
@@ -181,34 +155,4 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
     margin-top: 12px;
   }
 
-  .play {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    color: var(--chalk);
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .play:hover {
-    color: var(--sand);
-  }
-
-  .play-btn {
-    width: 52px;
-    height: 52px;
-    background: var(--chalk);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-    transition: background var(--ease);
-  }
-
-  .play:hover .play-btn {
-    background: var(--sand);
-  }
 </style>
