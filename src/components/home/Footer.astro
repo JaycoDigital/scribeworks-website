@@ -1,56 +1,50 @@
 ---
 import { Image } from 'astro:assets';
 import logoLight from '../../assets/logo-light.png';
-import PhoneIcon from './PhoneIcon.astro';
+import ArrowIcon from './ArrowIcon.astro';
 
 const year = new Date().getFullYear();
+const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
+const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthing'];
 ---
 
 <footer class="footer">
   <div class="container inner">
-    <div class="cta" id="contact" data-reveal>
-      <div class="cta-title">Let's get your quote started</div>
-      <div class="cta-item">
-        <span class="cta-icon"><PhoneIcon size={20} stroke="var(--ink)" /></span>
-        <div>
-          <div class="cta-label">Phone</div>
-          <a href="tel:01243000000">01243 000 000</a>
-        </div>
-      </div>
-      <div class="cta-item">
-        <span class="cta-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M3 5h18v14H3z" /><path d="M3 6l9 7 9-7" /></svg>
-        </span>
-        <div>
-          <div class="cta-label">Email</div>
-          <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
-        </div>
+    <div class="top" id="contact" data-reveal-stagger>
+      <h2>Let's get your quote started</h2>
+      <div class="contact">
+        <a href="tel:01243000000" class="big">01243 000 000</a>
+        <a href="mailto:info@scribeworks.co.uk" class="big">info@scribeworks.co.uk</a>
+        <a href="tel:01243000000" class="btn btn--slate">Get a quote<ArrowIcon size={14} /></a>
       </div>
     </div>
 
-    <div class="cols" data-reveal-stagger>
-      <div class="brand">
-        <Image src={logoLight} alt="Scribeworks" height={42} densities={[1, 2]} />
-      </div>
-
+    <div class="links" data-reveal-stagger>
       <div class="col">
-        <h3 class="head">Products</h3>
-        <a href="#products">Windows</a>
-        <a href="#products">Doors</a>
-        <a href="#products">Cladding</a>
-        <a href="#products">Building works</a>
+        <h3>Products</h3>
+        <ul>{products.map((p) => <li><a href="#products">{p}</a></li>)}</ul>
       </div>
-
-
       <div class="col">
-        <h3 class="head">Areas covered</h3>
-        <span class="lines">Bognor Regis<br />Chichester<br />Littlehampton<br />Arundel &amp; Worthing</span>
+        <h3>Areas covered</h3>
+        <ul>{areas.map((a) => <li>{a}</li>)}</ul>
       </div>
+      <div class="col">
+        <h3>Accreditations</h3>
+        <ul>
+          <li>FENSA registered installer</li>
+          <li>Checkatrade approved</li>
+          <li>10-year workmanship guarantee</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mark" data-reveal>
+      <Image src={logoLight} alt="Scribeworks" widths={[800, 1350]} sizes="(max-width: 1280px) 100vw, 1184px" format="png" />
     </div>
 
     <div class="legal">
       <span>© {year} Scribeworks Ltd. All rights reserved.</span>
-      <span>FENSA registered installer</span>
+      <span>Bognor Regis, West Sussex</span>
     </div>
   </div>
 </footer>
@@ -59,60 +53,85 @@ const year = new Date().getFullYear();
   .footer {
     background: var(--ink-deep);
     color: rgba(250, 249, 246, 0.68);
-    position: relative;
     overflow: hidden;
   }
 
   .inner {
-    position: relative;
-    padding-top: clamp(56px, 7vw, 88px);
+    padding-top: clamp(64px, 8vw, 110px);
   }
 
-  .cols {
+  /* Quote call-out */
+  .top {
+    scroll-margin-top: 30vh;
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr;
-    gap: 40px;
-    margin-top: clamp(48px, 6vw, 72px);
-    padding-bottom: 48px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+    padding-bottom: clamp(48px, 6vw, 80px);
+    border-bottom: 1px solid var(--chalk-14);
   }
 
-  @media (max-width: 900px) {
-    .cols {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+  h2 {
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    color: var(--chalk);
+    max-width: 14ch;
+    text-wrap: pretty;
   }
 
-  .brand {
+  .contact {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .brand img {
-    height: 42px;
-    width: auto;
-    align-self: flex-start;
+  .big {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(20px, 2.2vw, 28px);
+    letter-spacing: -0.02em;
+    color: var(--chalk);
+    line-height: 1.2;
   }
 
-
-  .col {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    border-left: 1px solid var(--chalk-16);
-    padding-left: 26px;
+  .big:hover {
+    color: var(--sand);
   }
 
-  .head {
+  .contact .btn {
+    margin-top: 18px;
+  }
+
+  /* Link columns */
+  .links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    padding: clamp(40px, 5vw, 64px) 0;
+  }
+
+  h3 {
     font-size: 18px;
     line-height: 1.2;
     letter-spacing: -0.01em;
     color: var(--chalk);
-    margin-bottom: 4px;
+    margin-bottom: 18px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   .col a {
-    font-size: 15px;
     color: rgba(250, 249, 246, 0.78);
   }
 
@@ -120,66 +139,20 @@ const year = new Date().getFullYear();
     color: var(--chalk);
   }
 
-  .lines {
-    font-size: 15px;
-    line-height: 1.9;
+  /* Full-width wordmark */
+  .mark {
+    padding-top: clamp(16px, 2vw, 32px);
   }
 
-
-  .cta {
-    scroll-margin-top: 40vh;
-    background: rgba(250, 249, 246, 0.07);
-    border: 1px solid var(--chalk-14);
-    padding: 28px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 28px;
-    align-items: center;
-  }
-
-  .cta-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(20px, 2.2vw, 26px);
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    color: var(--chalk);
-  }
-
-  .cta-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .cta-icon {
-    width: 46px;
-    height: 46px;
-    background: var(--sand);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-  }
-
-  .cta-label {
-    font-size: 13px;
-    color: rgba(250, 249, 246, 0.7);
-  }
-
-  .cta-item a {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 17px;
-    color: var(--chalk);
-  }
-
-  .cta-item a:hover {
-    color: var(--sand);
+  .mark img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   .legal {
-    padding: 26px 0 40px;
+    padding: 26px 0 36px;
+    margin-top: clamp(32px, 4vw, 56px);
     border-top: 1px solid var(--chalk-14);
     display: flex;
     flex-wrap: wrap;
