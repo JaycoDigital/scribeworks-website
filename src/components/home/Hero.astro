@@ -2,9 +2,13 @@
 import { Image } from 'astro:assets';
 import Header from './Header.astro';
 import ArrowIcon from './ArrowIcon.astro';
+import Icon from './Icon.astro';
 import heroPhoto from '../../assets/hero-house.jpg';
 
-const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
+const points = [
+  { icon: 'guarantee', text: '10-year workmanship guarantee' },
+  { icon: 'certificate', text: 'FENSA registered installer' },
+] as const;
 ---
 
 <section class="hero">
@@ -33,11 +37,8 @@ const points = ['10-year workmanship guarantee', 'FENSA registered installer'];
           {
             points.map((p) => (
               <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sand)" stroke-width="2" stroke-linecap="square" aria-hidden="true">
-                  <rect x="2.5" y="2.5" width="19" height="19" />
-                  <path d="M6.5 12.5l3.5 3.5 7-7" />
-                </svg>
-                <span>{p}</span>
+                <Icon name={p.icon} size={26} stroke="var(--sand)" />
+                <span>{p.text}</span>
               </li>
             ))
           }
