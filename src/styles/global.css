@@ -192,8 +192,6 @@ video {
   gap: 18px;
   text-align: center;
   margin-bottom: 56px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--line);
 }
 
 .section-head h2 {
@@ -213,7 +211,6 @@ video {
 }
 
 .section-head--dark {
-  border-bottom-color: var(--sand-30);
   color: var(--chalk);
 }
 
