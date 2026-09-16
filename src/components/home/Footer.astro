@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import logoLight from '../../assets/logo-light.png';
 import ArrowIcon from './ArrowIcon.astro';
 
-const year = new Date().getFullYear();
 const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
 const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthing'];
 ---
@@ -42,10 +41,6 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
       <Image src={logoLight} alt="Scribeworks" widths={[800, 1350]} sizes="(max-width: 1280px) 100vw, 1184px" format="png" />
     </div>
 
-    <div class="legal">
-      <span>© {year} Scribeworks Ltd. All rights reserved.</span>
-      <span>Bognor Regis, West Sussex</span>
-    </div>
   </div>
 </footer>
 
@@ -139,9 +134,12 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
     color: var(--chalk);
   }
 
-  /* Full-width wordmark */
+  /* Full-width wordmark sitting on the page edge; the strapline below the
+     baseline is cropped so the letters meet the bottom */
   .mark {
-    padding-top: clamp(16px, 2vw, 32px);
+    margin-top: clamp(16px, 2vw, 32px);
+    aspect-ratio: 1350 / 306;
+    overflow: hidden;
   }
 
   .mark img {
@@ -150,14 +148,4 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
     display: block;
   }
 
-  .legal {
-    padding: 26px 0 36px;
-    margin-top: clamp(32px, 4vw, 56px);
-    border-top: 1px solid var(--chalk-14);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: space-between;
-    font-size: 13px;
-  }
 </style>
