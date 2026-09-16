@@ -31,18 +31,6 @@ const year = new Date().getFullYear();
     <div class="cols" data-reveal-stagger>
       <div class="brand">
         <Image src={logoLight} alt="Scribeworks" height={42} densities={[1, 2]} />
-        <p>Windows, doors, cladding and building works, fitted across West Sussex and Hampshire from our base in Bognor Regis.</p>
-        <div class="social">
-          <a href="#contact" aria-label="Facebook">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V5.5h-3c-2.5 0-4 1.6-4 4V12H7.5v3.5H10V23h3.5v-7.5H16l.5-3.5H13.5V9.8c0-.5.2-.8.5-.8z" /></svg>
-          </a>
-          <a href="#contact" aria-label="Instagram">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><rect x="3" y="3" width="18" height="18" /><circle cx="12" cy="12" r="4" /><circle cx="17" cy="7" r="0.9" fill="currentColor" /></svg>
-          </a>
-          <a href="#contact" aria-label="Google reviews">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z" /></svg>
-          </a>
-        </div>
       </div>
 
       <div class="col">
@@ -106,34 +94,6 @@ const year = new Date().getFullYear();
     align-self: flex-start;
   }
 
-  .brand p {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.7;
-    max-width: 32ch;
-  }
-
-  .social {
-    display: flex;
-    gap: 10px;
-  }
-
-  .social a {
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(250, 249, 246, 0.25);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--chalk);
-    transition: all var(--ease);
-  }
-
-  .social a:hover {
-    background: var(--slate);
-    border-color: var(--slate);
-    color: var(--white);
-  }
 
   .col {
     display: flex;
