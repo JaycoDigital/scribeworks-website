@@ -1,6 +1,13 @@
 ---
 import ImageSlot from './ImageSlot.astro';
 import ArrowIcon from './ArrowIcon.astro';
+
+const products = [
+  { title: 'Windows', body: 'uPVC, aluminium and timber. Casement, sash, tilt-and-turn or shaped heads to match the house.', photo: 'Window photo' },
+  { title: 'Doors', body: 'Front doors, French, bi-fold and sliding patio sets. Multipoint locking as standard.', photo: 'Door photo — front or bi-fold' },
+  { title: 'Cladding', body: 'Cedar, composite and fibre cement weatherboard on a drained, ventilated batten system.', photo: 'Cladding photo' },
+  { title: 'Building works', body: 'Extensions, garage conversions, knock-throughs and structural openings — drawings to decorating.', photo: 'Building works photo' },
+];
 ---
 
 <section id="products" class="products">
@@ -11,59 +18,19 @@ import ArrowIcon from './ArrowIcon.astro';
     </div>
 
     <div class="grid">
-      <a href="#products" class="card">
-        <span class="icon">
-          <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
-            <rect x="6" y="5" width="36" height="34" /><path d="M24 5v34" /><path d="M6 22h36" /><path d="M6 39v4" /><path d="M42 39v4" /><path d="M4 43h40" />
-          </svg>
-        </span>
-        <div class="text">
-          <h3>Windows</h3>
-          <p>uPVC, aluminium and timber. Casement, sash, tilt-and-turn or shaped heads to match the house.</p>
-          <span class="more eyebrow">View range<ArrowIcon size={13} /></span>
-        </div>
-      </a>
-
-      <a href="#products" class="card card--photo">
-        <ImageSlot label="Door photo — front or bi-fold" class="photo" />
-        <div class="photo-scrim"></div>
-        <span class="icon icon--chalk">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
-            <path d="M11 4h26v40H11z" /><path d="M17.5 11h13v10h-13z" /><path d="M17.5 25h13v12h-13z" /><path d="M18 22.4h3" />
-          </svg>
-        </span>
-        <div class="text text--over">
-          <h3>Doors</h3>
-          <p>Front doors, French, bi-fold and sliding patio sets. Multipoint locking as standard.</p>
-          <span class="more eyebrow">View range<ArrowIcon size={13} /></span>
-        </div>
-      </a>
-
-      <a href="#products" class="card">
-        <span class="icon">
-          <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
-            <path d="M5 10h38" /><path d="M5 10v6h38v-6" /><path d="M5 16v6h38v-6" /><path d="M5 22v6h38v-6" /><path d="M5 28v6h38v-6" /><path d="M5 34v6h38v-6" /><path d="M16 10v6" /><path d="M30 16v6" /><path d="M21 22v6" />
-          </svg>
-        </span>
-        <div class="text">
-          <h3>Cladding</h3>
-          <p>Cedar, composite and fibre cement weatherboard on a drained, ventilated batten system.</p>
-          <span class="more eyebrow">View range<ArrowIcon size={13} /></span>
-        </div>
-      </a>
-
-      <a href="#products" class="card">
-        <span class="icon">
-          <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
-            <path d="M4 43h40" /><path d="M8 43V19L24 6l16 13v24" /><path d="M8 19h32" /><path d="M19 43V29h10v14" /><path d="M12 23h7v7h-7z" /><path d="M29 23h7v7h-7z" />
-          </svg>
-        </span>
-        <div class="text">
-          <h3>Building works</h3>
-          <p>Extensions, garage conversions, knock-throughs and structural openings — drawings to decorating.</p>
-          <span class="more eyebrow">View range<ArrowIcon size={13} /></span>
-        </div>
-      </a>
+      {
+        products.map((p) => (
+          <a href="#products" class="card">
+            <ImageSlot label={p.photo} class="photo" />
+            <div class="photo-scrim" />
+            <div class="text">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+              <span class="more eyebrow">View range<ArrowIcon size={13} /></span>
+            </div>
+          </a>
+        ))
+      }
     </div>
 
     <div class="strip">
@@ -86,91 +53,36 @@ import ArrowIcon from './ArrowIcon.astro';
     padding-block: var(--section-pad);
   }
 
+  /* Two-up grid of large cards; stacks to one column on phones */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    gap: 24px;
   }
 
   .card {
-    background: var(--chalk);
-    border: 1px solid var(--line);
-    padding: 34px 30px;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 30px;
-    color: var(--ink);
-    transition: all var(--ease);
-  }
-
-  .card:hover {
-    background: var(--sand-tint);
-    border-color: var(--slate-light);
-    color: var(--ink);
-  }
-
-  .icon {
-    width: 64px;
-    height: 64px;
-    background: var(--sand);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-  }
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  h3 {
-    font-size: 24px;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-  }
-
-  .text p {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--muted);
-  }
-
-  .more {
-    border-top: 1px solid var(--line);
-    margin-top: 12px;
-    padding-top: 18px;
-    color: var(--slate);
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-  }
-
-  /* Photo card (Doors) */
-  .card--photo {
     position: relative;
-    padding: 0;
+    min-height: clamp(400px, 36vw, 480px);
     background: var(--ink);
     overflow: hidden;
     display: block;
     color: var(--white);
-    border: 0;
   }
 
-  .card--photo:hover {
-    background: var(--ink);
+  .card:hover {
     color: var(--white);
   }
 
-  .card--photo :global(.photo) {
+  .card :global(.photo) {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+    transition: transform 600ms ease-out;
+  }
+
+  .card:hover :global(.photo) {
+    transform: scale(1.03);
   }
 
   .photo-scrim {
@@ -180,37 +92,41 @@ import ArrowIcon from './ArrowIcon.astro';
     background: linear-gradient(to top, rgba(29, 29, 29, 0.94) 0%, rgba(29, 29, 29, 0.6) 42%, rgba(29, 29, 29, 0.1) 74%, rgba(29, 29, 29, 0.1) 100%);
   }
 
-  .icon--chalk {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    width: 60px;
-    height: 60px;
-    background: var(--chalk);
-  }
-
-  .text--over {
+  .text {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 30px;
+    padding: clamp(28px, 3.2vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     pointer-events: none;
   }
 
-  .text--over h3 {
+  h3 {
+    font-size: clamp(24px, 2.3vw, 30px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
     color: var(--white);
   }
 
-  .text--over p {
+  .text p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.86);
-    line-height: 1.6;
+    max-width: 44ch;
   }
 
-  .text--over .more {
-    border-top-color: rgba(250, 249, 246, 0.3);
+  .more {
+    border-top: 1px solid rgba(250, 249, 246, 0.3);
     margin-top: 10px;
+    padding-top: 18px;
     color: var(--sand);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
   }
 
   .strip {
