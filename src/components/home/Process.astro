@@ -134,10 +134,13 @@ const steps = [
     padding-left: clamp(20px, 3vw, 44px);
   }
 
+  /* Arched top, like a window head */
   .photos :global(.wide) {
     grid-column: 1 / -1;
     width: 100%;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 1 / 1;
+    border-radius: 50% 50% 0 0 / 38% 38% 0 0;
+    overflow: hidden;
   }
 
   .photos :global(.small) {
