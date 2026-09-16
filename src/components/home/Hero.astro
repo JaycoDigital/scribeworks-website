@@ -46,14 +46,14 @@ const points = [
         <div class="actions">
           <a href="#contact" class="btn btn--slate">Book a free survey<ArrowIcon /></a>
         </div>
-        <a href="#faq" class="rating" aria-label="Rated 4.8 out of 5 from Google reviews">
+        <div class="rating" role="img" aria-label="Rated 4.8 out of 5 from 260+ Google reviews">
           <span class="rating-num">4.8</span>
           <span class="rating-stars" style="--fill: 96%" aria-hidden="true">
             <span class="rating-stars-bg">★★★★★</span>
             <span class="rating-stars-fg">★★★★★</span>
           </span>
           <span class="rating-txt">from 260+ Google reviews</span>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -96,19 +96,9 @@ const points = [
     gap: 12px;
     align-self: flex-start;
     margin-top: 4px;
-    padding: 10px 16px 10px 14px;
-    background: rgba(29, 29, 29, 0.55);
-    border: 1px solid var(--chalk-16);
     color: var(--chalk);
     font-size: 14px;
     line-height: 1;
-    backdrop-filter: blur(4px);
-    transition: border-color var(--ease);
-  }
-
-  .rating:hover {
-    color: var(--chalk);
-    border-color: var(--sand);
   }
 
   .rating-num {
