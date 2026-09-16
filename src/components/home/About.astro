@@ -57,7 +57,7 @@ const checks = [
   }
 
   .grid {
-    padding-block: var(--section-pad);
+    padding-block: var(--section-pad) clamp(24px, 3vw, 40px);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: clamp(36px, 5vw, 72px);
