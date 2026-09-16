@@ -8,6 +8,26 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container inner">
+    <div class="cta" id="contact" data-reveal>
+      <div class="cta-title">Let's get your quote started</div>
+      <div class="cta-item">
+        <span class="cta-icon"><PhoneIcon size={20} stroke="var(--ink)" /></span>
+        <div>
+          <div class="cta-label">Phone</div>
+          <a href="tel:01243000000">01243 000 000</a>
+        </div>
+      </div>
+      <div class="cta-item">
+        <span class="cta-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M3 5h18v14H3z" /><path d="M3 6l9 7 9-7" /></svg>
+        </span>
+        <div>
+          <div class="cta-label">Email</div>
+          <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
+        </div>
+      </div>
+    </div>
+
     <div class="cols" data-reveal-stagger>
       <div class="brand">
         <Image src={logoLight} alt="Scribeworks" height={42} densities={[1, 2]} />
@@ -34,44 +54,20 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="col">
-        <h3 class="head">Company</h3>
-        <a href="#about">About us</a>
-        <a href="#process">How it works</a>
-        <a href="#faq">FAQs</a>
+        <h3 class="head">Opening hours</h3>
+        <span class="lines">Monday to Friday<br />7.30am to 5pm</span>
+        <a href="tel:01243000000" class="phone">01243 000 000</a>
       </div>
 
       <div class="col">
         <h3 class="head">Areas covered</h3>
-        <span class="areas">Bognor Regis<br />Chichester<br />Littlehampton<br />Arundel &amp; Worthing</span>
-      </div>
-    </div>
-
-    <div class="cta" id="contact" data-reveal>
-      <div class="cta-title">Let's get your quote started</div>
-      <div class="cta-item">
-        <span class="cta-icon"><PhoneIcon size={20} stroke="var(--ink)" /></span>
-        <div>
-          <div class="cta-label">Phone</div>
-          <a href="tel:01243000000">01243 000 000</a>
-        </div>
-      </div>
-      <div class="cta-item">
-        <span class="cta-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M3 5h18v14H3z" /><path d="M3 6l9 7 9-7" /></svg>
-        </span>
-        <div>
-          <div class="cta-label">Email</div>
-          <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
-        </div>
+        <span class="lines">Bognor Regis<br />Chichester<br />Littlehampton<br />Arundel &amp; Worthing</span>
       </div>
     </div>
 
     <div class="legal">
-      <span>© {year} Scribeworks Ltd. FENSA registered. Company no. 00000000.</span>
-      <span class="legal-links">
-        <a href="#contact">Privacy</a>
-        <a href="#contact">Terms</a>
-      </span>
+      <span>© {year} Scribeworks Ltd. All rights reserved.</span>
+      <span>FENSA registered installer</span>
     </div>
   </div>
 </footer>
@@ -91,9 +87,16 @@ const year = new Date().getFullYear();
 
   .cols {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
     gap: 40px;
+    margin-top: clamp(48px, 6vw, 72px);
     padding-bottom: 48px;
+  }
+
+  @media (max-width: 900px) {
+    .cols {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
   }
 
   .brand {
@@ -162,9 +165,20 @@ const year = new Date().getFullYear();
     color: var(--chalk);
   }
 
-  .areas {
+  .lines {
     font-size: 15px;
     line-height: 1.9;
+  }
+
+  .phone {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--chalk) !important;
+  }
+
+  .phone:hover {
+    color: var(--sand) !important;
   }
 
   .cta {
@@ -221,25 +235,11 @@ const year = new Date().getFullYear();
 
   .legal {
     padding: 26px 0 40px;
-    margin-top: 26px;
     border-top: 1px solid var(--chalk-14);
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     justify-content: space-between;
     font-size: 13px;
-  }
-
-  .legal-links {
-    display: flex;
-    gap: 22px;
-  }
-
-  .legal a {
-    color: rgba(250, 249, 246, 0.68);
-  }
-
-  .legal a:hover {
-    color: var(--chalk);
   }
 </style>
