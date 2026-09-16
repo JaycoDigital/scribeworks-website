@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import ImageSlot from './ImageSlot.astro';
 import ArrowIcon from './ArrowIcon.astro';
+import install from '../../assets/process-install.jpg';
 
 const steps = [
   { n: '01', title: 'Free Survey', body: 'We visit your home to take measurements, check the space and talk you through the best options for your property.' },
@@ -32,7 +34,7 @@ const steps = [
       </div>
     </div>
     <div class="photos">
-      <ImageSlot label="Wide shot, finished install" tone="light" class="wide" />
+      <Image src={install} alt="Scribeworks fitter securing a new window with a drill" class="wide" widths={[600, 900, 1300]} sizes="(max-width: 760px) 100vw, 620px" format="webp" quality={80} />
       <ImageSlot label="Survey / measuring up" tone="light" class="small" />
       <ImageSlot label="Fitting in progress" tone="light" class="small" />
     </div>
@@ -138,7 +140,10 @@ const steps = [
   .photos :global(.wide) {
     grid-column: 1 / -1;
     width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: 55% 50%;
     border-radius: 50% 50% 0 0 / 50% 50% 0 0;
     overflow: hidden;
   }
