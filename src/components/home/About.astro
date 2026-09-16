@@ -1,11 +1,12 @@
 ---
 import ImageSlot from './ImageSlot.astro';
 import ArrowIcon from './ArrowIcon.astro';
+import Icon from './Icon.astro';
 
 const checks = [
-  'Free survey and a written fixed price in three working days',
-  'Building regs, FENSA certification and waste removal handled',
-  "Timber, aluminium or uPVC — we'll say what suits the house",
+  'Free survey and a written fixed price within three working days',
+  'FENSA certification, building regulations and waste removal all taken care of',
+  'Timber, aluminium or uPVC, with honest advice on what suits your property',
 ];
 ---
 
@@ -23,9 +24,7 @@ const checks = [
         {
           checks.map((c) => (
             <li>
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--sand-deep)" stroke-width="2" stroke-linecap="square" aria-hidden="true">
-                <path d="M4 12.5l5 5L20 6.5" />
-              </svg>
+              <Icon name="check" size={22} stroke="var(--sand-deep)" />
               <span>{c}</span>
             </li>
           ))
@@ -120,7 +119,7 @@ const checks = [
 
   .checks svg {
     flex: none;
-    margin-top: 3px;
+    margin-top: 2px;
   }
 
   .cta {
