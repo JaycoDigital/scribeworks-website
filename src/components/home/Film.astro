@@ -8,7 +8,7 @@
 
 <section id="film" class="film">
   <div class="frame">
-    <video src="/media/fit-out.mp4" muted playsinline preload="auto" loop aria-label="Time-lapse of a Scribeworks window fit-out"></video>
+    <video src="/media/fit-out-scrub.mp4" muted playsinline preload="auto" loop aria-label="Time-lapse of a Scribeworks window fit-out"></video>
     <div class="track" aria-hidden="true"><div class="bar"></div></div>
   </div>
 </section>
@@ -70,17 +70,41 @@
       // Just let it play; no scroll hijacking
       video.play().catch(() => {});
     } else {
-      let p = 0;
+      let target = 0; // where the scroll input says we should be (0–1)
+      let shown = 0; // where the video actually is; eased toward target each frame
       let locked = false;
       let lastY: number | null = null;
+      let raf = 0;
+      let seeking = false;
 
-      const apply = () => {
+      const setFrame = (p: number) => {
         bar.style.height = `${p * 100}%`;
-        if (video.duration && isFinite(video.duration)) {
-          const t = p * video.duration;
-          if (Math.abs(video.currentTime - t) > 0.02) video.currentTime = t;
+        if (!video.duration || !isFinite(video.duration)) return;
+        // Don't queue another seek until the last one lands
+        if (seeking) return;
+        const t = p * video.duration;
+        if (Math.abs(video.currentTime - t) > 0.01) {
+          seeking = true;
+          video.currentTime = t;
         }
       };
+      video.addEventListener('seeked', () => { seeking = false; });
+
+      // Ease the displayed position toward the target so bursts of wheel
+      // events become one continuous movement
+      const tick = () => {
+        const diff = target - shown;
+        if (Math.abs(diff) < 0.0005) {
+          shown = target;
+          setFrame(shown);
+          raf = 0;
+          return;
+        }
+        shown += diff * 0.14;
+        setFrame(shown);
+        raf = requestAnimationFrame(tick);
+      };
+      const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
 
       // Returns true when the scroll was consumed by the film
       const advance = (delta: number) => {
@@ -90,16 +114,17 @@
           locked = false;
           return false;
         }
-        if ((delta > 0 && p >= 1) || (delta < 0 && p <= 0)) {
+        if ((delta > 0 && target >= 1) || (delta < 0 && target <= 0)) {
           locked = false;
           return false;
         }
         if (!locked) {
           locked = true;
-          p = delta > 0 ? 0 : 1;
+          target = shown = delta > 0 ? 0 : 1;
         }
-        p = Math.min(1, Math.max(0, p + delta / 1600));
-        apply();
+        // ~2400px of scroll for the whole clip
+        target = Math.min(1, Math.max(0, target + delta / 2400));
+        kick();
         window.scrollTo(0, wrap.offsetTop);
         return true;
       };
@@ -117,14 +142,14 @@
         { passive: false },
       );
       window.addEventListener('keydown', (e) => {
-        const map: Record<string, number> = { ArrowDown: 120, PageDown: 400, ArrowUp: -120, PageUp: -400 };
+        const map: Record<string, number> = { ArrowDown: 160, PageDown: 600, ArrowUp: -160, PageUp: -600 };
         if (map[e.key] && advance(map[e.key])) e.preventDefault();
       });
 
       video.pause();
       video.removeAttribute('loop');
-      video.addEventListener('loadedmetadata', apply);
-      apply();
+      video.addEventListener('loadedmetadata', () => setFrame(shown));
+      setFrame(shown);
     }
   }
 </script>
