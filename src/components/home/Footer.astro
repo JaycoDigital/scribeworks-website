@@ -102,9 +102,15 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
   /* Link columns */
   .links {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     padding: clamp(40px, 5vw, 64px) 0;
+  }
+
+  @media (max-width: 760px) {
+    .links {
+      grid-template-columns: 1fr;
+    }
   }
 
   h3 {
