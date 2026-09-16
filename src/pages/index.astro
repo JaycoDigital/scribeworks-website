@@ -13,8 +13,54 @@ import logoDark from '../assets/logo-dark.png';
     <p class="contact">
       <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
     </p>
+
+    <form class="gate" id="gate" autocomplete="off" novalidate>
+      <label class="gate-label" for="gate-pass">Preview access</label>
+      <div class="gate-row">
+        <input id="gate-pass" name="password" type="password" placeholder="Password" required autocomplete="current-password" />
+        <button type="submit" class="btn btn--graphite btn--sm" aria-label="Enter">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3 8h9" /><path d="M8 3.5L12.5 8 8 12.5" /></svg>
+        </button>
+      </div>
+      <p class="gate-msg" role="status" aria-live="polite"></p>
+    </form>
   </main>
 </BaseLayout>
+
+<script>
+  // Preview gate for the unfinished site. Client-side only: it keeps casual
+  // visitors and crawlers off /home but is not real security.
+  const HASH = '4818bcac2aa71683f578db3f81f433743f73a970fe77e845835d8d68da3e5eb0';
+  const KEY = 'sw-preview';
+
+  const sha256 = async (text: string) => {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  };
+
+  const form = document.querySelector<HTMLFormElement>('#gate');
+  const input = form?.querySelector<HTMLInputElement>('input');
+  const msg = form?.querySelector<HTMLElement>('.gate-msg');
+
+  if (form && input && msg) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const ok = (await sha256(input.value.trim())) === HASH;
+      if (ok) {
+        try { localStorage.setItem(KEY, HASH); } catch {}
+        window.location.href = '/home';
+      } else {
+        form.classList.add('is-wrong');
+        msg.textContent = 'That password is not right.';
+        input.select();
+      }
+    });
+    input.addEventListener('input', () => {
+      form.classList.remove('is-wrong');
+      msg.textContent = '';
+    });
+  }
+</script>
 
 <style>
   main {
@@ -50,6 +96,65 @@ import logoDark from '../assets/logo-dark.png';
     margin: 0;
   }
 
+  .gate {
+    margin-top: calc(var(--space) * 6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: min(100%, 320px);
+  }
+
+  .gate-label {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .gate-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .gate input {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-body);
+    font-size: 16px;
+    padding: 0 14px;
+    height: 44px;
+    border: 1.5px solid var(--line);
+    border-right: 0;
+    border-radius: 0;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color var(--ease);
+  }
+
+  .gate input:focus {
+    border-color: var(--slate);
+  }
+
+  .gate .btn {
+    height: 44px;
+    padding: 0 16px;
+  }
+
+  .gate-msg {
+    margin: 0;
+    min-height: 1.4em;
+    font-size: 13px;
+    color: #b4463c;
+  }
+
+  .gate.is-wrong input {
+    border-color: #b4463c;
+  }
+
   /* Soft staggered entrance */
   @keyframes rise {
     from {
@@ -77,6 +182,10 @@ import logoDark from '../assets/logo-dark.png';
 
   .contact {
     --delay: 700ms;
+  }
+
+  .gate {
+    --delay: 900ms;
   }
 
   @media (prefers-reduced-motion: reduce) {

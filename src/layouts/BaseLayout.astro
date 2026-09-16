@@ -23,6 +23,7 @@ const { title = 'Scribeworks', description = '' } = Astro.props;
     {description && <meta name="description" content={description} />}
     <title>{title}</title>
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -14,6 +14,14 @@ import Footer from '../components/home/Footer.astro';
   title="Scribeworks | Windows, Doors, Cladding & Building Works"
   description="Free survey, a fixed price in writing and a crew that clears up. Windows, doors, cladding and full building works across the south coast."
 >
+  <script is:inline slot="head">
+    // Preview gate: only reachable after entering the password on the landing page
+    try {
+      if (localStorage.getItem('sw-preview') !== '4818bcac2aa71683f578db3f81f433743f73a970fe77e845835d8d68da3e5eb0') location.replace('/');
+    } catch (e) {
+      location.replace('/');
+    }
+  </script>
   <Hero />
   <About />
   <Film />

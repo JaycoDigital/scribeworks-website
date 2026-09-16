@@ -1,0 +1,3 @@
+# Site is in preview; keep the unfinished pages out of search results
+User-agent: *
+Disallow: /home
