@@ -170,16 +170,11 @@
         kick();
       };
 
-      // Where the page is heading (the smooth scroller's target if present)
-      const pageY = () => window.__scroll?.target ?? window.scrollY;
-      const pin = () => {
-        if (window.__scroll) window.__scroll.pinTo(wrap.offsetTop);
-        else window.scrollTo(0, wrap.offsetTop);
-      };
+      const pin = () => window.scrollTo(0, wrap.offsetTop);
 
       // Pinned phase. Returns true when the scroll was consumed by the film.
       const advance = (delta: number) => {
-        const top = wrap.offsetTop - pageY();
+        const top = wrap.offsetTop - window.scrollY;
         if (!locked) {
           // Engage the moment the section is about to cross the top edge
           const crossingDown = delta > 0 && top > 0 && top <= delta;
@@ -200,12 +195,7 @@
       };
 
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.__filmAdvance = advance;
-      // Without the smooth scroller (touch devices, reduced motion) handle the wheel here
-      window.addEventListener('wheel', (e) => {
-        if (window.__scroll) return;
-        if (advance(e.deltaY)) e.preventDefault();
-      }, { passive: false });
+      window.addEventListener('wheel', (e) => { if (advance(e.deltaY)) e.preventDefault(); }, { passive: false });
       window.addEventListener('touchstart', (e) => { lastY = e.touches[0].clientY; }, { passive: true });
       window.addEventListener(
         'touchmove',
