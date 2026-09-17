@@ -120,24 +120,33 @@
         return 1;
       };
 
+      // Where we are relative to the section: approaching it, pinned on it,
+      // or past it. Decided from real scroll position, not wheel deltas, so a
+      // fast flick can't skip the lock.
+      type Phase = 'above' | 'pinned' | 'below';
+      let phase: Phase = 'above';
       let target = 0; // where the scroll input says we should be (0–1)
       let shown = 0; // where the video actually is; eased toward target each frame
-      let locked = false;
       let lastY: number | null = null;
       let raf = 0;
       let seeking = false;
 
+      const FRAME = 1 / 48; // half a frame at 24fps; smaller moves aren't worth a seek
       const setFrame = (p: number) => {
         bar.style.height = `${p * 100}%`;
         if (!video.duration || !isFinite(video.duration)) return;
         if (seeking) return; // one seek in flight at a time
         const t = timeAt(p) * video.duration;
-        if (Math.abs(video.currentTime - t) > 0.01) {
+        if (Math.abs(video.currentTime - t) > FRAME) {
           seeking = true;
           video.currentTime = t;
         }
       };
-      video.addEventListener('seeked', () => { seeking = false; });
+      video.addEventListener('seeked', () => {
+        seeking = false;
+        // Catch up if the target moved while we were seeking
+        if (Math.abs(shown - target) > 0.0005) kick();
+      });
 
       // Ease the displayed position toward the target so bursts of wheel
       // events become one continuous movement
@@ -155,42 +164,72 @@
       };
       const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
 
-      // Unpinned phases: while the page scrolls normally, map the section's
-      // position on screen to the first LEAD (coming in) or last TAIL (going
-      // out) of the clip
+      // Snap, never glide: the page uses scroll-behavior: smooth for anchors,
+      // so switch it off for the duration of the jump
+      const html = document.documentElement;
+      const pin = () => {
+        const prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, wrap.offsetTop);
+        html.style.scrollBehavior = prev;
+      };
+
       const onScroll = () => {
-        if (locked) return;
         const top = wrap.getBoundingClientRect().top;
+
+        if (phase === 'pinned') {
+          // Hold position against momentum or anything else that moved the page
+          if (Math.abs(top) > 0.5) pin();
+          return;
+        }
+
         const zone = window.innerHeight * APPROACH;
-        if (top < 0) {
-          target = PIN_END + Math.min(1, -top / zone) * TAIL;
+        const height = wrap.offsetHeight;
+        if (phase === 'above') {
+          if (top <= -height) {
+            // Jumped clean past it (scroll restore, anchor link): skip the lock
+            phase = 'below';
+            target = 1;
+          } else if (top <= 0) {
+            // Crossed the top edge on the way down: lock on
+            phase = 'pinned';
+            target = Math.max(target, LEAD);
+            pin();
+          } else {
+            target = Math.min(1, Math.max(0, (zone - top) / zone)) * LEAD;
+          }
         } else {
-          target = Math.min(1, Math.max(0, (zone - top) / zone)) * LEAD;
+          // below
+          if (top >= window.innerHeight) {
+            // Jumped clean back above it: skip the lock
+            phase = 'above';
+            target = 0;
+          } else if (top >= 0) {
+            // Came back up to the top edge: lock on and scrub backwards
+            phase = 'pinned';
+            target = Math.min(target, PIN_END);
+            pin();
+          } else {
+            target = PIN_END + Math.min(1, -top / zone) * TAIL;
+          }
         }
         kick();
       };
 
-      const pin = () => window.scrollTo(0, wrap.offsetTop);
-
-      // Pinned phase. Returns true when the scroll was consumed by the film.
+      // While pinned, wheel/touch/keys scrub the clip instead of scrolling.
+      // Returns true when the input was consumed.
       const advance = (delta: number) => {
-        const top = wrap.offsetTop - window.scrollY;
-        if (!locked) {
-          // Engage the moment the section is about to cross the top edge
-          const crossingDown = delta > 0 && top > 0 && top <= delta;
-          const crossingUp = delta < 0 && top < 0 && top >= delta;
-          if (!crossingDown && !crossingUp) return false;
-          locked = true;
-          pin();
-        }
+        if (phase !== 'pinned') return false;
         target = Math.min(PIN_END, Math.max(LEAD, target + delta / SCROLL_PER_CLIP));
         kick();
-        // Release at either end so the page carries on
-        if ((delta > 0 && target >= PIN_END) || (delta < 0 && target <= LEAD)) {
-          locked = false;
+        if (delta > 0 && target >= PIN_END) {
+          phase = 'below';
+          return false; // let this scroll through so the page carries on
+        }
+        if (delta < 0 && target <= LEAD) {
+          phase = 'above';
           return false;
         }
-        pin();
         return true;
       };
 
@@ -211,6 +250,12 @@
         const map: Record<string, number> = { ArrowDown: 160, PageDown: 600, ArrowUp: -160, PageUp: -600 };
         if (map[e.key] && advance(map[e.key])) e.preventDefault();
       });
+
+      // Work out the starting phase (page may load scrolled)
+      if (wrap.getBoundingClientRect().top < 0) {
+        phase = 'below';
+        target = shown = 1;
+      }
 
       video.pause();
       video.removeAttribute('loop');
