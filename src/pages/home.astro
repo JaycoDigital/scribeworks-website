@@ -39,6 +39,16 @@ import Footer from '../components/home/Footer.astro';
 </style>
 
 <script>
+  // PREVIEW: links and buttons are inert until their destinations exist.
+  // Remove this block to re-enable them.
+  document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) => {
+    a.setAttribute('aria-disabled', 'true');
+    a.style.cursor = 'default';
+    a.addEventListener('click', (e) => e.preventDefault());
+  });
+</script>
+
+<script>
   // Fade-up entrances: [data-reveal] on single elements, [data-reveal-stagger]
   // on a parent to reveal its children one after another.
   const STEP = 90;
