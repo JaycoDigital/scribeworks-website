@@ -14,7 +14,10 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
 <section id="film" class="film" data-frames={FRAMES}>
   <div class="sticky">
     <canvas class="screen" aria-label="Time-lapse of a Scribeworks window fit-out, drawn as you scroll" role="img"></canvas>
-    <img class="poster" src={POSTER} data-fallback={FALLBACK} alt="Finished house from the fit-out time-lapse" decoding="async" />
+    <picture class="poster-wrap">
+      <source media="(max-width: 760px)" srcset={POSTER.replace('/lg/', '/sm/')} />
+      <img class="poster" src={POSTER} data-fallback={FALLBACK} alt="Finished house from the fit-out time-lapse" decoding="async" />
+    </picture>
     <div class="track" aria-hidden="true"><div class="bar"></div></div>
   </div>
 </section>
@@ -46,6 +49,7 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
   }
 
   .screen,
+  .poster-wrap,
   .poster {
     position: absolute;
     inset: 0;
@@ -59,7 +63,7 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
   }
 
   /* Poster shows until the canvas has drawn its first frame */
-  .film.is-ready .poster {
+  .film.is-ready .poster-wrap {
     display: none;
   }
 
@@ -264,7 +268,11 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
   } else if (section) {
     // Reduced motion or no canvas: show the finished house
     const poster = section.querySelector<HTMLImageElement>('.poster');
-    if (poster?.dataset.fallback) poster.src = poster.dataset.fallback;
+    const source = section.querySelector<HTMLSourceElement>('.poster-wrap source');
+    if (poster?.dataset.fallback) {
+      if (source) source.srcset = poster.dataset.fallback.replace('/lg/', '/sm/');
+      poster.src = poster.dataset.fallback;
+    }
     section.classList.add('is-fallback');
   }
 </script>
