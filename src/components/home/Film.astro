@@ -25,12 +25,15 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
 <style>
   /* Section height sets the scrub distance: 100vh of sticky frame plus the
      travel while it stays pinned */
+  /* Light backgrounds throughout: on iOS the frame can be briefly shorter than
+     the viewport while Safari's toolbars animate, and whatever shows in that
+     gap is what Safari tints its bars with */
   .film {
     --travel: 200vh;
     position: relative;
     height: calc(100vh + var(--travel));
-    height: calc(100svh + var(--travel));
-    background: var(--ink-deep);
+    height: calc(100lvh + var(--travel));
+    background: var(--chalk);
   }
 
   @media (max-width: 760px) {
@@ -43,9 +46,9 @@ const FALLBACK = '/media/frames/lg/216.webp'; // finished house, for reduced mot
     position: sticky;
     top: 0;
     height: 100vh;
-    height: 100svh;
+    height: 100lvh; /* fills the screen even with Safari's toolbars collapsed */
     overflow: hidden;
-    background: var(--ink-deep);
+    background: var(--chalk);
   }
 
   .screen,
