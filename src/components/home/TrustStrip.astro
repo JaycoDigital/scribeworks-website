@@ -25,7 +25,7 @@ const logos = [
 const track = Array.from({ length: 2 }, () => logos).flat();
 ---
 
-<div class="trust" aria-label="Accreditations and partners" data-reveal style="--reveal-delay: 500ms">
+<div class="trust" aria-label="Accreditations and partners">
   <div class="track">
     {
       [0, 1].map((copy) => (
@@ -47,6 +47,15 @@ const track = Array.from({ length: 2 }, () => logos).flat();
     z-index: 20;
     border-top: 1px solid var(--chalk-16);
     overflow: hidden;
+    /* Fades in on page load, after the hero copy */
+    opacity: 0;
+    animation: strip-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 600ms forwards;
+  }
+
+  @keyframes strip-in {
+    to {
+      opacity: 1;
+    }
   }
 
   .track {
@@ -89,6 +98,11 @@ const track = Array.from({ length: 2 }, () => logos).flat();
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .trust {
+      opacity: 1;
+      animation: none;
+    }
+
     .track {
       animation: none;
     }
