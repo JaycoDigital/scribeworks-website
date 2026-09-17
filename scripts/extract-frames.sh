@@ -1,22 +1,19 @@
 #!/usr/bin/env sh
 # Extract the fit-out clip as WebP frame sequences for the scroll-driven
 # canvas (src/components/home/Film.astro). Two sizes: large for desktop,
-# small for phones. The clip's last third is a still frame, so we take the
-# first 6.5s at 24fps and append the final frame. ffmpeg writes PNG, Pillow
-# converts to WebP (this ffmpeg build has no libwebp).
+# small for phones. Every frame of the clip at 24fps, so motion is continuous
+# right to the end. ffmpeg writes PNG, Pillow converts to WebP (this ffmpeg
+# build has no libwebp).
 set -e
 cd "$(dirname "$0")/.."
 SRC=media-src/fit-out-master.mp4
 TMP=$(mktemp -d)
-ffmpeg -v error -y -i "$SRC" -t 6.5 "$TMP/%03d.png"
-last=$(ls "$TMP" | sort | tail -1 | sed 's/\.png//')
-next=$(printf '%03d' $((10#$last + 1)))
-ffmpeg -v error -y -sseof -0.05 -i "$SRC" -frames:v 1 "$TMP/$next.png"
+ffmpeg -v error -y -i "$SRC" "$TMP/%03d.png"
 python3 - "$TMP" <<'PY'
 import sys, os, glob
 from PIL import Image
 tmp = sys.argv[1]
-sets = {'lg': (1920, 76), 'sm': (960, 74)}
+sets = {'lg': (1600, 72), 'sm': (900, 70)}
 for name, (w, q) in sets.items():
     out = f'public/media/frames/{name}'
     os.makedirs(out, exist_ok=True)
