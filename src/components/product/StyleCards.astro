@@ -41,12 +41,7 @@ const { heading, intro, styles } = Astro.props;
         styles.map((s, i) => (
           <li class:list={['card', { 'is-flipped': i % 2 === 1 }]} data-reveal>
             <div class="text">
-              {s.logo && (
-                <p class="pill">
-                  <span class="pill-label">Supplied by</span>
-                  <Image src={s.logo} alt={s.brand} class="logo" widths={[160, 320]} sizes="96px" />
-                </p>
-              )}
+              {s.logo && <Image src={s.logo} alt={s.brand} class="logo" widths={[200, 400]} sizes="120px" />}
 
               <h3>{s.title}</h3>
               <p class="body">{s.body}</p>
@@ -144,32 +139,15 @@ const { heading, intro, styles } = Astro.props;
     object-fit: cover;
   }
 
-  /* Maker credit, set as a soft pill */
-  .pill {
-    margin: 0;
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--chalk);
-    border: 1px solid var(--line);
-    padding: 8px 14px;
-  }
-
-  .pill-label {
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .pill :global(.logo) {
+  /* Maker's mark, kept quiet above the style name */
+  .text :global(.logo) {
     width: auto;
-    height: 15px;
-    max-width: 96px;
+    height: 22px;
+    max-width: 120px;
     object-fit: contain;
-    opacity: 0.75;
+    object-position: left center;
+    align-self: flex-start;
+    opacity: 0.7;
   }
 
   h3 {
