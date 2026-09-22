@@ -173,8 +173,12 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
   .media :global(.photo) {
     width: 100%;
     height: auto;
+    display: block;
+  }
+
+  /* Placeholders have no natural size, so give them one */
+  .media :global(.slot.photo) {
     aspect-ratio: 4 / 3;
-    object-fit: cover;
     display: flex;
   }
 </style>
