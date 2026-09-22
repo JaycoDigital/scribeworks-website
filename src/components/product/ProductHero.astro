@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Header from '../home/Header.astro';
+import ArrowIcon from '../home/ArrowIcon.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  photo: ImageMetadata;
+  alt?: string;
+  cta?: string;
+}
+
+const { eyebrow, title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.props;
+---
+
+<section class="hero">
+  <Image
+    src={photo}
+    alt={alt}
+    class="hero-photo"
+    width={2200}
+    widths={[800, 1200, 1600, 2200]}
+    sizes="100vw"
+    format="webp"
+    quality={78}
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="scrim"></div>
+
+  <Header />
+
+  <div class="body">
+    <div class="container inner">
+      <div class="copy" data-reveal-stagger>
+        <p class="eyebrow">{eyebrow}</p>
+        <h1 set:html={title} />
+        <p class="intro">{intro}</p>
+        <div class="actions">
+          <a href="#contact" class="btn btn--slate">{cta}<ArrowIcon /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--ink);
+    min-height: min(76vh, 760px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero :global(.hero-photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(29, 29, 29, 0.9) 0%,
+      rgba(29, 29, 29, 0.68) 45%,
+      rgba(29, 29, 29, 0.22) 80%,
+      rgba(29, 29, 29, 0.14) 100%
+    );
+  }
+
+  @media (max-width: 760px) {
+    .scrim {
+      background: linear-gradient(to bottom, rgba(29, 29, 29, 0.56) 0%, rgba(29, 29, 29, 0.7) 55%, rgba(29, 29, 29, 0.8) 100%);
+    }
+  }
+
+  .body {
+    position: relative;
+    z-index: 20;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .inner {
+    width: 100%;
+    padding-block: clamp(56px, 8vw, 96px);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-width: 700px;
+    color: var(--chalk);
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--sand);
+  }
+
+  h1 {
+    font-size: clamp(40px, 5.6vw, 66px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    text-wrap: pretty;
+  }
+
+  .intro {
+    margin: 0;
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.7;
+    color: rgba(250, 249, 246, 0.86);
+    max-width: 54ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 6px;
+  }
+</style>

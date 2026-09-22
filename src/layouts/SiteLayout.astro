@@ -1,0 +1,70 @@
+---
+/**
+ * Shared shell for the site's real pages: preview gate, smooth scrolling,
+ * scroll-triggered entrances, and (for now) inert links.
+ */
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <script is:inline slot="head">
+    // Preview gate: only reachable after entering the password on the landing page
+    try {
+      if (localStorage.getItem('sw-preview') !== '4818bcac2aa71683f578db3f81f433743f73a970fe77e845835d8d68da3e5eb0') location.replace('/');
+    } catch (e) {
+      location.replace('/');
+    }
+  </script>
+
+  <slot />
+</BaseLayout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // PREVIEW: links and buttons are inert until their destinations exist.
+  // Remove this block to re-enable them.
+  document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) => {
+    if (a.dataset.live !== undefined) return;
+    a.setAttribute('aria-disabled', 'true');
+    a.style.cursor = 'default';
+    a.addEventListener('click', (e) => e.preventDefault());
+  });
+</script>
+
+<script>
+  // Fade-up entrances: [data-reveal] on single elements, [data-reveal-stagger]
+  // on a parent to reveal its children one after another.
+  const STEP = 90;
+  const targets: Element[] = [...document.querySelectorAll('[data-reveal]')];
+  document.querySelectorAll('[data-reveal-stagger]').forEach((group) => {
+    [...group.children].forEach((child, i) => {
+      (child as HTMLElement).style.setProperty('--reveal-delay', `${i * STEP}ms`);
+      targets.push(child);
+    });
+  });
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.05, rootMargin: '0px 0px -40px 0px' },
+  );
+  targets.forEach((t) => io.observe(t));
+</script>

@@ -1,0 +1,180 @@
+---
+/**
+ * One product range: copy on one side, photo on the other. Pass `flip` to
+ * mirror it so a list of these alternates down the page.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ImageSlot from '../home/ImageSlot.astro';
+import Icon from '../home/Icon.astro';
+
+interface Props {
+  brand: string;
+  logo?: ImageMetadata;
+  title: string;
+  body: string;
+  points: string[];
+  bestFor?: string;
+  photo?: ImageMetadata;
+  photoLabel: string;
+  alt?: string;
+  flip?: boolean;
+  tone?: 'chalk' | 'white';
+}
+
+const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', flip = false, tone = 'chalk' } = Astro.props;
+---
+
+<section class:list={['range', `range--${tone}`, { 'is-flipped': flip }]}>
+  <div class="container grid">
+    <div class="copy" data-reveal-stagger>
+      {
+        logo ? (
+          <Image src={logo} alt={brand} class="logo" widths={[200, 400]} sizes="170px" />
+        ) : (
+          <p class="eyebrow brand">{brand}</p>
+        )
+      }
+      <h3>{title}</h3>
+      <p class="body">{body}</p>
+      <ul class="points">
+        {
+          points.map((p) => (
+            <li>
+              <Icon name="tick" size={18} stroke="var(--sand-deep)" />
+              <span>{p}</span>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        bestFor && (
+          <p class="best">
+            <span class="eyebrow">Best for</span>
+            {bestFor}
+          </p>
+        )
+      }
+    </div>
+
+    <div class="media" data-reveal>
+      {
+        photo ? (
+          <Image src={photo} alt={alt} class="photo" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 600px" format="webp" quality={80} />
+        ) : (
+          <ImageSlot label={photoLabel} tone="light" class="photo" />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .range--chalk {
+    background: var(--chalk);
+  }
+
+  .range--white {
+    background: var(--white);
+  }
+
+  .grid {
+    padding-block: clamp(48px, 6vw, 84px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+
+  /* Mirrored rows: copy moves to the right on wide screens, stays first on narrow */
+  .is-flipped .copy {
+    order: 2;
+  }
+
+  @media (max-width: 860px) {
+    .is-flipped .copy {
+      order: 0;
+    }
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .copy :global(.logo) {
+    width: auto;
+    height: 30px;
+    max-width: 170px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .brand {
+    margin: 0;
+    color: var(--sand-deep);
+  }
+
+  h3 {
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+    text-wrap: pretty;
+  }
+
+  .body {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .points {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .points li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .points :global(svg) {
+    flex: none;
+    margin-top: 4px;
+  }
+
+  .best {
+    margin: 6px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  .best .eyebrow {
+    display: block;
+    color: var(--sand-deep);
+    margin-bottom: 6px;
+  }
+
+  .media :global(.photo) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: flex;
+  }
+</style>

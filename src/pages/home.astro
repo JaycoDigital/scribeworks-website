@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import Film from '../components/home/Film.astro';
 import About from '../components/home/About.astro';
@@ -10,18 +10,10 @@ import Faq from '../components/home/Faq.astro';
 import Footer from '../components/home/Footer.astro';
 ---
 
-<BaseLayout
+<SiteLayout
   title="Scribeworks | Windows, Doors, Cladding & Building Works"
   description="Free survey, a fixed price in writing and a crew that clears up. Windows, doors, cladding and full building works across the south coast."
 >
-  <script is:inline slot="head">
-    // Preview gate: only reachable after entering the password on the landing page
-    try {
-      if (localStorage.getItem('sw-preview') !== '4818bcac2aa71683f578db3f81f433743f73a970fe77e845835d8d68da3e5eb0') location.replace('/');
-    } catch (e) {
-      location.replace('/');
-    }
-  </script>
   <Hero />
   <About />
   <Film />
@@ -30,46 +22,4 @@ import Footer from '../components/home/Footer.astro';
   <Reviews />
   <Faq />
   <Footer />
-</BaseLayout>
-
-<style is:global>
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
-
-<script>
-  // PREVIEW: links and buttons are inert until their destinations exist.
-  // Remove this block to re-enable them.
-  document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) => {
-    a.setAttribute('aria-disabled', 'true');
-    a.style.cursor = 'default';
-    a.addEventListener('click', (e) => e.preventDefault());
-  });
-</script>
-
-<script>
-  // Fade-up entrances: [data-reveal] on single elements, [data-reveal-stagger]
-  // on a parent to reveal its children one after another.
-  const STEP = 90;
-  const targets: Element[] = [...document.querySelectorAll('[data-reveal]')];
-  document.querySelectorAll('[data-reveal-stagger]').forEach((group) => {
-    [...group.children].forEach((child, i) => {
-      (child as HTMLElement).style.setProperty('--reveal-delay', `${i * STEP}ms`);
-      targets.push(child);
-    });
-  });
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-in');
-          io.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.05, rootMargin: '0px 0px -40px 0px' },
-  );
-  targets.forEach((t) => io.observe(t));
-</script>
+</SiteLayout>

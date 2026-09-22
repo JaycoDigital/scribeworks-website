@@ -3,7 +3,13 @@ import { Image } from 'astro:assets';
 import logoLight from '../../assets/logo-light.png';
 import ArrowIcon from './ArrowIcon.astro';
 
-const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
+const products = [
+  { name: 'Windows', href: '/windows', live: true },
+  { name: 'Doors', href: '#products', live: false },
+  { name: 'Cladding', href: '#products', live: false },
+  { name: 'Building works', href: '#products', live: false },
+];
+const path = Astro.url.pathname;
 ---
 
 <header class="site-header">
@@ -13,7 +19,13 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
     </a>
 
     <nav class="nav" aria-label="Main">
-      {products.map((p) => <a href="#products">{p}</a>)}
+      {
+        products.map((p) => (
+          <a href={p.href} data-live={p.live ? '' : undefined} aria-current={path === p.href ? 'page' : undefined}>
+            {p.name}
+          </a>
+        ))
+      }
     </nav>
 
     <a href="#contact" class="btn btn--slate btn--sm cta">Get a quote<ArrowIcon size={13} /></a>
@@ -30,9 +42,9 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
   <nav class="mm-links" aria-label="Main">
     {
       products.map((p, i) => (
-        <a href="#products" style={`--i: ${i}`}>
+        <a href={p.href} data-live={p.live ? '' : undefined} style={`--i: ${i}`} aria-current={path === p.href ? 'page' : undefined}>
           <span class="mm-num">0{i + 1}</span>
-          {p}
+          {p.name}
           <ArrowIcon size={22} class="mm-arrow" />
         </a>
       ))
@@ -95,6 +107,10 @@ const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
   }
 
   .nav a:hover {
+    color: var(--sand);
+  }
+
+  .nav a[aria-current='page'] {
     color: var(--sand);
   }
 

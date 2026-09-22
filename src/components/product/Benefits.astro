@@ -1,0 +1,102 @@
+---
+import Icon from '../home/Icon.astro';
+
+interface Item {
+  icon: 'survey' | 'window' | 'energy' | 'lock' | 'certificate' | 'guarantee' | 'check' | 'price';
+  title: string;
+  body: string;
+}
+
+interface Props {
+  heading: string;
+  intro?: string;
+  items: Item[];
+}
+
+const { heading, intro, items } = Astro.props;
+---
+
+<section id="why" class="benefits">
+  <div class="container inner">
+    <div class="section-head" data-reveal-stagger>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <ul class="grid" data-reveal-stagger>
+      {
+        items.map((item) => (
+          <li class="card">
+            <Icon name={item.icon} size={34} stroke="var(--sand-deep)" />
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .benefits {
+    background: var(--chalk);
+  }
+
+  .inner {
+    padding-block: var(--section-pad);
+  }
+
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  @media (max-width: 1000px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 620px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    background: var(--chalk);
+    padding: clamp(28px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background var(--ease);
+  }
+
+  .card:hover {
+    background: var(--sand-tint);
+  }
+
+  .card :global(svg) {
+    flex: none;
+    margin-bottom: 4px;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+</style>

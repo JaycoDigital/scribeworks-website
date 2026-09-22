@@ -1,0 +1,180 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import Benefits from '../components/product/Benefits.astro';
+import Range from '../components/product/Range.astro';
+import Cta from '../components/product/Cta.astro';
+import Footer from '../components/home/Footer.astro';
+
+import heroPhoto from '../assets/product-windows.jpg';
+import deceuninck from '../assets/logo-deceuninck-ink.png';
+import origin from '../assets/logo-origin-ink.png';
+import roseview from '../assets/logo-roseview-ink.png';
+
+const benefits = [
+  {
+    icon: 'survey',
+    title: 'A free survey, with no obligation',
+    body: 'We will visit your home, take careful measurements and talk you through the possibilities. Your itemised quote follows within three working days.',
+  },
+  {
+    icon: 'window',
+    title: 'Made to measure for your home',
+    body: 'Every frame is manufactured to your own openings, so the lines are straight, the finish is neat and everything sits exactly as it should.',
+  },
+  {
+    icon: 'energy',
+    title: 'Warmer, quieter rooms',
+    body: 'Modern glazing makes a wonderful difference to how a room feels. Your home holds its heat for longer, draughts disappear and outside noise softens.',
+  },
+  {
+    icon: 'lock',
+    title: 'Peace of mind, built in',
+    body: 'Multipoint locking and internally beaded frames come as standard across our ranges, so you can relax knowing your home is well protected.',
+  },
+  {
+    icon: 'certificate',
+    title: 'Paperwork taken care of',
+    body: 'Your installation is registered with FENSA and your certificate arrives on completion. On larger projects we look after building control too.',
+  },
+  {
+    icon: 'guarantee',
+    title: 'Guaranteed for ten years',
+    body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantees on your frames and glass. If you need us back, the same team returns.',
+  },
+] as const;
+
+const ranges = [
+  {
+    brand: 'Deceuninck',
+    logo: deceuninck,
+    title: 'Deceuninck 2500 casement',
+    body: 'A beautifully versatile casement window, and the one we are asked for most often. Its slim, chamfered profile suits a huge range of homes, letting in plenty of daylight while keeping your rooms warm and comfortable all year round.',
+    points: [
+      'Slim, elegant sightlines that welcome in more light',
+      'Multi-chambered frames for lasting warmth and comfort',
+      'A wide palette of colours and woodgrain finishes',
+      'Fully recyclable, with sustainability at its heart',
+    ],
+    bestFor: 'Modern and post-war homes, and refreshing tired uPVC.',
+    photoLabel: 'Deceuninck 2500 casement window',
+  },
+  {
+    brand: 'Deceuninck',
+    logo: deceuninck,
+    title: 'Deceuninck 2800 sculptured',
+    body: 'If your home has a little more character, the 2800 is a lovely choice. Its softly sculptured profile brings a gentler, more traditional line to the front of the house, sitting comfortably alongside older brickwork and decorative detailing.',
+    points: [
+      'A softly rounded, sculptured profile',
+      'The same warmth and comfort as the 2500',
+      'Shaped heads and arched frames for period openings',
+      'Matching doors, so everything works together',
+    ],
+    bestFor: 'Homes with period character that would suit a softer line.',
+    photoLabel: 'Deceuninck 2800 sculptured window',
+  },
+  {
+    brand: 'Deceuninck',
+    logo: deceuninck,
+    title: 'Deceuninck Flush Sash',
+    body: 'All the charm of a traditional timber window, without the upkeep that comes with one. The sash closes flush into the frame, just as timber does, giving your home that clean, classic line. It is a favourite with our customers in conservation areas.',
+    points: [
+      'The authentic flush line of a timber window',
+      'Timber character with none of the maintenance',
+      'An extensive choice of colours and woodgrains',
+      'Mechanically jointed options for an even truer finish',
+    ],
+    bestFor: 'Period homes, conservation areas and barn conversions.',
+    photoLabel: 'Deceuninck flush sash window',
+  },
+  {
+    brand: 'Origin',
+    logo: origin,
+    title: 'Origin aluminium windows',
+    body: 'For something altogether more contemporary. The strength of aluminium allows for wonderfully slim frames and much larger panes of glass, so your rooms fill with daylight and the view from them opens right up.',
+    points: [
+      'Slim frames and generous expanses of glass',
+      'Powder-coated in a wide choice of colours',
+      'Different shades inside and out, if you prefer',
+      'Thermally broken frames for year-round comfort',
+    ],
+    bestFor: 'Extensions, renovations and contemporary homes.',
+    photoLabel: 'Origin aluminium window',
+  },
+  {
+    brand: 'Roseview',
+    logo: roseview,
+    title: 'Roseview sliding sash windows',
+    body: 'If your home was built with sash windows, it deserves sash windows. Roseview developed their range from careful surveys of Georgian and Victorian originals, so the proportions and detailing look right from the street, while you enjoy modern warmth, security and easy cleaning.',
+    points: [
+      'Authentic period proportions and detailing',
+      'Run-through horns and a deep bottom rail',
+      'Tilts inwards, so cleaning is simple and safe',
+      'Widely welcomed in conservation areas',
+    ],
+    bestFor: 'Georgian, Victorian and Edwardian homes replacing timber sashes.',
+    photoLabel: 'Roseview sliding sash window',
+  },
+];
+---
+
+<SiteLayout
+  title="Windows | uPVC, Aluminium & Sliding Sash in West Sussex | Scribeworks"
+  description="Deceuninck uPVC, Origin aluminium and Roseview sliding sash windows, designed around your home and fitted by our own team. Free survey, a fixed price in writing and a ten-year guarantee."
+>
+  <ProductHero
+    eyebrow="Windows"
+    title="Beautiful windows, made to measure for your&nbsp;home"
+    intro="Whether you are refreshing a much-loved period home or finishing a new extension, the right windows make a remarkable difference to how your rooms feel and how your home looks from the street. We would love to help you explore the possibilities."
+    photo={heroPhoto}
+    alt="New windows fitted to a period house"
+  />
+
+  <Benefits
+    heading="Why homeowners choose Scribeworks"
+    intro="From the first measurement to the final clean-up, your project stays with the same local team."
+    items={benefits}
+  />
+
+  <section class="ranges">
+    <div class="container section-head" data-reveal-stagger>
+      <h2>Explore our window ranges</h2>
+      <p>Every home is different, which is why we work with a handful of ranges we know and trust. During your survey we will help you find the one that suits your property, your style and your budget.</p>
+    </div>
+
+    {
+      ranges.map((r, i) => (
+        <Range
+          brand={r.brand}
+          logo={r.logo}
+          title={r.title}
+          body={r.body}
+          points={r.points}
+          bestFor={r.bestFor}
+          photoLabel={r.photoLabel}
+          flip={i % 2 === 1}
+          tone={i % 2 === 1 ? 'white' : 'chalk'}
+        />
+      ))
+    }
+  </section>
+
+  <Cta
+    heading="Let's talk about your windows"
+    body="Tell us a little about your home and what you have in mind, and we will arrange a survey at a time that suits you. There is no deposit to pay and no obligation afterwards, just a clear price in writing."
+    points={['A free, no-obligation survey', 'No deposit to book', 'A fixed price in writing']}
+  />
+
+  <Footer />
+</SiteLayout>
+
+<style>
+  .ranges {
+    background: var(--chalk);
+  }
+
+  .ranges .section-head {
+    padding-top: var(--section-pad);
+    margin-bottom: clamp(24px, 3vw, 40px);
+  }
+</style>
