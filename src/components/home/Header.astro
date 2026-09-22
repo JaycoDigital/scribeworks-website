@@ -152,7 +152,7 @@ const path = Astro.url.pathname;
     margin-left: -0.75px;
   }
 
-  /* Modal menu */
+  /* Slide-in menu panel */
   .mobile-menu {
     position: fixed;
     inset: 0;
@@ -163,11 +163,10 @@ const path = Astro.url.pathname;
     flex-direction: column;
     padding: 84px var(--gutter) max(24px, env(safe-area-inset-bottom));
     opacity: 0;
-    transform-origin: right center;
-    transform: perspective(1400px) rotateY(-70deg);
+    transform: translateX(100%);
     transition:
-      opacity 360ms ease-out,
-      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 260ms ease-out,
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   /* Author display beats the UA [hidden] rule, so restate it */
@@ -177,7 +176,7 @@ const path = Astro.url.pathname;
 
   .mobile-menu.is-open {
     opacity: 1;
-    transform: none;
+    transform: translateX(0);
   }
 
 
@@ -319,7 +318,7 @@ const path = Astro.url.pathname;
       header.classList.remove('menu-open');
       btn.setAttribute('aria-expanded', 'false');
       btn.setAttribute('aria-label', 'Open menu');
-      closing = window.setTimeout(() => { menu.hidden = true; }, 540);
+      closing = window.setTimeout(() => { menu.hidden = true; }, 440);
     };
 
     btn.addEventListener('click', () => (menu.hidden || !menu.classList.contains('is-open') ? open() : close()));
