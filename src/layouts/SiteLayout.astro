@@ -67,8 +67,9 @@ const { title, description } = Astro.props;
     queued = false;
     const limit = window.innerHeight - MARGIN;
     for (const el of [...targets]) {
-      const r = el.getBoundingClientRect();
-      if (r.top < limit && r.bottom > 0) show(el);
+      // Anything at or above the fold, including elements a fast scroll has
+      // already carried past, which the observer can miss entirely
+      if (el.getBoundingClientRect().top < limit) show(el);
     }
   };
   const queue = () => {
