@@ -1,6 +1,6 @@
 ---
 /**
- * One product range: a full-bleed photo filling half the page, copy alongside.
+ * One window style: a large photo running to the page edge, copy alongside.
  * Pass `flip` to mirror it so a list of these alternates down the page.
  */
 import { Image } from 'astro:assets';
@@ -19,32 +19,24 @@ interface Props {
   photoLabel: string;
   alt?: string;
   flip?: boolean;
-  tone?: 'chalk' | 'white';
 }
 
-const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', flip = false, tone = 'chalk' } = Astro.props;
+const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', flip = false } = Astro.props;
 ---
 
-<section class:list={['range', `range--${tone}`, { 'is-flipped': flip }]}>
-  <div class="media" data-reveal>
-    {
-      photo ? (
-        <Image src={photo} alt={alt} class="photo" widths={[700, 1000, 1500]} sizes="(max-width: 860px) 100vw, 52vw" format="webp" quality={80} />
-      ) : (
-        <ImageSlot label={photoLabel} tone="light" class="photo" />
-      )
-    }
-  </div>
-
-  <div class="copy">
-    <div class="copy-inner" data-reveal-stagger>
+<section class:list={['range', { 'is-flipped': flip }]}>
+  <div class="inner">
+    <div class="media" data-reveal>
       {
-        logo ? (
-          <Image src={logo} alt={brand} class="logo" widths={[200, 400]} sizes="170px" />
+        photo ? (
+          <Image src={photo} alt={alt} class="photo" widths={[700, 1000, 1500]} sizes="(max-width: 860px) 100vw, 56vw" format="webp" quality={80} />
         ) : (
-          <p class="eyebrow brand">{brand}</p>
+          <ImageSlot label={photoLabel} tone="light" class="photo" />
         )
       }
+    </div>
+
+    <div class="copy" data-reveal-stagger>
       <h3>{title}</h3>
       <p class="body">{body}</p>
       <ul class="points">
@@ -57,45 +49,66 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
           ))
         }
       </ul>
-      {
-        bestFor && (
-          <p class="best">
-            <span class="eyebrow">Best for</span>
-            {bestFor}
-          </p>
-        )
-      }
+      <div class="foot">
+        {
+          bestFor && (
+            <p class="best">
+              <span class="eyebrow">Best for</span>
+              {bestFor}
+            </p>
+          )
+        }
+        {
+          logo && (
+            <p class="supplier">
+              <span class="eyebrow">Supplied by</span>
+              <Image src={logo} alt={brand} class="logo" widths={[200, 400]} sizes="130px" />
+            </p>
+          )
+        }
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .range {
-    display: grid;
-    grid-template-columns: 52fr 48fr;
-    align-items: stretch;
-    min-height: clamp(460px, 48vw, 680px);
-  }
-
-  .range--chalk {
     background: var(--chalk);
+    padding-block: clamp(40px, 5vw, 72px);
+    overflow-x: clip;
   }
 
-  .range--white {
-    background: var(--white);
+  .inner {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
   }
 
-  /* Photo first in the source so it leads on phones; on wide screens the
-     unflipped rows put it on the right */
+  /* Mirrored rows: the wide column moves to the left so the photo stays the
+     same size either way */
+  .is-flipped .inner {
+    grid-template-columns: 1.25fr 1fr;
+  }
+
+  /* Photo first in the source so it leads on phones; on wide screens it takes
+     the right-hand column and runs off the edge of the page */
   .media {
+    grid-row: 1;
+    grid-column: 2;
+    aspect-ratio: 4 / 3;
     position: relative;
     overflow: hidden;
-    grid-row: 1;
-    grid-column: 1;
+    margin-right: calc(-1 * (var(--gutter) + max(0px, 50vw - 640px)));
   }
 
-  .range:not(.is-flipped) .media {
-    grid-column: 2;
+  .is-flipped .media {
+    grid-column: 1;
+    margin-right: 0;
+    margin-left: calc(-1 * (var(--gutter) + max(0px, 50vw - 640px)));
   }
 
   .media :global(.photo) {
@@ -108,45 +121,22 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
 
   .copy {
     grid-row: 1;
-    grid-column: 2;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  /* Unflipped: copy on the left, hugging the middle of the page */
-  .range:not(.is-flipped) .copy {
     grid-column: 1;
-    justify-content: flex-end;
-  }
-
-  .copy-inner {
-    max-width: 570px;
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding-block: clamp(48px, 6vw, 88px);
-    padding-inline: clamp(24px, 4.5vw, 72px);
+    max-width: 520px;
   }
 
-  .copy-inner :global(.logo) {
-    width: auto;
-    height: 30px;
-    max-width: 170px;
-    object-fit: contain;
-    object-position: left center;
-  }
-
-  .brand {
-    margin: 0;
-    color: var(--sand-deep);
+  .is-flipped .copy {
+    grid-column: 2;
   }
 
   h3 {
-    font-size: clamp(26px, 3vw, 38px);
-    line-height: 1.08;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.06;
     letter-spacing: -0.03em;
-    max-width: 18ch;
+    max-width: 16ch;
     text-wrap: pretty;
   }
 
@@ -155,12 +145,11 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
     font-size: 17px;
     line-height: 1.7;
     color: var(--muted);
-    max-width: 52ch;
   }
 
   .points {
     list-style: none;
-    margin: 4px 0 0;
+    margin: 2px 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -180,55 +169,76 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
     margin-top: 4px;
   }
 
-  .best {
-    margin: 6px 0 0;
-    padding-top: 18px;
+  .foot {
+    margin-top: 8px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px 32px;
+  }
+
+  .best {
+    margin: 0;
     font-size: 16px;
     line-height: 1.6;
     color: var(--muted);
-    max-width: 46ch;
+    max-width: 34ch;
   }
 
-  .best .eyebrow {
+  .eyebrow {
     display: block;
     color: var(--sand-deep);
     margin-bottom: 6px;
   }
 
+  /* The maker is supporting information, not the headline */
+  .supplier {
+    margin: 0;
+  }
+
+  .supplier .eyebrow {
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .supplier :global(.logo) {
+    width: auto;
+    height: 22px;
+    max-width: 130px;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0.55;
+  }
+
   /* Stacked: photo above the copy, running edge to edge */
   @media (max-width: 860px) {
-    .range,
-    .range:not(.is-flipped) {
+    .range {
+      padding-block: 0 clamp(48px, 9vw, 72px);
+    }
+
+    .inner,
+    .is-flipped .inner {
       grid-template-columns: 1fr;
-      min-height: 0;
+      gap: clamp(28px, 6vw, 40px);
+      padding-inline: 0;
     }
 
     .media,
-    .range:not(.is-flipped) .media {
+    .is-flipped .media {
       grid-row: 1;
       grid-column: 1;
+      margin-inline: 0;
     }
 
     .copy,
-    .range:not(.is-flipped) .copy {
+    .is-flipped .copy {
       grid-row: 2;
       grid-column: 1;
-    }
-
-    .media {
-      aspect-ratio: 4 / 3;
-    }
-
-    .copy,
-    .range:not(.is-flipped) .copy {
-      justify-content: flex-start;
-    }
-
-    .copy-inner {
       max-width: none;
       padding-inline: var(--gutter);
-      padding-block: clamp(36px, 8vw, 56px);
     }
   }
 </style>
