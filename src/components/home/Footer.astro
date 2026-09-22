@@ -157,6 +157,9 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
     width: 100%;
     height: auto;
     display: block;
+    /* Fades into the background so the wordmark reads as a watermark */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.12) 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.12) 78%, transparent 100%);
   }
 
 </style>
