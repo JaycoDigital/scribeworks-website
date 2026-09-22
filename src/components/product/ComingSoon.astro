@@ -1,0 +1,42 @@
+---
+/**
+ * Placeholder page for a service whose full page is still being written.
+ */
+import Header from '../home/Header.astro';
+---
+
+<div class="top">
+  <Header />
+</div>
+
+<section class="soon">
+  <div class="container inner">
+    <h1 data-reveal>Coming soon</h1>
+  </div>
+</section>
+
+<style>
+  /* The header is built for dark backgrounds, so keep it on graphite */
+  .top {
+    background: var(--ink);
+  }
+
+  .soon {
+    background: var(--chalk);
+  }
+
+  .inner {
+    min-height: 56vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-block: var(--section-pad);
+  }
+
+  h1 {
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+</style>

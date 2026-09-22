@@ -3,7 +3,12 @@ import { Image } from 'astro:assets';
 import logoLight from '../../assets/logo-light.png';
 import ArrowIcon from './ArrowIcon.astro';
 
-const products = ['Windows', 'Doors', 'Cladding', 'Building works'];
+const products = [
+  { name: 'Windows', href: '/windows' },
+  { name: 'Doors', href: '/doors' },
+  { name: 'Cladding', href: '/cladding' },
+  { name: 'Building works', href: '/building-works' },
+];
 const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthing'];
 ---
 
@@ -21,7 +26,7 @@ const areas = ['Bognor Regis', 'Chichester', 'Littlehampton', 'Arundel', 'Worthi
     <div class="links" data-reveal-stagger>
       <div class="col">
         <h3>Products</h3>
-        <ul>{products.map((p) => <li><a href="#products">{p}</a></li>)}</ul>
+        <ul>{products.map((p) => <li><a href={p.href}>{p.name}</a></li>)}</ul>
       </div>
       <div class="col">
         <h3>Areas covered</h3>

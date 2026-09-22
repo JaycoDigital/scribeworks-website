@@ -7,10 +7,10 @@ import cladding from '../../assets/product-cladding.jpg';
 import building from '../../assets/product-building.jpg';
 
 const products = [
-  { title: 'Windows', body: 'uPVC, aluminium and timber. Casement, sash, tilt-and-turn or shaped heads to match the house.', photo: windows, alt: 'New windows fitted to a house' },
-  { title: 'Doors', body: 'Front doors, French, bi-fold and sliding patio sets. Multipoint locking as standard.', photo: doors, alt: 'A newly fitted front door' },
-  { title: 'Cladding', body: 'Cedar, composite and fibre cement weatherboard on a drained, ventilated batten system.', photo: cladding, alt: 'Timber cladding on a modern extension' },
-  { title: 'Building works', body: 'Extensions, garage conversions, knock-throughs and structural openings, from drawings to decorating.', photo: building, alt: 'Building works in progress' },
+  { href: '/windows', title: 'Windows', body: 'uPVC, aluminium and timber. Casement, sash, tilt-and-turn or shaped heads to match the house.', photo: windows, alt: 'New windows fitted to a house' },
+  { href: '/doors', title: 'Doors', body: 'Front doors, French, bi-fold and sliding patio sets. Multipoint locking as standard.', photo: doors, alt: 'A newly fitted front door' },
+  { href: '/cladding', title: 'Cladding', body: 'Cedar, composite and fibre cement weatherboard on a drained, ventilated batten system.', photo: cladding, alt: 'Timber cladding on a modern extension' },
+  { href: '/building-works', title: 'Building works', body: 'Extensions, garage conversions, knock-throughs and structural openings, from drawings to decorating.', photo: building, alt: 'Building works in progress' },
 ];
 ---
 
@@ -24,7 +24,7 @@ const products = [
     <div class="grid" data-reveal-stagger>
       {
         products.map((p) => (
-          <a href="#products" class="card">
+          <a href={p.href} class="card">
             <Image src={p.photo} alt={p.alt} class="photo" widths={[640, 960, 1400]} sizes="(max-width: 900px) 100vw, 620px" format="webp" quality={78} />
             <div class="photo-scrim" />
             <div class="text">

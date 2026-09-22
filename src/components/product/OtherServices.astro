@@ -21,10 +21,10 @@ interface Props {
 const { heading = 'Our other services', intro, exclude } = Astro.props;
 
 const services = [
-  { title: 'Windows', href: '/windows', live: true, body: 'uPVC, aluminium and timber-look sliding sash, made to measure.', photo: windows, alt: 'New windows fitted to a house' },
-  { title: 'Doors', href: '#products', live: false, body: 'Front doors, French, bi-fold and sliding patio sets.', photo: doors, alt: 'A newly fitted front door' },
-  { title: 'Cladding', href: '#products', live: false, body: 'Cedar, composite and fibre cement weatherboard.', photo: cladding, alt: 'Timber cladding on a modern extension' },
-  { title: 'Building works', href: '#products', live: false, body: 'Extensions, garage conversions and structural openings.', photo: building, alt: 'Building works in progress' },
+  { title: 'Windows', href: '/windows', body: 'uPVC, aluminium and timber-look sliding sash, made to measure.', photo: windows, alt: 'New windows fitted to a house' },
+  { title: 'Doors', href: '/doors', body: 'Front doors, French, bi-fold and sliding patio sets.', photo: doors, alt: 'A newly fitted front door' },
+  { title: 'Cladding', href: '/cladding', body: 'Cedar, composite and fibre cement weatherboard.', photo: cladding, alt: 'Timber cladding on a modern extension' },
+  { title: 'Building works', href: '/building-works', body: 'Extensions, garage conversions and structural openings.', photo: building, alt: 'Building works in progress' },
 ].filter((s) => s.href !== exclude);
 ---
 
@@ -38,7 +38,7 @@ const services = [
     <div class="grid" data-reveal-stagger>
       {
         services.map((s) => (
-          <a href={s.href} data-live={s.live ? '' : undefined} class="card">
+          <a href={s.href} class="card">
             <Image src={s.photo} alt={s.alt} class="photo" widths={[420, 640, 900]} sizes="(max-width: 900px) 100vw, 400px" format="webp" quality={78} />
             <div class="scrim" />
             <div class="text">

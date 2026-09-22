@@ -4,10 +4,10 @@ import logoLight from '../../assets/logo-light.png';
 import ArrowIcon from './ArrowIcon.astro';
 
 const products = [
-  { name: 'Windows', href: '/windows', live: true },
-  { name: 'Doors', href: '#products', live: false },
-  { name: 'Cladding', href: '#products', live: false },
-  { name: 'Building works', href: '#products', live: false },
+  { name: 'Windows', href: '/windows' },
+  { name: 'Doors', href: '/doors' },
+  { name: 'Cladding', href: '/cladding' },
+  { name: 'Building works', href: '/building-works' },
 ];
 const path = Astro.url.pathname;
 ---
@@ -21,7 +21,7 @@ const path = Astro.url.pathname;
     <nav class="nav" aria-label="Main">
       {
         products.map((p) => (
-          <a href={p.href} data-live={p.live ? '' : undefined} aria-current={path === p.href ? 'page' : undefined}>
+          <a href={p.href} aria-current={path === p.href ? 'page' : undefined}>
             {p.name}
           </a>
         ))
@@ -42,7 +42,7 @@ const path = Astro.url.pathname;
   <nav class="mm-links" aria-label="Main">
     {
       products.map((p, i) => (
-        <a href={p.href} data-live={p.live ? '' : undefined} style={`--i: ${i}`} aria-current={path === p.href ? 'page' : undefined}>
+        <a href={p.href} style={`--i: ${i}`} aria-current={path === p.href ? 'page' : undefined}>
           <span class="mm-num">0{i + 1}</span>
           {p.name}
           <ArrowIcon size={22} class="mm-arrow" />

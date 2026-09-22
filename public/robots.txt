@@ -1,3 +1,8 @@
-# Site is in preview; keep the unfinished pages out of search results
+# The site is still being built: keep the in-progress pages out of search
+# results until the new homepage goes live on /
 User-agent: *
 Disallow: /home
+Disallow: /windows
+Disallow: /doors
+Disallow: /cladding
+Disallow: /building-works
