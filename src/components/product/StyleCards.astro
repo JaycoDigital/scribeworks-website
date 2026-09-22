@@ -1,0 +1,261 @@
+---
+/**
+ * The window styles as cards: a panel per style with the copy on one
+ * side and the photo filling the other. Alternates left/right down the page.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ImageSlot from '../home/ImageSlot.astro';
+import Icon from '../home/Icon.astro';
+
+export interface Style {
+  brand: string;
+  logo?: ImageMetadata;
+  title: string;
+  body: string;
+  points: string[];
+  bestFor?: string;
+  photo?: ImageMetadata;
+  photoLabel: string;
+  alt?: string;
+}
+
+interface Props {
+  heading: string;
+  intro?: string;
+  styles: Style[];
+}
+
+const { heading, intro, styles } = Astro.props;
+---
+
+<section id="styles" class="styles">
+  <div class="container inner">
+    <div class="section-head" data-reveal-stagger>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <ul class="stack">
+      {
+        styles.map((s, i) => (
+          <li class:list={['card', { 'is-flipped': i % 2 === 1 }]} data-reveal>
+            <div class="text">
+              {s.logo && (
+                <p class="pill">
+                  <span class="pill-label">Supplied by</span>
+                  <Image src={s.logo} alt={s.brand} class="logo" widths={[160, 320]} sizes="96px" />
+                </p>
+              )}
+
+              <h3>{s.title}</h3>
+              <p class="body">{s.body}</p>
+
+              <ul class="points">
+                {s.points.map((p) => (
+                  <li>
+                    <Icon name="tick" size={17} stroke="var(--sand-deep)" />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {s.bestFor && (
+                <p class="best">
+                  <span class="eyebrow">Best for</span>
+                  {s.bestFor}
+                </p>
+              )}
+            </div>
+
+            <div class="media">
+              {s.photo ? (
+                <Image src={s.photo} alt={s.alt ?? ''} class="photo" widths={[600, 900, 1300]} sizes="(max-width: 860px) 100vw, 46vw" format="webp" quality={80} />
+              ) : (
+                <ImageSlot label={s.photoLabel} tone="light" class="photo" />
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .styles {
+    background: var(--chalk);
+  }
+
+  .inner {
+    padding-block: var(--section-pad);
+  }
+
+  .stack {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.4vw, 32px);
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: clamp(380px, 34vw, 480px);
+  }
+
+  .text {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: clamp(28px, 3.4vw, 56px);
+  }
+
+  .media {
+    grid-row: 1;
+    grid-column: 2;
+    position: relative;
+    overflow: hidden;
+    background: var(--line);
+  }
+
+  /* Mirrored cards */
+  .is-flipped .text {
+    grid-column: 2;
+  }
+
+  .is-flipped .media {
+    grid-column: 1;
+  }
+
+  .media :global(.photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Maker credit, set as a soft pill */
+  .pill {
+    margin: 0;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--chalk);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+  }
+
+  .pill-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pill :global(.logo) {
+    width: auto;
+    height: 15px;
+    max-width: 96px;
+    object-fit: contain;
+    opacity: 0.75;
+  }
+
+  h3 {
+    font-size: clamp(26px, 2.6vw, 36px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 15ch;
+    text-wrap: pretty;
+  }
+
+  .body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  /* Two-up like the reference, stacking when the card gets narrow */
+  .points {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 24px;
+  }
+
+  .points li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .points :global(svg) {
+    flex: none;
+    margin-top: 3px;
+  }
+
+  .best {
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 44ch;
+  }
+
+  .best .eyebrow {
+    display: block;
+    color: var(--sand-deep);
+    margin-bottom: 5px;
+  }
+
+  @media (max-width: 1100px) {
+    .points {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* Stacked: photo on top, copy beneath */
+  @media (max-width: 860px) {
+    .card {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .media,
+    .is-flipped .media {
+      grid-row: 1;
+      grid-column: 1;
+      aspect-ratio: 4 / 3;
+    }
+
+    .text,
+    .is-flipped .text {
+      grid-row: 2;
+      grid-column: 1;
+    }
+
+    .points {
+      margin-top: 4px;
+    }
+  }
+</style>

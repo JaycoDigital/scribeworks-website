@@ -2,7 +2,7 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
-import Range from '../components/product/Range.astro';
+import StyleCards from '../components/product/StyleCards.astro';
 import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
 
@@ -144,29 +144,11 @@ const ranges = [
     items={benefits}
   />
 
-  <section class="ranges">
-    <div class="container section-head" data-reveal-stagger>
-      <h2>Window styles to suit your home</h2>
-      <p>Every home is different. These are the styles we fit most often, all made by manufacturers we know and trust. During your survey we will help you find the one that suits your property, your style and your budget.</p>
-    </div>
-
-    {
-      ranges.map((r, i) => (
-        <Range
-          brand={r.brand}
-          logo={r.logo}
-          title={r.title}
-          body={r.body}
-          points={r.points}
-          bestFor={r.bestFor}
-          photo={r.photo}
-          alt={r.alt}
-          photoLabel={r.photoLabel}
-          flip={i % 2 === 1}
-        />
-      ))
-    }
-  </section>
+  <StyleCards
+    heading="Window styles to suit your home"
+    intro="Every home is different. These are the styles we fit most often, all made by manufacturers we know and trust. During your survey we will help you find the one that suits your property, your style and your budget."
+    styles={ranges}
+  />
 
   <OtherServices
     heading="More ways we can help"
@@ -177,13 +159,3 @@ const ranges = [
   <Footer />
 </SiteLayout>
 
-<style>
-  .ranges {
-    background: var(--chalk);
-  }
-
-  .ranges .section-head {
-    padding-top: var(--section-pad);
-    margin-bottom: clamp(24px, 3vw, 40px);
-  }
-</style>
