@@ -1,7 +1,7 @@
 ---
 /**
- * One product range: copy on one side, photo on the other. Pass `flip` to
- * mirror it so a list of these alternates down the page.
+ * One product range: a full-bleed photo filling half the page, copy alongside.
+ * Pass `flip` to mirror it so a list of these alternates down the page.
  */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -26,8 +26,18 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
 ---
 
 <section class:list={['range', `range--${tone}`, { 'is-flipped': flip }]}>
-  <div class="container grid">
-    <div class="copy" data-reveal-stagger>
+  <div class="media" data-reveal>
+    {
+      photo ? (
+        <Image src={photo} alt={alt} class="photo" widths={[700, 1000, 1500]} sizes="(max-width: 860px) 100vw, 52vw" format="webp" quality={80} />
+      ) : (
+        <ImageSlot label={photoLabel} tone="light" class="photo" />
+      )
+    }
+  </div>
+
+  <div class="copy">
+    <div class="copy-inner" data-reveal-stagger>
       {
         logo ? (
           <Image src={logo} alt={brand} class="logo" widths={[200, 400]} sizes="170px" />
@@ -56,20 +66,17 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
         )
       }
     </div>
-
-    <div class="media" data-reveal>
-      {
-        photo ? (
-          <Image src={photo} alt={alt} class="photo" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 600px" format="webp" quality={80} />
-        ) : (
-          <ImageSlot label={photoLabel} tone="light" class="photo" />
-        )
-      }
-    </div>
   </div>
 </section>
 
 <style>
+  .range {
+    display: grid;
+    grid-template-columns: 52fr 48fr;
+    align-items: stretch;
+    min-height: clamp(460px, 48vw, 680px);
+  }
+
   .range--chalk {
     background: var(--chalk);
   }
@@ -78,32 +85,51 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
     background: var(--white);
   }
 
-  .grid {
-    padding-block: clamp(48px, 6vw, 84px);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-    gap: clamp(32px, 5vw, 72px);
-    align-items: center;
+  /* Photo first in the source so it leads on phones; on wide screens the
+     unflipped rows put it on the right */
+  .media {
+    position: relative;
+    overflow: hidden;
+    grid-row: 1;
+    grid-column: 1;
   }
 
-  /* Mirrored rows: copy moves to the right on wide screens, stays first on narrow */
-  .is-flipped .copy {
-    order: 2;
+  .range:not(.is-flipped) .media {
+    grid-column: 2;
   }
 
-  @media (max-width: 860px) {
-    .is-flipped .copy {
-      order: 0;
-    }
+  .media :global(.photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .copy {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Unflipped: copy on the left, hugging the middle of the page */
+  .range:not(.is-flipped) .copy {
+    grid-column: 1;
+    justify-content: flex-end;
+  }
+
+  .copy-inner {
+    max-width: 570px;
     display: flex;
     flex-direction: column;
     gap: 18px;
+    padding-block: clamp(48px, 6vw, 88px);
+    padding-inline: clamp(24px, 4.5vw, 72px);
   }
 
-  .copy :global(.logo) {
+  .copy-inner :global(.logo) {
     width: auto;
     height: 30px;
     max-width: 170px;
@@ -170,15 +196,39 @@ const { brand, logo, title, body, points, bestFor, photo, photoLabel, alt = '', 
     margin-bottom: 6px;
   }
 
-  .media :global(.photo) {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+  /* Stacked: photo above the copy, running edge to edge */
+  @media (max-width: 860px) {
+    .range,
+    .range:not(.is-flipped) {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
 
-  /* Placeholders have no natural size, so give them one */
-  .media :global(.slot.photo) {
-    aspect-ratio: 4 / 3;
-    display: flex;
+    .media,
+    .range:not(.is-flipped) .media {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .copy,
+    .range:not(.is-flipped) .copy {
+      grid-row: 2;
+      grid-column: 1;
+    }
+
+    .media {
+      aspect-ratio: 4 / 3;
+    }
+
+    .copy,
+    .range:not(.is-flipped) .copy {
+      justify-content: flex-start;
+    }
+
+    .copy-inner {
+      max-width: none;
+      padding-inline: var(--gutter);
+      padding-block: clamp(36px, 8vw, 56px);
+    }
   }
 </style>
