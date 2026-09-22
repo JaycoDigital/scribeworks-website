@@ -5,7 +5,6 @@ import Header from '../home/Header.astro';
 import ArrowIcon from '../home/ArrowIcon.astro';
 
 interface Props {
-  eyebrow: string;
   title: string;
   intro: string;
   photo: ImageMetadata;
@@ -13,7 +12,7 @@ interface Props {
   cta?: string;
 }
 
-const { eyebrow, title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.props;
+const { title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.props;
 ---
 
 <section class="hero">
@@ -36,7 +35,6 @@ const { eyebrow, title, intro, photo, alt = '', cta = 'Book a free survey' } = A
   <div class="body">
     <div class="container inner">
       <div class="copy" data-reveal-stagger>
-        <p class="eyebrow">{eyebrow}</p>
         <h1 set:html={title} />
         <p class="intro">{intro}</p>
         <div class="actions">
@@ -105,10 +103,6 @@ const { eyebrow, title, intro, photo, alt = '', cta = 'Book a free survey' } = A
     color: var(--chalk);
   }
 
-  .eyebrow {
-    margin: 0;
-    color: var(--sand);
-  }
 
   h1 {
     font-size: clamp(40px, 5.6vw, 66px);
