@@ -138,6 +138,14 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
     .shot {
       height: auto;
       aspect-ratio: 4 / 3;
+      align-self: start;
+    }
+
+    /* Same as the style cards: give the box real height for Safari */
+    .shot::before {
+      content: '';
+      display: block;
+      padding-top: 75%;
     }
 
     .grid {

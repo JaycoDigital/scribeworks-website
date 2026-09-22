@@ -224,6 +224,17 @@ const { heading, intro, styles } = Astro.props;
       grid-row: 1;
       grid-column: 1;
       aspect-ratio: 4 / 3;
+      align-self: start;
+    }
+
+    /* The photo is absolutely positioned, so the box has no content of its
+       own: give it real height rather than relying on aspect-ratio, which
+       Safari resolves to zero for a stretched grid item */
+    .media::before,
+    .is-flipped .media::before {
+      content: '';
+      display: block;
+      padding-top: 75%;
     }
 
     .text,
