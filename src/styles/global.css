@@ -87,12 +87,13 @@ video {
   --chalk-14: rgba(250, 249, 246, 0.14);
   --chalk-16: rgba(250, 249, 246, 0.16);
   --sand-30: rgba(196, 182, 125, 0.3);
+  --content-width: 1400px;
   --gutter: clamp(16px, 4vw, 48px);
   --section-pad: clamp(72px, 9vw, 120px);
 }
 
 .container {
-  max-width: 1280px;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding-inline: var(--gutter);
 }

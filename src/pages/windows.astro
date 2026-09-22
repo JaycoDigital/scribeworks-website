@@ -13,37 +13,39 @@ import roseview from '../assets/logo-roseview-ink.png';
 import photo2500 from '../assets/window-deceuninck-2500.jpg';
 import photo2800 from '../assets/window-deceuninck-2800.png';
 import photoFlush from '../assets/window-deceuninck-flush.png';
+import photoFitter from '../assets/about-fitter.jpg';
+import photoRoom from '../assets/process-interior.jpg';
 
 const benefits = [
   {
     icon: 'survey',
-    title: 'A free survey, with no obligation',
-    body: 'We will visit your home, take careful measurements and talk you through the possibilities. Your itemised quote follows within three working days.',
+    title: 'Free, no-obligation survey',
+    body: 'We measure up at your home and follow with an itemised quote within three working days.',
   },
   {
     icon: 'window',
-    title: 'Made to measure for your home',
-    body: 'Every frame is manufactured to your own openings, so the lines are straight, the finish is neat and everything sits exactly as it should.',
+    title: 'Made to measure',
+    body: 'Every frame is manufactured to your own openings, so everything sits exactly as it should.',
   },
   {
     icon: 'energy',
     title: 'Warmer, quieter rooms',
-    body: 'Modern glazing makes a wonderful difference to how a room feels. Your home holds its heat for longer, draughts disappear and outside noise softens.',
+    body: 'Your home holds its heat for longer, draughts disappear and outside noise softens.',
   },
   {
     icon: 'lock',
     title: 'Peace of mind, built in',
-    body: 'Multipoint locking and internally beaded frames come as standard across our ranges, so you can relax knowing your home is well protected.',
+    body: 'Multipoint locking and internally beaded frames come as standard across our ranges.',
   },
   {
     icon: 'certificate',
     title: 'Paperwork taken care of',
-    body: 'Your installation is registered with FENSA and your certificate arrives on completion. On larger projects we look after building control too.',
+    body: 'Registered with FENSA, with your certificate issued on completion of the work.',
   },
   {
     icon: 'guarantee',
     title: 'Guaranteed for ten years',
-    body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantees on your frames and glass. If you need us back, the same team returns.',
+    body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantees.',
   },
 ] as const;
 
@@ -142,6 +144,10 @@ const ranges = [
     heading="Why homeowners choose Scribeworks"
     intro="From the first measurement to the final clean-up, your project stays with the same local team."
     items={benefits}
+    photoA={photoFitter}
+    altA="A Scribeworks fitter adjusting a new window"
+    photoB={photoRoom}
+    altB="A bright room with newly fitted windows"
   />
 
   <StyleCards

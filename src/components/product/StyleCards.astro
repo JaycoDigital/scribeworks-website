@@ -115,7 +115,7 @@ const { heading, intro, styles } = Astro.props;
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 22px;
     padding: clamp(28px, 3.4vw, 56px);
   }
 
@@ -191,11 +191,12 @@ const { heading, intro, styles } = Astro.props;
   /* Two-up like the reference, stacking when the card gets narrow */
   .points {
     list-style: none;
-    margin: auto 0 0;
+    /* auto below pins the "Best for" line to the foot of the card */
+    margin: 14px 0 auto;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px 24px;
+    gap: 20px 32px;
   }
 
   .points li {
@@ -213,7 +214,7 @@ const { heading, intro, styles } = Astro.props;
 
   .best {
     margin: 0;
-    padding-top: 20px;
+    padding-top: 26px;
     border-top: 1px solid var(--line);
     font-size: 15px;
     line-height: 1.55;
@@ -230,7 +231,7 @@ const { heading, intro, styles } = Astro.props;
   @media (max-width: 1100px) {
     .points {
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: 14px;
     }
   }
 

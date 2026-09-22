@@ -1,4 +1,10 @@
 ---
+/**
+ * Reasons to use us: a pair of photos with a row of short, icon-led points
+ * underneath.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Icon from '../home/Icon.astro';
 
 interface Item {
@@ -11,9 +17,13 @@ interface Props {
   heading: string;
   intro?: string;
   items: Item[];
+  photoA: ImageMetadata;
+  altA?: string;
+  photoB: ImageMetadata;
+  altB?: string;
 }
 
-const { heading, intro, items } = Astro.props;
+const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.props;
 ---
 
 <section id="why" class="benefits">
@@ -23,13 +33,24 @@ const { heading, intro, items } = Astro.props;
       {intro && <p>{intro}</p>}
     </div>
 
+    <div class="photos" data-reveal-stagger>
+      <div class="shot">
+        <Image src={photoA} alt={altA} class="photo" widths={[700, 1000, 1500]} sizes="(max-width: 760px) 100vw, 55vw" format="webp" quality={80} />
+      </div>
+      <div class="shot">
+        <Image src={photoB} alt={altB} class="photo" widths={[500, 800, 1100]} sizes="(max-width: 760px) 100vw, 38vw" format="webp" quality={80} />
+      </div>
+    </div>
+
     <ul class="grid" data-reveal-stagger>
       {
         items.map((item) => (
-          <li class="card">
-            <Icon name={item.icon} size={34} stroke="var(--sand-deep)" />
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
+          <li class="item">
+            <p class="head">
+              <Icon name={item.icon} size={22} stroke="var(--sand-deep)" />
+              <span>{item.title}</span>
+            </p>
+            <p class="body">{item.body}</p>
           </li>
         ))
       }
@@ -46,15 +67,61 @@ const { heading, intro, items } = Astro.props;
     padding-block: var(--section-pad);
   }
 
+  .photos {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: clamp(14px, 1.6vw, 22px);
+    margin-bottom: clamp(36px, 4vw, 56px);
+  }
+
+  .shot {
+    position: relative;
+    height: clamp(260px, 32vw, 460px);
+    overflow: hidden;
+    background: var(--line);
+  }
+
+  .shot :global(.photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .grid {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
+    gap: clamp(28px, 3vw, 44px) clamp(28px, 3vw, 48px);
+  }
+
+  .head {
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .head :global(svg) {
+    flex: none;
+  }
+
+  /* Description lines up under the title, clear of the icon */
+  .body {
+    margin: 0;
+    padding-left: 34px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 38ch;
   }
 
   @media (max-width: 1000px) {
@@ -63,40 +130,18 @@ const { heading, intro, items } = Astro.props;
     }
   }
 
-  @media (max-width: 620px) {
+  @media (max-width: 760px) {
+    .photos {
+      grid-template-columns: 1fr;
+    }
+
+    .shot {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+
     .grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  .card {
-    background: var(--chalk);
-    padding: clamp(28px, 3vw, 40px);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    transition: background var(--ease);
-  }
-
-  .card:hover {
-    background: var(--sand-tint);
-  }
-
-  .card :global(svg) {
-    flex: none;
-    margin-bottom: 4px;
-  }
-
-  h3 {
-    font-size: 20px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  }
-
-  p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--muted);
   }
 </style>
