@@ -1,0 +1,150 @@
+---
+/**
+ * Cards linking to the other product pages, shown at the foot of a product
+ * page in place of a repeated call to action.
+ */
+import { Image } from 'astro:assets';
+import ArrowIcon from '../home/ArrowIcon.astro';
+
+import windows from '../../assets/product-windows.jpg';
+import doors from '../../assets/product-doors.jpg';
+import cladding from '../../assets/product-cladding.jpg';
+import building from '../../assets/product-building.jpg';
+
+interface Props {
+  heading?: string;
+  intro?: string;
+  /** Page to leave out, so a product page does not link to itself */
+  exclude?: string;
+}
+
+const { heading = 'Our other services', intro, exclude } = Astro.props;
+
+const services = [
+  { title: 'Windows', href: '/windows', live: true, body: 'uPVC, aluminium and timber-look sliding sash, made to measure.', photo: windows, alt: 'New windows fitted to a house' },
+  { title: 'Doors', href: '#products', live: false, body: 'Front doors, French, bi-fold and sliding patio sets.', photo: doors, alt: 'A newly fitted front door' },
+  { title: 'Cladding', href: '#products', live: false, body: 'Cedar, composite and fibre cement weatherboard.', photo: cladding, alt: 'Timber cladding on a modern extension' },
+  { title: 'Building works', href: '#products', live: false, body: 'Extensions, garage conversions and structural openings.', photo: building, alt: 'Building works in progress' },
+].filter((s) => s.href !== exclude);
+---
+
+<section class="other">
+  <div class="container inner">
+    <div class="section-head" data-reveal-stagger>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <div class="grid" data-reveal-stagger>
+      {
+        services.map((s) => (
+          <a href={s.href} data-live={s.live ? '' : undefined} class="card">
+            <Image src={s.photo} alt={s.alt} class="photo" widths={[420, 640, 900]} sizes="(max-width: 900px) 100vw, 400px" format="webp" quality={78} />
+            <div class="scrim" />
+            <div class="text">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+              <span class="more eyebrow">
+                Find out more
+                <ArrowIcon size={13} />
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .other {
+    background: var(--chalk);
+    border-top: 1px solid var(--line);
+  }
+
+  .inner {
+    padding-block: var(--section-pad);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+    position: relative;
+    min-height: clamp(320px, 30vw, 400px);
+    background: var(--ink);
+    overflow: hidden;
+    display: block;
+    color: var(--white);
+  }
+
+  .card:hover {
+    color: var(--white);
+  }
+
+  .card :global(.photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms ease-out;
+  }
+
+  .card:hover :global(.photo) {
+    transform: scale(1.03);
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(29, 29, 29, 0.95) 0%, rgba(29, 29, 29, 0.72) 42%, rgba(29, 29, 29, 0.25) 74%, rgba(29, 29, 29, 0.12) 100%);
+  }
+
+  .text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: clamp(24px, 2.6vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  h3 {
+    font-size: clamp(22px, 2vw, 26px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+
+  .text p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 34ch;
+  }
+
+  .more {
+    border-top: 1px solid rgba(250, 249, 246, 0.3);
+    margin-top: 8px;
+    padding-top: 16px;
+    color: var(--sand);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+</style>

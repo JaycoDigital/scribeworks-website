@@ -3,13 +3,14 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
 import Range from '../components/product/Range.astro';
-import Cta from '../components/product/Cta.astro';
+import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
 
 import heroPhoto from '../assets/product-windows.jpg';
 import deceuninck from '../assets/logo-deceuninck-ink.png';
 import origin from '../assets/logo-origin-ink.png';
 import roseview from '../assets/logo-roseview-ink.png';
+import photo2500 from '../assets/window-deceuninck-2500.jpg';
 
 const benefits = [
   {
@@ -57,6 +58,8 @@ const ranges = [
       'Fully recyclable, with sustainability at its heart',
     ],
     bestFor: 'Modern and post-war homes, and refreshing tired uPVC.',
+    photo: photo2500,
+    alt: 'A three-pane Deceuninck 2500 casement window looking out over a garden',
     photoLabel: 'Deceuninck 2500 casement window',
   },
   {
@@ -150,6 +153,8 @@ const ranges = [
           body={r.body}
           points={r.points}
           bestFor={r.bestFor}
+          photo={r.photo}
+          alt={r.alt}
           photoLabel={r.photoLabel}
           flip={i % 2 === 1}
           tone={i % 2 === 1 ? 'white' : 'chalk'}
@@ -158,10 +163,10 @@ const ranges = [
     }
   </section>
 
-  <Cta
-    heading="Let's talk about your windows"
-    body="Tell us a little about your home and what you have in mind, and we will arrange a survey at a time that suits you. There is no deposit to pay and no obligation afterwards, just a clear price in writing."
-    points={['A free, no-obligation survey', 'No deposit to book', 'A fixed price in writing']}
+  <OtherServices
+    heading="More ways we can help"
+    intro="Windows are only part of what we do. Take a look at the rest of our work around your home."
+    exclude="/windows"
   />
 
   <Footer />
