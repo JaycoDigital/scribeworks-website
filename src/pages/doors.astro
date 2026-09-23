@@ -1,13 +1,154 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ComingSoon from '../components/product/ComingSoon.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import Benefits from '../components/product/Benefits.astro';
+import StyleCards from '../components/product/StyleCards.astro';
+import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
+
+import heroPhoto from '../assets/product-doors.jpg';
+import endurance from '../assets/logo-endurance-ink.png';
+import rockdoor from '../assets/logo-rockdoor-ink.png';
+import photoFitter from '../assets/about-fitter.jpg';
+import photoExterior from '../assets/about-exterior.jpg';
+
+const benefits = [
+  {
+    icon: 'survey',
+    title: 'Free, no-obligation survey',
+    body: 'We measure your opening at your home and follow with an itemised quote within three working days.',
+  },
+  {
+    icon: 'window',
+    title: 'Made to measure',
+    body: 'Your door is built to your own opening, so it hangs true and closes sweetly from the first day.',
+  },
+  {
+    icon: 'lock',
+    title: 'Security you can feel',
+    body: 'Solid cores, multipoint locking and cylinders that resist snapping, fitted properly into a solid frame.',
+  },
+  {
+    icon: 'energy',
+    title: 'Warm and draught-free',
+    body: 'Insulated cores and proper weather seals keep the hallway warm and the weather where it belongs.',
+  },
+  {
+    icon: 'certificate',
+    title: 'Paperwork taken care of',
+    body: 'Registered with FENSA, with your certificate issued on completion of the work.',
+  },
+  {
+    icon: 'guarantee',
+    title: 'Guaranteed for ten years',
+    body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantees on your door.',
+  },
+] as const;
+
+const styles = [
+  {
+    brand: 'Endurance',
+    logo: endurance,
+    title: 'Composite front doors',
+    body: 'The door most people picture when they think of a new front door. A thick, solid core gives it real weight and a reassuring sound when it closes, with a timber-look finish that needs no painting.',
+    points: [
+      'Solid core with genuine weight and feel',
+      'Timber character without the upkeep',
+      'A wide choice of colours and furniture',
+      'Warm underfoot and draught-free',
+    ],
+    bestFor: 'Any home wanting a warm, solid and handsome front door.',
+    photoLabel: 'Composite front door',
+  },
+  {
+    brand: 'Rockdoor',
+    logo: rockdoor,
+    title: 'Security-led front doors',
+    body: 'If security is what keeps you awake, this is the door to look at. The glass is bonded into the door rather than held in with beading, so there is nothing to lever out, and the whole door is built around keeping people out.',
+    points: [
+      'Glass bonded in, with no beading to remove',
+      'Reinforced frame and heavy-duty locking',
+      'Decorative glass designs available',
+      'Slim, clean lines inside and out',
+    ],
+    bestFor: 'Exposed entrances and anyone who wants the most secure option.',
+    photoLabel: 'Secure composite front door',
+  },
+  {
+    brand: 'Endurance',
+    logo: endurance,
+    title: 'Back and stable doors',
+    body: 'The door you actually use every day deserves the same care as the front. Back doors take a hammering from weather and muddy boots, so we fit the same solid construction, with stable doors where you want the top half open.',
+    points: [
+      'Built to take daily use and weather',
+      'Stable doors that open top and bottom',
+      'Matching colours and hardware to your front door',
+      'Cat flaps and letterplates fitted neatly',
+    ],
+    bestFor: 'Kitchens, utilities and side entrances.',
+    photoLabel: 'Back or stable door',
+  },
+  {
+    brand: 'French doors',
+    title: 'French doors',
+    body: 'A pair of doors that open out into the garden and let the room breathe. They suit almost any house, take up no room when open and bring a surprising amount of light into the back of a home.',
+    points: [
+      'Opens wide onto the garden or patio',
+      'Plenty of extra daylight into the room',
+      'Multipoint locking on both leaves',
+      'Side panels available for wider openings',
+    ],
+    bestFor: 'Dining rooms, kitchens and garden-facing walls.',
+    photoLabel: 'French doors onto a garden',
+  },
+  {
+    brand: 'Bi-fold and patio doors',
+    title: 'Bi-fold and sliding patio doors',
+    body: 'For opening a whole wall onto the garden. Bi-folds concertina back to leave the opening almost completely clear, while sliding doors give you the biggest possible panes of glass and a very clean line.',
+    points: [
+      'Opens up an entire wall to the garden',
+      'Slim frames and generous glass',
+      'Smooth, well-weighted running gear',
+      'Threshold options that suit level access',
+    ],
+    bestFor: 'Extensions, renovations and garden rooms.',
+    photoLabel: 'Bi-fold doors opening onto a garden',
+  },
+];
 ---
 
 <SiteLayout
-  title="Doors | Scribeworks"
-  description="Front doors, French, bi-fold and sliding patio sets, made to measure and fitted across West Sussex. Page coming soon, call us in the meantime."
+  title="Doors | Composite Front, French & Bi-fold Doors in West Sussex | Scribeworks"
+  description="Composite front doors, back and stable doors, French doors and bi-folds, made to measure and fitted by our own team. Free survey, a fixed price in writing and a ten-year guarantee."
 >
-  <ComingSoon />
+  <ProductHero
+    title="Doors that welcome you home"
+    intro="Your front door is the first thing anyone sees, and the last thing you lock at night. Let us help you find the right one."
+    photo={heroPhoto}
+    alt="A newly fitted front door"
+  />
+
+  <Benefits
+    heading="Why homeowners choose Scribeworks"
+    intro="From the first measurement to the final clean-up, your project stays with the same local team."
+    items={benefits}
+    photoA={photoFitter}
+    altA="A Scribeworks fitter at work"
+    photoB={photoExterior}
+    altB="A modern extension with full-height glazing"
+  />
+
+  <StyleCards
+    heading="Door styles to suit your home"
+    intro="From the front door to the doors onto the garden, these are the styles we fit most often. During your survey we will help you find the one that suits your home, your security and your budget."
+    styles={styles}
+  />
+
+  <OtherServices
+    heading="More ways we can help"
+    intro="Doors are only part of what we do. Take a look at the rest of our work around your home."
+    exclude="/doors"
+  />
+
   <Footer />
 </SiteLayout>
