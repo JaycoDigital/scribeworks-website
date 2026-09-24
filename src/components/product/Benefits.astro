@@ -89,13 +89,33 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
     object-fit: cover;
   }
 
+  /* Ruled grid: the cells are divided by hairlines rather than plain gaps.
+     The negative margin pulls the outer cells' padding back off the
+     container, so the copy still lines up with the photos above. */
   .grid {
+    --cell-pad: clamp(20px, 2.2vw, 36px);
+    --row-pad: clamp(26px, 3vw, 40px);
     list-style: none;
-    margin: 0;
+    margin: 0 calc(var(--cell-pad) * -1);
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(28px, 3vw, 44px) clamp(28px, 3vw, 48px);
+  }
+
+  .item {
+    padding: var(--row-pad) var(--cell-pad);
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+
+  /* No rule down the outside edge, none above the top row */
+  .item:nth-child(3n + 1) {
+    border-left: 0;
+  }
+
+  .item:nth-child(-n + 3) {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .head {
@@ -128,6 +148,25 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
     .grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Put back what the three-column rules took away, then redraw for two */
+    .item:nth-child(3n + 1) {
+      border-left: 1px solid var(--line);
+    }
+
+    .item:nth-child(-n + 3) {
+      border-top: 1px solid var(--line);
+      padding-top: var(--row-pad);
+    }
+
+    .item:nth-child(2n + 1) {
+      border-left: 0;
+    }
+
+    .item:nth-child(-n + 2) {
+      border-top: 0;
+      padding-top: 0;
+    }
   }
 
   @media (max-width: 760px) {
@@ -150,6 +189,23 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
 
     .grid {
       grid-template-columns: 1fr;
+      margin-inline: 0;
+      --cell-pad: 0px;
+    }
+
+    /* Stacked: one rule between each pair of points */
+    .item:nth-child(-n + 2) {
+      border-top: 1px solid var(--line);
+      padding-top: var(--row-pad);
+    }
+
+    .item:nth-child(n) {
+      border-left: 0;
+    }
+
+    .item:first-child {
+      border-top: 0;
+      padding-top: 0;
     }
   }
 </style>

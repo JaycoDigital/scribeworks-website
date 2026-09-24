@@ -9,8 +9,13 @@ import Footer from '../components/home/Footer.astro';
 import heroPhoto from '../assets/product-doors.jpg';
 import endurance from '../assets/logo-endurance-ink.png';
 import rockdoor from '../assets/logo-rockdoor-ink.png';
-import photoFitter from '../assets/about-fitter.jpg';
-import photoExterior from '../assets/about-exterior.jpg';
+import photoFitting from '../assets/doors-fitting.png';
+import photoChoosing from '../assets/doors-choosing.jpg';
+import photoComposite from '../assets/door-composite.jpg';
+import photoFrench from '../assets/door-french.jpg';
+import photoFlush from '../assets/door-flush.jpg';
+import photoSingle from '../assets/door-single.jpg';
+import photoStable from '../assets/door-stable.jpg';
 
 const benefits = [
   {
@@ -58,6 +63,8 @@ const styles = [
       'Warm underfoot and draught-free',
     ],
     bestFor: 'Any home wanting a warm, solid and handsome front door.',
+    photo: photoComposite,
+    alt: 'A sage green composite front door in the arched porch of a stone cottage',
     photoLabel: 'Composite front door',
   },
   {
@@ -71,6 +78,8 @@ const styles = [
       'Side panels available for wider openings',
     ],
     bestFor: 'Dining rooms, kitchens and garden-facing walls.',
+    photo: photoFrench,
+    alt: 'White French doors in a stone wall, open onto a patio and garden',
     photoLabel: 'French doors onto a garden',
   },
   {
@@ -85,6 +94,8 @@ const styles = [
       'Reinforced frame and heavy-duty locking',
     ],
     bestFor: 'Newer homes and anyone wanting the most secure option.',
+    photo: photoFlush,
+    alt: 'A flush fitting graphite front door with slim glazed side panels',
     photoLabel: 'Flush fitting front door',
   },
   {
@@ -99,6 +110,8 @@ const styles = [
       'Cat flaps and letterplates fitted neatly',
     ],
     bestFor: 'Kitchens, utilities and side entrances.',
+    photo: photoSingle,
+    alt: 'A graphite single back door with a glazed top half',
     photoLabel: 'Single back door',
   },
   {
@@ -112,6 +125,8 @@ const styles = [
       'A natural fit for kitchens and cottages',
     ],
     bestFor: 'Kitchens, country homes and anyone with pets.',
+    photo: photoStable,
+    alt: 'An oak stable door on a cottage with the top half open',
     photoLabel: 'Stable door with the top half open',
   },
 ];
@@ -122,20 +137,20 @@ const styles = [
   description="Composite, French, flush, single and stable doors, made to measure and fitted by our own team. Free survey, a fixed price in writing and a ten-year guarantee."
 >
   <ProductHero
-    title="Doors that welcome you home"
+    title="West Sussex Doors"
     intro="Your front door is the first thing anyone sees, and the last thing you lock at night. Let us help you find the right one."
     photo={heroPhoto}
     alt="A newly fitted front door"
   />
 
   <Benefits
-    heading="Why homeowners choose Scribeworks"
+    heading="Doors that welcome you home"
     intro="From the first measurement to the final clean-up, your project stays with the same local team."
     items={benefits}
-    photoA={photoFitter}
-    altA="A Scribeworks fitter at work"
-    photoB={photoExterior}
-    altB="A modern extension with full-height glazing"
+    photoA={photoFitting}
+    altA="A Scribeworks fitter checking a newly hung door for level"
+    photoB={photoChoosing}
+    altB="A customer trying door handles in a showroom"
   />
 
   <StyleCards
