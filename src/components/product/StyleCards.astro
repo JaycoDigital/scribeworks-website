@@ -58,7 +58,7 @@ const { heading, intro, styles } = Astro.props;
               {s.bestFor && (
                 <p class="best">
                   <span class="eyebrow">Best for</span>
-                  <span class="best-copy">{s.bestFor}</span>
+                  {s.bestFor}
                 </p>
               )}
             </div>
@@ -191,7 +191,7 @@ const { heading, intro, styles } = Astro.props;
     margin-top: 3px;
   }
 
-  /* The rule runs the full width of the column; only the copy is measured */
+  /* Rule and copy both run the full width of the column */
   .best {
     margin: 0;
     padding-top: 26px;
@@ -199,11 +199,6 @@ const { heading, intro, styles } = Astro.props;
     font-size: 15px;
     line-height: 1.55;
     color: var(--muted);
-  }
-
-  .best-copy {
-    display: block;
-    max-width: 44ch;
   }
 
   .best .eyebrow {
