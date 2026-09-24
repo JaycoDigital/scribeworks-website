@@ -47,7 +47,7 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
         items.map((item) => (
           <li class="item">
             <p class="head">
-              <Icon name={item.icon} size={22} stroke="var(--sand-deep)" />
+              <Icon name={item.icon} size={32} stroke="var(--sand-deep)" />
               <span>{item.title}</span>
             </p>
             <p class="body">{item.body}</p>
@@ -137,7 +137,7 @@ const { heading, intro, items, photoA, altA = '', photoB, altB = '' } = Astro.pr
   /* Description lines up under the title, clear of the icon */
   .body {
     margin: 0;
-    padding-left: 34px;
+    padding-left: 44px;
     font-size: 16px;
     line-height: 1.65;
     color: var(--muted);
