@@ -7,8 +7,10 @@ import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
 
 import heroPhoto from '../assets/product-cladding.jpg';
-import photoFitter from '../assets/about-fitter.jpg';
-import photoExterior from '../assets/about-exterior.jpg';
+import photoSite from '../assets/cladding-site.jpg';
+import photoFitting from '../assets/cladding-fitting.jpg';
+import photoWeatherboard from '../assets/cladding-weatherboard.jpg';
+import photoVertical from '../assets/cladding-vertical.jpg';
 
 const benefits = [
   {
@@ -55,6 +57,8 @@ const styles = [
       'Never needs sanding down and repainting',
     ],
     bestFor: 'Whole houses, extensions and anywhere near the coast.',
+    photo: photoWeatherboard,
+    alt: 'A house clad in grey horizontal weatherboard above white render',
     photoLabel: 'Weatherboard cladding on a house',
   },
   {
@@ -68,20 +72,9 @@ const styles = [
       'Good for gables and feature walls',
     ],
     bestFor: 'Modern homes, gable ends and single feature walls.',
+    photo: photoVertical,
+    alt: 'Vertical timber cladding set against a black clad wall',
     photoLabel: 'Vertical cladding on a modern house',
-  },
-  {
-    brand: 'James Hardie',
-    title: 'Large panel cladding',
-    body: 'Flat sheets rather than boards, set out so the joints fall where you want them. It gives a broad, unbroken face with very little to catch the eye, which is what makes it look expensive.',
-    points: [
-      'Broad, flat faces with few joints',
-      'Joints set out to suit the elevation',
-      'Pairs well with dark window frames',
-      'A very clean, architectural finish',
-    ],
-    bestFor: 'Contemporary extensions, garden rooms and porches.',
-    photoLabel: 'Large panel cladding on an extension',
   },
 ];
 
@@ -102,15 +95,15 @@ const styles = [
     heading="Cladding that changes how your home looks"
     intro="From the first measurement to the final clean-up, your project stays with the same local team."
     items={benefits}
-    photoA={photoFitter}
-    altA="A Scribeworks fitter at work"
-    photoB={photoExterior}
-    altB="A modern extension with full-height glazing"
+    photoA={photoSite}
+    altA="A Scribeworks fitter beside a newly clad building"
+    photoB={photoFitting}
+    altB="A Scribeworks fitter fixing a cladding board into place"
   />
 
   <StyleCards
     heading="Cladding styles to suit your home"
-    intro="We fit James Hardie board, a fibre cement that behaves like timber should have and needs none of the looking after. These are the three ways we usually run it."
+    intro="We fit James Hardie board, a fibre cement that behaves like timber should have and needs none of the looking after. These are the two ways we usually run it."
     styles={styles}
   />
 
