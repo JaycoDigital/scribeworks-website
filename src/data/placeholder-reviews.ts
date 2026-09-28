@@ -139,3 +139,36 @@ export const homeReviews: Review[] = [
     job: 'Cladding and front door · Rustington',
   },
 ];
+
+export const buildingReviews: Review[] = [
+  {
+    quote: 'Two storey extension on the back of a 1930s semi. The brickwork match is so good that visitors cannot tell where the old house stops. Fourteen weeks, which is exactly what they said at the start.',
+    name: 'Gemma R.',
+    job: 'Two storey extension · Chichester',
+  },
+  {
+    quote: 'We were nervous about having builders in with a baby in the house. They worked around us, kept the dust down and never once left the site unsafe of an evening. Cannot praise them enough.',
+    name: 'Tom W.',
+    job: 'Kitchen extension · Aldwick',
+  },
+  {
+    quote: 'One number to ring for the whole job, which after our last experience was worth the money on its own. Everything turned up when it was supposed to and nobody was waiting on anybody.',
+    name: 'Priyanka S.',
+    job: 'Full project management · Arundel',
+  },
+  {
+    quote: 'Garage conversion into an office and it has changed how I work. Warm, quiet and finished to the same standard as the rest of the house rather than feeling like a garage with a carpet.',
+    name: 'Alan D.',
+    job: 'Garage conversion · Littlehampton',
+  },
+  {
+    quote: 'They found the footings were not what the drawings said and dealt with it properly rather than pressing on and hoping. Cost us a bit more but it was plainly the right call.',
+    name: 'Helen & Rob F.',
+    job: 'Extension · Bognor Regis',
+  },
+  {
+    quote: 'Built our house from an empty plot. Twelve months, an update every week, and the figure at the end was within a few hundred pounds of the one we started with.',
+    name: 'Jonathan K.',
+    job: 'New build · Barnham',
+  },
+];

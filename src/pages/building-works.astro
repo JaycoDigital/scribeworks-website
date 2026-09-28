@@ -1,13 +1,131 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ComingSoon from '../components/product/ComingSoon.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import Benefits from '../components/product/Benefits.astro';
+import StyleCards from '../components/product/StyleCards.astro';
+import ReviewSlider from '../components/product/ReviewSlider.astro';
+import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
+import { buildingReviews } from '../data/placeholder-reviews';
+
+import heroPhoto from '../assets/product-building.jpg';
+import photoInstall from '../assets/process-install.jpg';
+import photoInterior from '../assets/process-interior.jpg';
+
+const benefits = [
+  {
+    icon: 'survey',
+    title: 'Free, no-obligation survey',
+    body: 'We come and look at the space, talk through what is possible and follow with an itemised quote.',
+  },
+  {
+    icon: 'price',
+    title: 'A fixed price in writing',
+    body: 'Costed properly before we start, so the number you agree is the number you plan around.',
+  },
+  {
+    icon: 'check',
+    title: 'One team, start to finish',
+    body: 'The same crew from the footings to the final coat of paint, rather than a different firm every fortnight.',
+  },
+  {
+    icon: 'certificate',
+    title: 'Building control handled',
+    body: 'We deal with the regulations, the inspections and the sign-off, so you are not left chasing anyone.',
+  },
+  {
+    icon: 'energy',
+    title: 'Built to current standards',
+    body: 'Insulation, airtightness and glazing done properly, so the new part of the house is not the cold part.',
+  },
+  {
+    icon: 'guarantee',
+    title: 'Guaranteed for ten years',
+    body: 'Our workmanship is guaranteed for a decade, alongside the guarantees on everything we fit.',
+  },
+] as const;
+
+const styles = [
+  {
+    brand: 'Renovations and extensions',
+    title: 'Home renovations and extensions',
+    body: 'Most of our building work starts with a family that has run out of room. Single and two storey extensions, loft and garage conversions, and whole house renovations, with the new work matched to the old so it does not look bolted on.',
+    points: [
+      'Single and two storey extensions',
+      'Loft and garage conversions',
+      'Knock-throughs and structural openings',
+      'Brickwork and details matched to the house',
+    ],
+    bestFor: 'Growing families and tired houses with good bones.',
+    photoLabel: 'A new extension under construction',
+  },
+  {
+    brand: 'New build',
+    title: 'New build construction',
+    body: 'Building from an empty plot, starting at the footings. We work to your architect drawings, or put you in touch with someone if you have not got that far, and stay on the job through to handing over the keys.',
+    points: [
+      'Groundworks, footings and structure',
+      'Built to your own architect drawings',
+      'Plot to handover with one team',
+      'Windows, doors and cladding under the same roof',
+    ],
+    bestFor: 'Self builds, empty plots and replacement homes.',
+    photoLabel: 'A new house under construction',
+  },
+  {
+    brand: 'Project management',
+    title: 'Full project management',
+    body: 'One number to ring. We line up the trades, order the materials, keep the programme honest and deal with building control, so you are not standing in the garden with a clipboard working out why nobody turned up.',
+    points: [
+      'One point of contact throughout',
+      'Trades booked and kept in order',
+      'Programme and budget kept in view',
+      'Building control and sign-off handled',
+    ],
+    bestFor: 'Anyone who would rather not run the job themselves.',
+    photoLabel: 'Plans and a programme on a site table',
+  },
+];
 ---
 
 <SiteLayout
-  title="Building works | Scribeworks"
-  description="Extensions, garage conversions, knock-throughs and structural openings across West Sussex. Page coming soon, call us in the meantime."
+  title="Building Works | Extensions & New Builds in West Sussex | Scribeworks"
+  description="Extensions, renovations, new build construction and full project management across West Sussex. Free survey, a fixed price in writing and a ten-year guarantee."
 >
-  <ComingSoon />
+  <ProductHero
+    title="Building Works in West&nbsp;Sussex"
+    intro="West Sussex building works, from a single storey extension to a house built from an empty plot. One team from the footings to the final coat of paint."
+    photo={heroPhoto}
+    alt="Building works in progress on a house"
+  />
+
+  <Benefits
+    heading="Building work you can plan around"
+    intro="From the first measurement to the final clean-up, your project stays with the same local team."
+    items={benefits}
+    photoA={photoInstall}
+    altA="A Scribeworks fitter at work on site"
+    photoB={photoInterior}
+    altB="A bright renovated room"
+  />
+
+  <StyleCards
+    heading="What we take on"
+    intro="Whether you are adding a room, building from scratch or just want someone else to hold the whole thing together, these are the three ways we usually work."
+    styles={styles}
+  />
+
+  <ReviewSlider
+    heading="What our customers say"
+    intro="A few words from homeowners we have built for across West Sussex."
+    reviews={buildingReviews}
+  />
+
+  <OtherServices
+    heading="Other services from Scribeworks"
+    intro="Building works is only part of what we do. Take a look at the rest of our work around your home."
+    exclude="/building-works"
+  />
+
   <Footer />
 </SiteLayout>
