@@ -1,13 +1,173 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ComingSoon from '../components/product/ComingSoon.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import Benefits from '../components/product/Benefits.astro';
+import StyleCards from '../components/product/StyleCards.astro';
+import InstallSteps from '../components/product/InstallSteps.astro';
+import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
+
+import heroPhoto from '../assets/product-cladding.jpg';
+import photoFitter from '../assets/about-fitter.jpg';
+import photoExterior from '../assets/about-exterior.jpg';
+
+const benefits = [
+  {
+    icon: 'survey',
+    title: 'Free, no-obligation survey',
+    body: 'We look over your walls at your home and follow with an itemised quote within three working days.',
+  },
+  {
+    icon: 'check',
+    title: 'Hardie fibre cement',
+    body: 'We fit James Hardie board, a fibre cement that holds its colour and will not warp, rot or split in the sun.',
+  },
+  {
+    icon: 'energy',
+    title: 'Warmer walls',
+    body: 'While the wall is open we can add insulation behind the boards, so your cladding earns its keep all winter.',
+  },
+  {
+    icon: 'price',
+    title: 'A fixed price in writing',
+    body: 'Scaffolding, waste and making good are all in the quote, so the number you agree is the number you pay.',
+  },
+  {
+    icon: 'window',
+    title: 'Reveals and trims done properly',
+    body: 'Corners, edges and the reveals around your windows finished neatly, because that is where cladding either looks right or does not.',
+  },
+  {
+    icon: 'guarantee',
+    title: 'Guaranteed for ten years',
+    body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantee on the boards.',
+  },
+] as const;
+
+const styles = [
+  {
+    brand: 'James Hardie',
+    title: 'Weatherboard cladding',
+    body: 'Long boards run horizontally, each one lapped over the one below. It is the look most people picture when they think of cladding, and it suits a coastal house as easily as a new extension.',
+    points: [
+      'The classic lapped weatherboard look',
+      'A wide choice of finished colours',
+      'Shadow lines that lift a flat wall',
+      'Never needs sanding down and repainting',
+    ],
+    bestFor: 'Whole houses, extensions and anywhere near the coast.',
+    photoLabel: 'Weatherboard cladding on a house',
+  },
+  {
+    brand: 'James Hardie',
+    title: 'Vertical cladding',
+    body: 'The same boards turned on end, with the joints picked out. Running the line upwards makes a low building look taller and gives a newer house a cleaner, more contemporary face.',
+    points: [
+      'Draws the eye up and adds height',
+      'A crisp, contemporary line',
+      'Works well against brick or render',
+      'Good for gables and feature walls',
+    ],
+    bestFor: 'Modern homes, gable ends and single feature walls.',
+    photoLabel: 'Vertical cladding on a modern house',
+  },
+  {
+    brand: 'James Hardie',
+    title: 'Large panel cladding',
+    body: 'Flat sheets rather than boards, set out so the joints fall where you want them. It gives a broad, unbroken face with very little to catch the eye, which is what makes it look expensive.',
+    points: [
+      'Broad, flat faces with few joints',
+      'Joints set out to suit the elevation',
+      'Pairs well with dark window frames',
+      'A very clean, architectural finish',
+    ],
+    bestFor: 'Contemporary extensions, garden rooms and porches.',
+    photoLabel: 'Large panel cladding on an extension',
+  },
+];
+
+const steps = [
+  {
+    title: 'Free survey',
+    body: 'We measure up, look at how your walls are built and talk through boards, colours and where the joints will fall.',
+  },
+  {
+    title: 'Your fixed quote',
+    body: 'An itemised quote in writing within three working days, with the scaffolding, the waste and the making good all included.',
+  },
+  {
+    title: 'Scaffold and protection',
+    body: 'Scaffolding goes up and we sheet down, covering paths, drives and planting before any of the old wall comes off.',
+  },
+  {
+    title: 'Stripping back',
+    body: 'Old cladding or render comes off and goes straight into our skip. Nothing is covered over until we have seen what is behind it.',
+  },
+  {
+    title: 'Making the wall good',
+    body: 'We check the wall underneath and put right anything we find, from soft timber to damp, before the new build-up starts.',
+  },
+  {
+    title: 'Membrane and battens',
+    body: 'A breather membrane and treated battens form the ventilated cavity the boards need, so water and air can get back out.',
+  },
+  {
+    title: 'Insulation, if you want it',
+    body: 'This is the moment to add insulation, while the wall is open and the scaffolding is already there. It is a lot dearer later.',
+  },
+  {
+    title: 'Boards fitted',
+    body: 'Boards are cut and fixed to the maker instructions, with the gaps and the fixing pattern they specify so the guarantee stands.',
+  },
+  {
+    title: 'Trims, reveals and sealing',
+    body: 'Corners, window and door reveals and every edge trimmed and sealed. This is the slow part, and the part you will look at every day.',
+  },
+  {
+    title: 'Clean up and handover',
+    body: 'Scaffolding down, site swept, waste gone. You get your guarantee and the paperwork for the boards we fitted.',
+  },
+];
 ---
 
 <SiteLayout
-  title="Cladding | Scribeworks"
-  description="Cedar, composite and fibre cement cladding, supplied and fitted across West Sussex. Page coming soon, call us in the meantime."
+  title="Cladding | Hardie Fibre Cement Cladding in West Sussex | Scribeworks"
+  description="Hardie fibre cement cladding, supplied and fitted by our own team across West Sussex. Free survey, a fixed price in writing and a ten-year guarantee."
 >
-  <ComingSoon />
+  <ProductHero
+    title="West Sussex Cladding"
+    intro="West Sussex cladding in Hardie fibre cement, fitted by our own team. A new face for your home that shrugs off the weather and holds its colour."
+    photo={heroPhoto}
+    alt="Cladding on a modern extension"
+  />
+
+  <Benefits
+    heading="Cladding that changes how your home looks"
+    intro="From the first measurement to the final clean-up, your project stays with the same local team."
+    items={benefits}
+    photoA={photoFitter}
+    altA="A Scribeworks fitter at work"
+    photoB={photoExterior}
+    altB="A modern extension with full-height glazing"
+  />
+
+  <StyleCards
+    heading="Cladding styles to suit your home"
+    intro="We fit James Hardie board, a fibre cement that behaves like timber should have and needs none of the looking after. These are the three ways we usually run it."
+    styles={styles}
+  />
+
+  <InstallSteps
+    heading="The complete install process"
+    intro="Cladding is only as good as what sits behind it. This is every stage of the job, from the first visit to the last sweep up."
+    steps={steps}
+  />
+
+  <OtherServices
+    heading="Other services from Scribeworks"
+    intro="Cladding is only part of what we do. Take a look at the rest of our work around your home."
+    exclude="/cladding"
+  />
+
   <Footer />
 </SiteLayout>

@@ -1,0 +1,146 @@
+---
+/**
+ * The job stage by stage: numbered steps in a ruled grid, for work where
+ * what happens behind the finish matters as much as the finish itself.
+ */
+export interface Step {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  heading: string;
+  intro?: string;
+  steps: Step[];
+}
+
+const { heading, intro, steps } = Astro.props;
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section id="process" class="install">
+  <div class="container inner">
+    <div class="section-head" data-reveal-stagger>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <ol class="steps" data-reveal-stagger>
+      {
+        steps.map((s, i) => (
+          <li class="step">
+            <span class="num eyebrow">{pad(i)}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .install {
+    background: var(--chalk);
+  }
+
+  .inner {
+    padding-block: var(--section-pad);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Ruled like the benefits grid: hairlines between the cells, none around
+     the outside, with the negative margin keeping the copy on the container */
+  .steps {
+    --cell-pad: clamp(20px, 2.2vw, 36px);
+    --row-pad: clamp(26px, 3vw, 40px);
+    list-style: none;
+    margin: 0 calc(var(--cell-pad) * -1);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .step {
+    padding: var(--row-pad) var(--cell-pad);
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+
+  .step:nth-child(3n + 1) {
+    border-left: 0;
+  }
+
+  .step:nth-child(-n + 3) {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .num {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--sand-deep);
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 38ch;
+  }
+
+  @media (max-width: 1000px) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Put back what the three-column rules took away, then redraw for two */
+    .step:nth-child(3n + 1) {
+      border-left: 1px solid var(--line);
+    }
+
+    .step:nth-child(-n + 3) {
+      border-top: 1px solid var(--line);
+      padding-top: var(--row-pad);
+    }
+
+    .step:nth-child(2n + 1) {
+      border-left: 0;
+    }
+
+    .step:nth-child(-n + 2) {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .steps {
+      grid-template-columns: 1fr;
+      margin-inline: 0;
+      --cell-pad: 0px;
+    }
+
+    .step:nth-child(-n + 2) {
+      border-top: 1px solid var(--line);
+      padding-top: var(--row-pad);
+    }
+
+    .step:nth-child(n) {
+      border-left: 0;
+    }
+
+    .step:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+</style>
