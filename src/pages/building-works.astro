@@ -9,8 +9,11 @@ import Footer from '../components/home/Footer.astro';
 import { buildingReviews } from '../data/placeholder-reviews';
 
 import heroPhoto from '../assets/product-building.jpg';
-import photoInstall from '../assets/process-install.jpg';
-import photoInterior from '../assets/process-interior.jpg';
+import photoOrangery from '../assets/build-orangery.jpg';
+import photoFrame from '../assets/build-frame.jpg';
+import photoExtension from '../assets/build-extension.jpg';
+import photoNewBuild from '../assets/build-newbuild.jpg';
+import photoVan from '../assets/build-van.jpg';
 
 const benefits = [
   {
@@ -57,6 +60,8 @@ const styles = [
       'Brickwork and details matched to the house',
     ],
     bestFor: 'Growing families and tired houses with good bones.',
+    photo: photoExtension,
+    alt: 'A finished kitchen and dining extension under a glazed lantern roof',
     photoLabel: 'A new extension under construction',
   },
   {
@@ -70,6 +75,8 @@ const styles = [
       'Windows, doors and cladding under the same roof',
     ],
     bestFor: 'Self builds, empty plots and replacement homes.',
+    photo: photoNewBuild,
+    alt: 'A new house at roof truss stage, brickwork and timber against the sky',
     photoLabel: 'A new house under construction',
   },
   {
@@ -83,6 +90,8 @@ const styles = [
       'Building control and sign-off handled',
     ],
     bestFor: 'Anyone who would rather not run the job themselves.',
+    photo: photoVan,
+    alt: 'A Scribeworks van outside the yard',
     photoLabel: 'Plans and a programme on a site table',
   },
 ];
@@ -103,10 +112,10 @@ const styles = [
     heading="Building work you can plan around"
     intro="From the first measurement to the final clean-up, your project stays with the same local team."
     items={benefits}
-    photoA={photoInstall}
-    altA="A Scribeworks fitter at work on site"
-    photoB={photoInterior}
-    altB="A bright renovated room"
+    photoA={photoOrangery}
+    altA="A bright garden room with a lantern roof and full height glazing"
+    photoB={photoFrame}
+    altB="Timber framing and blockwork on a job in progress"
   />
 
   <StyleCards
