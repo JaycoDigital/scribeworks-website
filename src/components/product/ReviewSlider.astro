@@ -3,11 +3,8 @@
  * Customer reviews as a run of large cards that carries on past the right
  * edge of the page. Drag, swipe or use the arrows.
  */
-import { Image } from 'astro:assets';
 import Stars from '../home/Stars.astro';
 import GoogleMark from '../home/GoogleMark.astro';
-import checkatradeInk from '../../assets/logo-checkatrade-ink.png';
-import checkatradeWhite from '../../assets/logo-checkatrade-white.png';
 
 export interface Review {
   quote: string;
@@ -25,7 +22,6 @@ interface Props {
 
 const { heading, intro, reviews, tone = 'light' } = Astro.props;
 const dark = tone === 'dark';
-const checkatrade = dark ? checkatradeWhite : checkatradeInk;
 ---
 
 <section class:list={['reviews', { dark }]}>
@@ -41,13 +37,6 @@ const checkatrade = dark ? checkatradeWhite : checkatradeInk;
         <span class="score">4.8</span>
         <Stars size={15} />
         <span class="label">on Google</span>
-      </div>
-
-      <span class="split" aria-hidden="true"></span>
-
-      <div class="badge">
-        <Image src={checkatrade} alt="Checkatrade" class="mark" widths={[220, 440]} sizes="110px" />
-        <span class="label">Checked and vetted</span>
       </div>
     </div>
 
@@ -125,29 +114,6 @@ const checkatrade = dark ? checkatradeWhite : checkatradeInk;
     color: var(--muted);
   }
 
-  .badge :global(.mark) {
-    width: auto;
-    height: 17px;
-    object-fit: contain;
-  }
-
-  .split {
-    width: 1px;
-    height: 22px;
-    background: var(--line);
-  }
-
-  /* On a phone the two badges stack, so the upright rule makes no sense */
-  @media (max-width: 480px) {
-    .trust {
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .split {
-      display: none;
-    }
-  }
 
   .arrows {
     display: flex;
@@ -285,10 +251,6 @@ const checkatrade = dark ? checkatradeWhite : checkatradeInk;
   .dark .job,
   .dark .label {
     color: rgba(250, 249, 246, 0.7);
-  }
-
-  .dark .split {
-    background: var(--chalk-16);
   }
 
   .dark .nav {
