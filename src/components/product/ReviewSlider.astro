@@ -3,7 +3,9 @@
  * Customer reviews as a run of large cards that carries on past the right
  * edge of the page. Drag, swipe or use the arrows.
  */
+import { Image } from 'astro:assets';
 import Stars from '../home/Stars.astro';
+import checkatrade from '../../assets/logo-checkatrade-ink.png';
 
 export interface Review {
   quote: string;
@@ -25,6 +27,21 @@ const { heading, intro, reviews } = Astro.props;
     <div class="section-head" data-reveal-stagger>
       <h2>{heading}</h2>
       {intro && <p>{intro}</p>}
+    </div>
+
+    <div class="trust" data-reveal>
+      <div class="badge">
+        <span class="score">4.8</span>
+        <Stars size={15} />
+        <span class="label">on Google</span>
+      </div>
+
+      <span class="split" aria-hidden="true"></span>
+
+      <div class="badge">
+        <Image src={checkatrade} alt="Checkatrade" class="mark" widths={[220, 440]} sizes="110px" />
+        <span class="label">Checked and vetted</span>
+      </div>
     </div>
 
     <div class="arrows" data-reveal>
@@ -69,16 +86,67 @@ const { heading, intro, reviews } = Astro.props;
     padding-top: var(--section-pad);
   }
 
-  /* The heading keeps its own bottom margin; the arrows sit under it */
+  /* The heading keeps its own bottom margin; the badges sit under it */
   .head :global(.section-head) {
-    margin-bottom: 32px;
+    margin-bottom: 26px;
+  }
+
+  .trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(18px, 2.4vw, 34px);
+    margin-bottom: 34px;
+  }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .score {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+  }
+
+  .label {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .badge :global(.mark) {
+    width: auto;
+    height: 17px;
+    object-fit: contain;
+  }
+
+  .split {
+    width: 1px;
+    height: 22px;
+    background: var(--line);
+  }
+
+  /* On a phone the two badges stack, so the upright rule makes no sense */
+  @media (max-width: 480px) {
+    .trust {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .split {
+      display: none;
+    }
   }
 
   .arrows {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .nav {
