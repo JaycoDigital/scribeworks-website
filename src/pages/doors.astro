@@ -3,8 +3,10 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
 import StyleCards from '../components/product/StyleCards.astro';
+import ReviewSlider from '../components/product/ReviewSlider.astro';
 import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
+import { doorReviews } from '../data/placeholder-reviews';
 
 import heroPhoto from '../assets/product-doors.jpg';
 import endurance from '../assets/logo-endurance-ink.png';
@@ -157,6 +159,12 @@ const styles = [
     heading="Door styles to suit your home"
     intro="From the front door to the doors onto the garden, these are the styles we fit most often. During your survey we will help you find the one that suits your home, your security and your budget."
     styles={styles}
+  />
+
+  <ReviewSlider
+    heading="What our customers say"
+    intro="A few words from homeowners we have fitted doors for across West Sussex."
+    reviews={doorReviews}
   />
 
   <OtherServices

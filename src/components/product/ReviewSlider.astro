@@ -1,0 +1,213 @@
+---
+/**
+ * Customer reviews as a run of large cards that carries on past the right
+ * edge of the page. Drag, swipe or use the arrows.
+ */
+import Stars from '../home/Stars.astro';
+
+export interface Review {
+  quote: string;
+  name: string;
+  job: string;
+}
+
+interface Props {
+  heading: string;
+  intro?: string;
+  reviews: Review[];
+}
+
+const { heading, intro, reviews } = Astro.props;
+---
+
+<section class="reviews">
+  <div class="container head">
+    <div class="section-head" data-reveal-stagger>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+
+    <div class="arrows" data-reveal>
+      <button type="button" class="nav" data-dir="-1" aria-label="Previous reviews">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <path d="M10 3L5 8l5 5" />
+        </svg>
+      </button>
+      <button type="button" class="nav" data-dir="1" aria-label="Next reviews">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <path d="M6 3l5 5-5 5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <ul class="track" data-reveal>
+    {
+      reviews.map((r) => (
+        <li class="card">
+          <Stars size={18} />
+          <blockquote>“{r.quote}”</blockquote>
+          <figcaption>
+            <span class="name">{r.name}</span>
+            <span class="job">{r.job}</span>
+          </figcaption>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .reviews {
+    background: var(--chalk);
+    /* the top padding belongs to .head, below the rule */
+    padding-bottom: var(--section-pad);
+  }
+
+  .head {
+    border-top: 1px solid var(--line);
+    padding-top: var(--section-pad);
+  }
+
+  /* The heading keeps its own bottom margin; the arrows sit under it */
+  .head :global(.section-head) {
+    margin-bottom: 32px;
+  }
+
+  .arrows {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .nav {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--ink);
+    cursor: pointer;
+    transition:
+      border-color var(--ease),
+      color var(--ease),
+      opacity var(--ease);
+  }
+
+  .nav:hover:not(:disabled) {
+    border-color: var(--slate);
+    color: var(--slate);
+  }
+
+  .nav:disabled {
+    opacity: 0.32;
+    cursor: default;
+  }
+
+  /* The rail runs the full width of the page, but its first card lines up
+     with the container. The percentage resolves against the page width, so
+     unlike 100vw it does not count the scrollbar. */
+  .track {
+    --rail: max(var(--gutter), calc((100% - var(--content-width)) / 2 + var(--gutter)));
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--gutter) 0 var(--rail);
+    /* without this the snap would pull the first card past its own padding
+       and sit it hard against the edge of the page */
+    scroll-padding-left: var(--rail);
+    display: flex;
+    gap: clamp(16px, 1.6vw, 24px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: none;
+    scroll-snap-align: start;
+    width: min(82vw, 440px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: clamp(28px, 3vw, 44px);
+    background: var(--white);
+    border: 1px solid var(--line);
+  }
+
+  blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    text-wrap: pretty;
+    /* auto below pins the name to the foot, so the cards line up */
+    margin-bottom: auto;
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .job {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    .arrows {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.reviews').forEach((section) => {
+    const track = section.querySelector<HTMLElement>('.track');
+    const arrows = section.querySelectorAll<HTMLButtonElement>('.nav');
+    if (!track) return;
+
+    // One card plus the gap between them
+    const step = () => {
+      const card = track.querySelector<HTMLElement>('.card');
+      if (!card) return track.clientWidth;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const sync = () => {
+      const end = track.scrollWidth - track.clientWidth - 2;
+      arrows.forEach((a) => {
+        a.disabled = a.dataset.dir === '-1' ? track.scrollLeft <= 2 : track.scrollLeft >= end;
+      });
+    };
+
+    arrows.forEach((a) =>
+      a.addEventListener('click', () => {
+        track.scrollBy({ left: step() * Number(a.dataset.dir), behavior: 'smooth' });
+      }),
+    );
+
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
+    sync();
+  });
+</script>

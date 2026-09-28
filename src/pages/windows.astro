@@ -3,8 +3,10 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
 import StyleCards from '../components/product/StyleCards.astro';
+import ReviewSlider from '../components/product/ReviewSlider.astro';
 import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
+import { windowReviews } from '../data/placeholder-reviews';
 
 import heroPhoto from '../assets/product-windows.jpg';
 import deceuninck from '../assets/logo-deceuninck-ink.png';
@@ -160,6 +162,12 @@ const ranges = [
     heading="Window styles to suit your home"
     intro="Every home is different. These are the styles we fit most often, all made by manufacturers we know and trust. During your survey we will help you find the one that suits your property, your style and your budget."
     styles={ranges}
+  />
+
+  <ReviewSlider
+    heading="What our customers say"
+    intro="A few words from homeowners we have fitted windows for across West Sussex."
+    reviews={windowReviews}
   />
 
   <OtherServices
