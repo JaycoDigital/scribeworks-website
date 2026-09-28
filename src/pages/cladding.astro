@@ -3,7 +3,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
 import StyleCards from '../components/product/StyleCards.astro';
-import InstallSteps from '../components/product/InstallSteps.astro';
 import OtherServices from '../components/product/OtherServices.astro';
 import Footer from '../components/home/Footer.astro';
 
@@ -18,7 +17,7 @@ const benefits = [
     body: 'We look over your walls at your home and follow with an itemised quote within three working days.',
   },
   {
-    icon: 'check',
+    icon: 'guarantee',
     title: 'Hardie fibre cement',
     body: 'We fit James Hardie board, a fibre cement that holds its colour and will not warp, rot or split in the sun.',
   },
@@ -33,12 +32,12 @@ const benefits = [
     body: 'Scaffolding, waste and making good are all in the quote, so the number you agree is the number you pay.',
   },
   {
-    icon: 'window',
-    title: 'Reveals and trims done properly',
-    body: 'Corners, edges and the reveals around your windows finished neatly, because that is where cladding either looks right or does not.',
+    icon: 'check',
+    title: 'The complete install process',
+    body: 'Scaffolding, stripping back, the membrane and battens behind the boards, the trims and reveals, then the clean up. One team, start to finish.',
   },
   {
-    icon: 'guarantee',
+    icon: 'certificate',
     title: 'Guaranteed for ten years',
     body: 'Our workmanship is guaranteed for a decade, alongside the manufacturer guarantee on the boards.',
   },
@@ -86,48 +85,6 @@ const styles = [
   },
 ];
 
-const steps = [
-  {
-    title: 'Free survey',
-    body: 'We measure up, look at how your walls are built and talk through boards, colours and where the joints will fall.',
-  },
-  {
-    title: 'Your fixed quote',
-    body: 'An itemised quote in writing within three working days, with the scaffolding, the waste and the making good all included.',
-  },
-  {
-    title: 'Scaffold and protection',
-    body: 'Scaffolding goes up and we sheet down, covering paths, drives and planting before any of the old wall comes off.',
-  },
-  {
-    title: 'Stripping back',
-    body: 'Old cladding or render comes off and goes straight into our skip. Nothing is covered over until we have seen what is behind it.',
-  },
-  {
-    title: 'Making the wall good',
-    body: 'We check the wall underneath and put right anything we find, from soft timber to damp, before the new build-up starts.',
-  },
-  {
-    title: 'Membrane and battens',
-    body: 'A breather membrane and treated battens form the ventilated cavity the boards need, so water and air can get back out.',
-  },
-  {
-    title: 'Insulation, if you want it',
-    body: 'This is the moment to add insulation, while the wall is open and the scaffolding is already there. It is a lot dearer later.',
-  },
-  {
-    title: 'Boards fitted',
-    body: 'Boards are cut and fixed to the maker instructions, with the gaps and the fixing pattern they specify so the guarantee stands.',
-  },
-  {
-    title: 'Trims, reveals and sealing',
-    body: 'Corners, window and door reveals and every edge trimmed and sealed. This is the slow part, and the part you will look at every day.',
-  },
-  {
-    title: 'Clean up and handover',
-    body: 'Scaffolding down, site swept, waste gone. You get your guarantee and the paperwork for the boards we fitted.',
-  },
-];
 ---
 
 <SiteLayout
@@ -155,12 +112,6 @@ const steps = [
     heading="Cladding styles to suit your home"
     intro="We fit James Hardie board, a fibre cement that behaves like timber should have and needs none of the looking after. These are the three ways we usually run it."
     styles={styles}
-  />
-
-  <InstallSteps
-    heading="The complete install process"
-    intro="Cladding is only as good as what sits behind it. This is every stage of the job, from the first visit to the last sweep up."
-    steps={steps}
   />
 
   <OtherServices
