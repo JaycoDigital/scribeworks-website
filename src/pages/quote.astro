@@ -1,0 +1,491 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Header from '../components/home/Header.astro';
+import Icon from '../components/home/Icon.astro';
+import ArrowIcon from '../components/home/ArrowIcon.astro';
+import Footer from '../components/home/Footer.astro';
+
+/**
+ * Where the form posts. Empty means the form is not wired up yet: it will
+ * refuse to send and say so rather than pretending the message went through.
+ * Drop in a Formspree (or similar) URL and it starts working.
+ */
+const FORM_ENDPOINT = '';
+
+const promises = [
+  {
+    icon: 'survey',
+    title: 'A free survey, with no obligation',
+    body: 'We come to you, measure up properly and talk through the options. If you decide not to go ahead, that is the end of it.',
+  },
+  {
+    icon: 'price',
+    title: 'A fixed price in writing',
+    body: 'An itemised quote within three working days, so you can see exactly what you are paying for and what is included.',
+  },
+  {
+    icon: 'check',
+    title: 'No pushy sales',
+    body: 'Nobody sitting on your sofa for two hours, and no discount that expires tonight. Take as long as you need to decide.',
+  },
+] as const;
+
+const services = ['Windows', 'Doors', 'Cladding', 'Building works', 'Not sure yet'];
+---
+
+<SiteLayout
+  title="Get a Free Quote | Windows, Doors & Cladding in West Sussex | Scribeworks"
+  description="Book a free, no-obligation survey. We measure up at your home and follow with an itemised fixed price in writing within three working days."
+>
+  <div class="top">
+    <Header />
+  </div>
+
+  <section class="quote">
+    <div class="container grid">
+      <div class="copy">
+        <div class="lead" data-reveal-stagger>
+          <h1>Get a free quote</h1>
+          <p class="intro">
+            Tell us a little about the job and we will arrange a survey at a time that suits you. It costs nothing and
+            you are under no obligation to go ahead.
+          </p>
+        </div>
+
+        <ul class="promises" data-reveal-stagger>
+          {
+            promises.map((p) => (
+              <li>
+                <p class="head">
+                  <Icon name={p.icon} size={32} stroke="var(--sand-deep)" />
+                  <span>{p.title}</span>
+                </p>
+                <p class="body">{p.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="direct" data-reveal>
+          <span class="eyebrow">Rather talk to someone</span>
+          <a href="tel:01243000000">01243 000 000</a>
+          <a href="mailto:info@scribeworks.co.uk">info@scribeworks.co.uk</a>
+        </div>
+      </div>
+
+      <div class="panel" data-reveal>
+        <form id="quote-form" novalidate data-endpoint={FORM_ENDPOINT}>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+            <div class="field">
+              <label for="postcode">Postcode</label>
+              <input id="postcode" name="postcode" type="text" autocomplete="postal-code" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+
+          <fieldset class="field">
+            <legend>What are you looking for?</legend>
+            <ul class="checks">
+              {
+                services.map((s) => (
+                  <li>
+                    <label>
+                      <input type="checkbox" name="services" value={s} />
+                      <span>{s}</span>
+                    </label>
+                  </li>
+                ))
+              }
+            </ul>
+          </fieldset>
+
+          <div class="field">
+            <label for="message">Tell us about the job <span class="opt">optional</span></label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--slate">Request my free quote<ArrowIcon size={14} /></button>
+
+          <p class="small">We will only use your details to get back to you about this enquiry. We never pass them on.</p>
+          <p class="note" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="done" hidden>
+          <Icon name="guarantee" size={40} stroke="var(--sand-deep)" />
+          <h2>Thank you, that is with us</h2>
+          <p>We will be in touch within one working day to arrange your survey. If it is urgent, call us on 01243 000 000.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</SiteLayout>
+
+<style>
+  /* The header is built for dark backgrounds, so keep it on graphite */
+  .top {
+    background: var(--ink);
+  }
+
+  .quote {
+    background: var(--chalk);
+  }
+
+  .grid {
+    padding-block: var(--section-pad);
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 4vw, 48px);
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  h1 {
+    font-size: clamp(38px, 4.6vw, 58px);
+    line-height: 1.03;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .intro {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  .promises {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .promises li {
+    padding-block: clamp(22px, 2.4vw, 30px);
+    border-top: 1px solid var(--line);
+  }
+
+  .promises li:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .head {
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .head :global(svg) {
+    flex: none;
+  }
+
+  /* Description lines up under the title, clear of the icon */
+  .body {
+    margin: 0;
+    padding-left: 44px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 42ch;
+  }
+
+  .direct {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .direct .eyebrow {
+    color: var(--sand-deep);
+    margin-bottom: 6px;
+  }
+
+  .direct a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(19px, 1.8vw, 23px);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 1px solid var(--sand-30);
+    transition: border-color var(--ease);
+  }
+
+  .direct a:hover {
+    border-color: var(--sand-deep);
+  }
+
+  /* ---- The form ---- */
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: clamp(28px, 3.2vw, 48px);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  label,
+  legend {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    padding: 0;
+  }
+
+  .opt {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  input[type='text'],
+  input[type='tel'],
+  input[type='email'],
+  textarea {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 0;
+    background: var(--white);
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+    transition: border-color var(--ease);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: var(--slate);
+  }
+
+  .is-wrong input,
+  .is-wrong textarea {
+    border-color: #b4463c;
+  }
+
+  .checks {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* The box itself is hidden; the label is the target */
+  .checks label {
+    display: block;
+    padding: 9px 15px;
+    border: 1.5px solid var(--line);
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition:
+      border-color var(--ease),
+      background var(--ease);
+  }
+
+  .checks input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .checks label:hover {
+    border-color: var(--slate-light);
+  }
+
+  .checks input:focus-visible + span {
+    outline: 2px solid var(--slate);
+    outline-offset: 4px;
+  }
+
+  .checks label:has(input:checked) {
+    border-color: var(--slate);
+    background: var(--slate-tint);
+  }
+
+  form .btn {
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  .small {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #b4463c;
+  }
+
+  .note:empty {
+    display: none;
+  }
+
+  .done {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* display: flex beats the UA rule for [hidden], so say it again */
+  form[hidden],
+  .done[hidden] {
+    display: none;
+  }
+
+  .done h2 {
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .done p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 40ch;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#quote-form');
+  const panel = form?.closest('.panel');
+  const done = panel?.querySelector<HTMLElement>('.done');
+  const note = form?.querySelector<HTMLElement>('.note');
+  if (!form || !panel || !done || !note) throw new Error('quote form markup missing');
+
+  const endpoint = form.dataset.endpoint ?? '';
+
+  const fail = (message: string) => {
+    note.textContent = message;
+  };
+
+  // Clear a field's error as soon as it is touched again
+  form.addEventListener('input', (e) => {
+    (e.target as HTMLElement).closest('.field')?.classList.remove('is-wrong');
+    note.textContent = '';
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    note.textContent = '';
+
+    const required = [...form.querySelectorAll<HTMLInputElement>('[required]')];
+    let firstBad: HTMLInputElement | null = null;
+    for (const field of required) {
+      const ok = field.checkValidity() && field.value.trim() !== '';
+      field.closest('.field')?.classList.toggle('is-wrong', !ok);
+      if (!ok && !firstBad) firstBad = field;
+    }
+    if (firstBad) {
+      firstBad.focus();
+      return fail('Please fill in the highlighted fields so we can get back to you.');
+    }
+
+    if (!endpoint) {
+      return fail('This form is not connected yet, so nothing has been sent. Please call or email us in the meantime.');
+    }
+
+    const button = form.querySelector('button');
+    if (button) button.disabled = true;
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.hidden = true;
+      done.hidden = false;
+      done.scrollIntoView({ block: 'center' });
+    } catch {
+      if (button) button.disabled = false;
+      fail('Something went wrong sending that. Please try again, or call us on 01243 000 000.');
+    }
+  });
+</script>

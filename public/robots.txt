@@ -6,3 +6,4 @@ Disallow: /windows
 Disallow: /doors
 Disallow: /cladding
 Disallow: /building-works
+Disallow: /quote
