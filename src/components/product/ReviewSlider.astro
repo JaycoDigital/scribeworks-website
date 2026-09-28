@@ -5,7 +5,9 @@
  */
 import { Image } from 'astro:assets';
 import Stars from '../home/Stars.astro';
-import checkatrade from '../../assets/logo-checkatrade-ink.png';
+import GoogleMark from '../home/GoogleMark.astro';
+import checkatradeInk from '../../assets/logo-checkatrade-ink.png';
+import checkatradeWhite from '../../assets/logo-checkatrade-white.png';
 
 export interface Review {
   quote: string;
@@ -17,20 +19,25 @@ interface Props {
   heading: string;
   intro?: string;
   reviews: Review[];
+  /** 'dark' puts the whole section on graphite, as on the homepage */
+  tone?: 'light' | 'dark';
 }
 
-const { heading, intro, reviews } = Astro.props;
+const { heading, intro, reviews, tone = 'light' } = Astro.props;
+const dark = tone === 'dark';
+const checkatrade = dark ? checkatradeWhite : checkatradeInk;
 ---
 
-<section class="reviews">
+<section class:list={['reviews', { dark }]}>
   <div class="container head">
-    <div class="section-head" data-reveal-stagger>
+    <div class:list={['section-head', { 'section-head--dark': dark }]} data-reveal-stagger>
       <h2>{heading}</h2>
       {intro && <p>{intro}</p>}
     </div>
 
     <div class="trust" data-reveal>
       <div class="badge">
+        <GoogleMark size={19} />
         <span class="score">4.8</span>
         <Stars size={15} />
         <span class="label">on Google</span>
@@ -244,6 +251,55 @@ const { heading, intro, reviews } = Astro.props;
     .arrows {
       display: none;
     }
+  }
+
+  /* ---- Dark tone ---- */
+  .dark {
+    background: var(--ink);
+    color: var(--chalk);
+    border-top: 1px solid var(--sand-30);
+  }
+
+  /* the colour change is the divider here, so no hairline */
+  .dark .head {
+    border-top: 0;
+  }
+
+  .dark .card {
+    background: var(--ink-soft);
+    border-color: var(--chalk-14);
+  }
+
+  .dark blockquote {
+    color: var(--chalk);
+  }
+
+  .dark figcaption {
+    border-top-color: var(--chalk-16);
+  }
+
+  .dark .name {
+    color: var(--chalk);
+  }
+
+  .dark .job,
+  .dark .label {
+    color: rgba(250, 249, 246, 0.7);
+  }
+
+  .dark .split {
+    background: var(--chalk-16);
+  }
+
+  .dark .nav {
+    background: transparent;
+    border-color: var(--chalk-16);
+    color: var(--chalk);
+  }
+
+  .dark .nav:hover:not(:disabled) {
+    border-color: var(--sand);
+    color: var(--sand);
   }
 </style>
 

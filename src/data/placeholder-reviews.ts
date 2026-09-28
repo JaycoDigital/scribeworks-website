@@ -106,3 +106,36 @@ export const claddingReviews: Review[] = [
     job: 'Cladding and insulation · Storrington',
   },
 ];
+
+export const homeReviews: Review[] = [
+  {
+    quote: 'Quoted, fitted and certified inside a fortnight, which we did not expect at all. The finish around the new frames is spotless and you would never know the old ones had been there.',
+    name: 'Jane H.',
+    job: 'Windows and front door · Aldwick',
+  },
+  {
+    quote: 'They found rot in the sill that we knew nothing about, came and got us, showed us the problem and gave us a price there and then. No fuss and no inflated bill at the end of it.',
+    name: 'Mark & Sue T.',
+    job: 'French doors · Felpham',
+  },
+  {
+    quote: 'Easily the tidiest team we have had in the house. They swept up every evening before they left and the skip was gone the same day the job finished. Would have them back tomorrow.',
+    name: 'Dan P.',
+    job: 'Garage conversion · Chichester',
+  },
+  {
+    quote: 'We got three quotes and theirs was not the cheapest, but it was the only one that actually explained what we were paying for. Glad we went with them, the work speaks for itself.',
+    name: 'Yvonne A.',
+    job: 'Windows and cladding · Bognor Regis',
+  },
+  {
+    quote: 'Same lads on site every single day, which made a huge difference. They knew the job and we were not explaining ourselves to someone new every morning. Lovely finish too.',
+    name: 'Chris & Emma B.',
+    job: 'Extension and windows · Barnham',
+  },
+  {
+    quote: 'Front of the house completely transformed. Neighbours have been knocking to ask who did it, which says everything really. Very pleased we found them.',
+    name: 'Rita M.',
+    job: 'Cladding and front door · Rustington',
+  },
+];

@@ -1,107 +1,14 @@
 ---
-import Stars from './Stars.astro';
-
-const reviews = [
-  { quote: "Quoted, fitted and certified within two weeks. The finish around the new frames was spotless, and you'd never know the old ones had been there.", name: 'Jane H.', job: 'Windows & front door · Aldwick' },
-  { quote: "They found rot in the sill that we didn't know about, showed us, gave us a price and carried on. No fuss and no inflated bill.", name: 'Mark & Sue T.', job: 'Bi-fold doors · Felpham' },
-  { quote: "The tidiest team we've had. They swept up every evening and the skip was gone the day the job finished.", name: 'Dan P.', job: 'Garage conversion · Chichester' },
-];
+/**
+ * Homepage reviews: the same slider the product pages use, on graphite.
+ */
+import ReviewSlider from '../product/ReviewSlider.astro';
+import { homeReviews } from '../../data/placeholder-reviews';
 ---
 
-<section class="reviews">
-  <div class="container inner">
-    <div class="section-head section-head--dark" data-reveal-stagger>
-      <h2>What our customers say</h2>
-      <p>We're proud that so much of our work comes from recommendations by happy customers across West Sussex and the surrounding areas.</p>
-    </div>
-
-    <div class="grid" data-reveal-stagger>
-      {
-        reviews.map((r) => (
-          <figure class="card">
-            <Stars size={18} />
-            <blockquote>“{r.quote}”</blockquote>
-            <figcaption>
-              <span class="name">{r.name}</span>
-              <span class="job">{r.job}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-  </div>
-</section>
-
-<style>
-  .reviews {
-    background: var(--ink);
-    color: var(--chalk);
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid var(--sand-30);
-  }
-
-  .inner {
-    position: relative;
-    padding-block: var(--section-pad);
-  }
-
-  .inner :global(.section-head) {
-    margin-bottom: 52px;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Same card as the product pages' review slider, in the dark */
-  .card {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding: clamp(28px, 3vw, 44px);
-    background: var(--ink-soft);
-    border: 1px solid var(--chalk-14);
-  }
-
-  blockquote {
-    margin: 0 0 auto;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(18px, 1.5vw, 21px);
-    line-height: 1.5;
-    letter-spacing: -0.02em;
-    text-wrap: pretty;
-    color: var(--chalk);
-  }
-
-  figcaption {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 22px;
-    border-top: 1px solid var(--chalk-16);
-  }
-
-  .name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--chalk);
-  }
-
-  .job {
-    font-size: 14px;
-    color: rgba(250, 249, 246, 0.7);
-  }
-
-</style>
+<ReviewSlider
+  tone="dark"
+  heading="What our customers say"
+  intro="We're proud that so much of our work comes from recommendations by happy customers across West Sussex and the surrounding areas."
+  reviews={homeReviews}
+/>
