@@ -5,15 +5,12 @@
  * Google reviews for local window and door firms, which is exactly why they
  * read as genuine. Replace this whole file with real reviews before the site
  * goes public. Nothing here should ever be published as a real customer.
- *
- * The fitters named in the quotes (Mark, Ben, Callum, Dan, Ryan) are made up
- * too. Swap them for the actual team, or take the names out.
  */
 import type { Review } from '../components/product/ReviewSlider.astro';
 
 export const windowReviews: Review[] = [
   {
-    quote: 'We had the whole house done, nine windows in total, and I honestly cannot fault them. Mark came out and measured, the quote arrived when he said it would, and the lads had the lot in within three days.',
+    quote: 'We had the whole house done, nine windows in total, and I honestly cannot fault them. Someone came out and measured, the quote arrived exactly when they said it would, and the lads had the lot in within three days.',
     name: 'Helen R.',
     job: 'Nine windows · Aldwick',
   },
@@ -23,12 +20,12 @@ export const windowReviews: Review[] = [
     job: 'Sliding sash windows · Arundel',
   },
   {
-    quote: 'Ben and Dan have just finished a three day job at ours in the middle of a heatwave and never once cut a corner. Tidy, polite, and they hoovered up every evening before they left. Would recommend to anyone.',
+    quote: 'The two lads have just finished a three day job at ours in the middle of a heatwave and never once cut a corner. Tidy, polite, and they hoovered up every evening before they left. Would recommend to anyone.',
     name: 'Priya K.',
     job: 'Full house of windows · Felpham',
   },
   {
-    quote: 'They found a rotten lintel behind one of the old frames that we knew nothing about. Mark took photos, showed me and told me exactly what it would cost before touching anything. No nasty surprises when the bill came.',
+    quote: 'They found a rotten lintel behind one of the old frames that we knew nothing about. Took photos, showed me and told me exactly what it would cost before touching anything. No nasty surprises when the bill came.',
     name: 'Dave M.',
     job: 'Windows · Bognor Regis',
   },
@@ -51,12 +48,12 @@ export const doorReviews: Review[] = [
     job: 'Composite front door · Rustington',
   },
   {
-    quote: 'We asked for something that would stand up to three children and a very muddy spaniel. Two years on and it still shuts as sweetly as the day Ryan fitted it. Very happy indeed.',
+    quote: 'We asked for something that would stand up to three children and a very muddy spaniel. Two years on and it still shuts as sweetly as the day it went in. Very happy indeed.',
     name: 'Neil B.',
     job: 'Back door · Bognor Regis',
   },
   {
-    quote: 'Mark talked us out of the more expensive door because he did not think it suited the cottage, which I thought was very honest of him. The one we ended up with is perfect. Not many firms will sell you less.',
+    quote: 'They talked us out of the more expensive door because they did not think it suited the cottage, which I thought was very honest. The one we ended up with is perfect. Not many firms will sell you less.',
     name: 'Judith A.',
     job: 'Front door · Barnham',
   },
@@ -89,7 +86,7 @@ export const claddingReviews: Review[] = [
     job: 'Cladding · Climping',
   },
   {
-    quote: 'When they stripped the old boards off they found damp we knew nothing about. Rather than cover it up, Mark called me out, explained it and priced the repair. Sorted properly before anything new went back on.',
+    quote: 'When they stripped the old boards off they found damp we knew nothing about. Rather than cover it up they called me out, explained it and priced the repair. Sorted properly before anything new went back on.',
     name: 'Martin J.',
     job: 'Cladding · Bognor Regis',
   },
@@ -104,7 +101,7 @@ export const claddingReviews: Review[] = [
     job: 'Cladding · Angmering',
   },
   {
-    quote: 'We had insulation put in while the wall was open, which Callum suggested after seeing how cold the front room was. Best decision we made. That room used to be freezing and now it is the warmest in the house.',
+    quote: 'We had insulation put in while the wall was open, which they suggested after seeing how cold the front room was. Best decision we made. That room used to be freezing and now it is the warmest in the house.',
     name: 'Bev S.',
     job: 'Cladding and insulation · Storrington',
   },
