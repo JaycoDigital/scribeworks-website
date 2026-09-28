@@ -19,13 +19,11 @@ const reviews = [
       {
         reviews.map((r) => (
           <figure class="card">
-            <div class="body">
-              <Stars />
-              <blockquote>“{r.quote}”</blockquote>
-            </div>
+            <Stars size={18} />
+            <blockquote>“{r.quote}”</blockquote>
             <figcaption>
-              <div class="name">{r.name}</div>
-              <div class="job">{r.job}</div>
+              <span class="name">{r.name}</span>
+              <span class="job">{r.job}</span>
             </figcaption>
           </figure>
         ))
@@ -64,46 +62,46 @@ const reviews = [
     }
   }
 
+  /* Same card as the product pages' review slider, in the dark */
   .card {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: clamp(28px, 3vw, 44px);
     background: var(--ink-soft);
     border: 1px solid var(--chalk-14);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .body {
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 
   blockquote {
-    margin: 0;
-    font-size: 17px;
-    line-height: 1.7;
+    margin: 0 0 auto;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    text-wrap: pretty;
     color: var(--chalk);
   }
 
   figcaption {
-    background: rgba(250, 249, 246, 0.07);
-    border-top: 1px solid rgba(250, 249, 246, 0.12);
-    padding: 20px 28px;
-    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 22px;
+    border-top: 1px solid var(--chalk-16);
   }
 
   .name {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 15px;
     color: var(--chalk);
   }
 
   .job {
-    color: rgba(250, 249, 246, 0.7);
-    margin-top: 4px;
     font-size: 14px;
+    color: rgba(250, 249, 246, 0.7);
   }
 
 </style>
