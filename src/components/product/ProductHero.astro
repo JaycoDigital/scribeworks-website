@@ -10,12 +10,16 @@ interface Props {
   photo: ImageMetadata;
   alt?: string;
   cta?: string;
+  /** Off on the quote page itself, where the button would lead nowhere */
+  showCta?: boolean;
+  /** Shorter hero, for pages that want their content close to the top */
+  compact?: boolean;
 }
 
-const { title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.props;
+const { title, intro, photo, alt = '', cta = 'Book a free survey', showCta = true, compact = false } = Astro.props;
 ---
 
-<section class="hero">
+<section class:list={['hero', { compact }]}>
   <Image
     src={photo}
     alt={alt}
@@ -37,9 +41,11 @@ const { title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.prop
       <div class="copy" data-reveal-stagger>
         <h1 set:html={title} />
         <p class="intro">{intro}</p>
-        <div class="actions">
-          <a href="/quote" class="btn btn--slate">{cta}<ArrowIcon /></a>
-        </div>
+        {showCta && (
+          <div class="actions">
+            <a href="/quote" class="btn btn--slate">{cta}<ArrowIcon /></a>
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -52,6 +58,10 @@ const { title, intro, photo, alt = '', cta = 'Book a free survey' } = Astro.prop
     min-height: min(76vh, 760px);
     display: flex;
     flex-direction: column;
+  }
+
+  .hero.compact {
+    min-height: min(52vh, 520px);
   }
 
   .hero :global(.hero-photo) {

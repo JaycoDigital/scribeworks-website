@@ -1,9 +1,11 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Header from '../components/home/Header.astro';
+import ProductHero from '../components/product/ProductHero.astro';
 import Icon from '../components/home/Icon.astro';
 import ArrowIcon from '../components/home/ArrowIcon.astro';
 import Footer from '../components/home/Footer.astro';
+
+import heroPhoto from '../assets/quote-hero.jpg';
 
 /**
  * Where the form posts. Empty means the form is not wired up yet: it will
@@ -37,21 +39,18 @@ const services = ['Windows', 'Doors', 'Cladding', 'Building works', 'Not sure ye
   title="Get a Free Quote | Windows, Doors & Cladding in West Sussex | Scribeworks"
   description="Book a free, no-obligation survey. We measure up at your home and follow with an itemised fixed price in writing within three working days."
 >
-  <div class="top">
-    <Header />
-  </div>
+  <ProductHero
+    title="Get a free quote"
+    intro="Tell us a little about the job and we will arrange a survey at a time that suits you. It costs nothing and you are under no obligation to go ahead."
+    photo={heroPhoto}
+    alt="Three Scribeworks fitters measuring and fitting a new window"
+    showCta={false}
+    compact
+  />
 
   <section class="quote">
     <div class="container grid">
       <div class="copy">
-        <div class="lead" data-reveal-stagger>
-          <h1>Get a free quote</h1>
-          <p class="intro">
-            Tell us a little about the job and we will arrange a survey at a time that suits you. It costs nothing and
-            you are under no obligation to go ahead.
-          </p>
-        </div>
-
         <ul class="promises" data-reveal-stagger>
           {
             promises.map((p) => (
@@ -131,11 +130,6 @@ const services = ['Windows', 'Doors', 'Cladding', 'Building works', 'Not sure ye
 </SiteLayout>
 
 <style>
-  /* The header is built for dark backgrounds, so keep it on graphite */
-  .top {
-    background: var(--ink);
-  }
-
   .quote {
     background: var(--chalk);
   }
@@ -152,27 +146,6 @@ const services = ['Windows', 'Doors', 'Cladding', 'Building works', 'Not sure ye
     display: flex;
     flex-direction: column;
     gap: clamp(32px, 4vw, 48px);
-  }
-
-  .lead {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  h1 {
-    font-size: clamp(38px, 4.6vw, 58px);
-    line-height: 1.03;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-
-  .intro {
-    margin: 0;
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--muted);
-    max-width: 46ch;
   }
 
   .promises {
