@@ -4,7 +4,6 @@
  * edge of the page. Drag, swipe or use the arrows.
  */
 import Stars from '../home/Stars.astro';
-import GoogleMark from '../home/GoogleMark.astro';
 
 export interface Review {
   quote: string;
@@ -29,15 +28,6 @@ const dark = tone === 'dark';
     <div class:list={['section-head', { 'section-head--dark': dark }]} data-reveal-stagger>
       <h2>{heading}</h2>
       {intro && <p>{intro}</p>}
-    </div>
-
-    <div class="trust" data-reveal>
-      <div class="badge">
-        <GoogleMark size={19} />
-        <span class="score">4.8</span>
-        <Stars size={15} />
-        <span class="label">on Google</span>
-      </div>
     </div>
 
     <div class="arrows" data-reveal>
@@ -82,36 +72,9 @@ const dark = tone === 'dark';
     padding-top: var(--section-pad);
   }
 
-  /* The heading keeps its own bottom margin; the badges sit under it */
+  /* The heading keeps its own bottom margin; the arrows sit under it */
   .head :global(.section-head) {
-    margin-bottom: 26px;
-  }
-
-  .trust {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(18px, 2.4vw, 34px);
-    margin-bottom: 34px;
-  }
-
-  .badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .score {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 17px;
-    letter-spacing: -0.02em;
-  }
-
-  .label {
-    font-size: 14px;
-    color: var(--muted);
+    margin-bottom: 32px;
   }
 
 
@@ -248,8 +211,7 @@ const dark = tone === 'dark';
     color: var(--chalk);
   }
 
-  .dark .job,
-  .dark .label {
+  .dark .job {
     color: rgba(250, 249, 246, 0.7);
   }
 
